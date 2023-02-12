@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
 const BookMark = () => {
-  return <div>BookMark</div>;
+  return <div className='bg-'>BookMark</div>;
 };
 
 export default BookMark;
