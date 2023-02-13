@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    font-family: 'Nanum Gothic', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+}
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -91,7 +99,6 @@ video {
   padding: 0;
   border: 0;
   font-size: 100%;
-  font: inherit;
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -132,14 +139,13 @@ table {
 }
 
 body::-webkit-scrollbar {
-  width: 14px;
+  width: 12px;
   padding: 20px;
 }
 
 body::-webkit-scrollbar-thumb {
   height: 10%;
   background: #aaaaaa;
-  border: 3px #0f0f0f solid;
   border-radius: 10px;
 }
 body::-webkit-scrollbar-track {
