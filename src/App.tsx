@@ -5,6 +5,7 @@ import DetailItem from './pages/DetailItem';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import MyCart from './pages/MyCart';
+import MyDetailPage from './pages/MyDetailPage';
 import MyPage from './pages/MyPage';
 import NotFound from './pages/NotFound';
 import Recommend from './pages/Recommend';
@@ -25,6 +26,7 @@ function App() {
           <Route path='/recommend' element={<Recommend />} />
           <Route path='/mycart' element={<MyCart />} />
           <Route path='/bookmark' element={<BookMark />} />
+          <Route path='/mydetailpage' element={<MyDetailPage />} />
           <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>
