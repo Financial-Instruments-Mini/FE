@@ -23,6 +23,11 @@ module.exports = {
       lg: '1.1rem',
       xl: '1.2rem',
     },
+    extend: {
+      boxShadow: {
+        '-basic': '0px 0px 10px rgba(0, 0, 0, 0.2);',
+      },
+    },
   },
   plugins: [],
 };
