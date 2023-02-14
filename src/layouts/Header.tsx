@@ -12,7 +12,7 @@ const Header = () => {
           <img src={logo} alt='로고' className='h-14 m-auto' />
         </Link>
       </div>
-      <main className='flex px-10 sm:px-0 justify-around items-center min-w-[600px] font-bold text-lg '>
+      <main className='flex px-10 sm:px-0 justify-around items-center min-w-[600px] font-bold text-lg'>
         <Link to='/' className={location.pathname === '/' ? 'text-main-green font-extrabold' : ''}>
           홈
         </Link>
