@@ -23,7 +23,7 @@ const MyPage = () => {
 
   return (
     <div>
-      <LittleTitle title='계정관리' />
+      <LittleTitle title='계정관리' move='false' />
       {list.map(item => {
         return (
           <div key={item.value} className='bg-main-green m-7 rounded-xl shadow-xl hover:bg-sub-green'>
@@ -41,4 +41,3 @@ const MyPage = () => {
 };
 
 export default MyPage;
-

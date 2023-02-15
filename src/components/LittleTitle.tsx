@@ -4,19 +4,22 @@ import { useNavigate } from 'react-router-dom';
 
 interface Subtitle {
   title: string;
+  move: string;
 }
 
-const LittleTitle = ({ title }: Subtitle) => {
+const LittleTitle = ({ title, move }: Subtitle) => {
   const history = useNavigate();
   return (
     <div className='flex p-7'>
       <div className='flex align-center shrink-0 grow'>
-        <MdArrowBackIosNew
-          className='h-6 w-6 cursor-pointer'
-          onClick={() => {
-            history(-1);
-          }}
-        />
+        {move === 'true' && (
+          <MdArrowBackIosNew
+            className='h-6 w-6 cursor-pointer'
+            onClick={() => {
+              history(-1);
+            }}
+          />
+        )}
         <div className='  shrink-0 grow flex justify-center'>
           <div className='font-bold text-xl'>{title}</div>
         </div>
