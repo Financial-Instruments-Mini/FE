@@ -1,7 +1,7 @@
 import React from 'react';
 import '../index.css';
-import { Link, useNavigate } from 'react-router-dom';
-import Button from './../components/ui/Button';
+import { useNavigate } from 'react-router-dom';
+import MainButton from '../components/ui/MainButton';
 
 const Register = () => {
   const navigator = useNavigate();
@@ -16,9 +16,9 @@ const Register = () => {
   return (
     <div className='w-full'>
       <div className='w-full flex justify-center pt-10'>
-        <Button text={'로그인'} select={false} onClick={LinkToLogin} />
+        <MainButton text={'로그인'} select={false} onClick={LinkToLogin} />
         <div className='relative ml-5'>
-          <Button text={'회원가입'} select={true} onClick={LinkToRegister} />
+          <MainButton text={'회원가입'} select={true} onClick={LinkToRegister} />
           <div className='absolute top-16 left-2/4 translate-x-[-50%] w-0 h-0 border-t-[15px] border-t-main-green border-l-[30px] border-l-transparent border-r-[30px] border-r-transparent border-solid'></div>
         </div>
       </div>
@@ -27,9 +27,10 @@ const Register = () => {
         <p className='font-bold text-lg'>
           <span className='text-main-green'>회원가입</span>해서 금융 상품을 쇼핑해보세요!
         </p>
-        <form className='w-full flex flex-col mt-12 mb-20 pl-16 pr-24 space-y-3'>
+
+        <form className='w-full flex flex-col mt-12 mb-20 pl-10 pr-10 space-y-3'>
           <div className='w-full flex justify-between items-end'>
-            <span className='mr-4 font-bold text-lg leading-8'>이메일</span>
+            <span className='font-bold text-lg leading-8'>이메일</span>
             <input
               className='w-8/12 border-b border-b-black p-3 text-lg font-bold placeholder:font-bold placeholder:text-xs outline-none'
               type='email'
@@ -38,28 +39,28 @@ const Register = () => {
           </div>
 
           <div className='w-full flex justify-between items-end'>
-            <span className='mr-4 font-bold text-lg leading-8'>비밀번호</span>
+            <span className='font-bold text-lg leading-8'>비밀번호</span>
             <input
               className='w-8/12 border-b border-b-black p-3 text-lg font-bold placeholder:font-bold placeholder:text-xs outline-none'
-              type='email'
+              type='password'
               placeholder='영어, 숫자, 특수문자 포함 8자 이상 12자 이하'
             />
           </div>
 
           <div className='w-full flex justify-between items-end'>
-            <span className='mr-4 font-bold text-lg leading-8'>비밀번호 확인</span>
+            <span className='font-bold text-lg leading-8'>비밀번호 확인</span>
             <input
               className='w-8/12 border-b border-b-black p-3 text-lg font-bold placeholder:font-bold placeholder:text-xs outline-none'
-              type='email'
+              type='password'
               placeholder='동일한 비밀번호를 입력해주세요'
             />
           </div>
 
           <div className='w-full flex justify-between items-end'>
-            <span className='mr-4 font-bold text-lg leading-8'>이름</span>
+            <span className='font-bold text-lg leading-8'>이름</span>
             <input
               className='w-8/12 border-b border-b-black p-3 text-lg font-bold placeholder:font-bold placeholder:text-xs outline-none'
-              type='email'
+              type='text'
               placeholder='2자 이상 입력해주세요'
             />
           </div>
@@ -91,19 +92,19 @@ const Register = () => {
           </div>
 
           <div className='w-full flex justify-between items-end'>
-            <span className='mr-4 font-bold text-lg leading-8'>생년월일</span>
+            <span className='font-bold text-lg leading-8'>생년월일</span>
             <input
               className='w-8/12 border-b border-b-black p-3 text-lg font-bold placeholder:font-bold placeholder:text-xs outline-none'
-              type='email'
-              placeholder='숫자만 8글자 입력 (예. 19980606)'
+              type='number'
+              placeholder='‘-’ 제외 8글자 입력 (예. 19980606)'
             />
           </div>
 
           <div className='w-full flex justify-between items-end'>
-            <span className='mr-4 font-bold text-lg leading-8'>전화번호</span>
+            <span className='font-bold text-lg leading-8'>전화번호</span>
             <input
               className='w-8/12 border-b border-b-black p-3 text-lg font-bold placeholder:font-bold placeholder:text-xs outline-none'
-              type='email'
+              type='number'
               placeholder='‘-’ 제외 11글자 이상 입력 (예. 01012345678)'
             />
           </div>
@@ -120,7 +121,7 @@ const Register = () => {
             </label>
           </div>
         </form>
-        <Button text={'회원가입'} />
+        <MainButton text={'회원가입'} />
       </div>
     </div>
   );
