@@ -1,5 +1,4 @@
-import React from 'react';
-import { atom, useRecoilState } from 'recoil';
+import React, { useState } from 'react';
 
 interface Quest {
   question: string;
@@ -41,13 +40,7 @@ const check: item[] = [
 ];
 
 const RadioQ = ({ question, value, type, reReplace }: Quest) => {
-  const product = atom({
-    key: 'product',
-    default: value,
-  });
-
-  const [reValue, setReValue] = useRecoilState(product);
-  console.log(reValue);
+  const [reValue, setReValue] = useState(value);
 
   const checkClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
@@ -67,76 +60,40 @@ const RadioQ = ({ question, value, type, reReplace }: Quest) => {
       <div className='grow flex justify-evenly'>
         {type === 'radio'
           ? list.map(listItem => {
-              if (listItem.id === value[0]) {
-                return (
-                  <div key={listItem.id}>
-                    <input disabled type={type} id={listItem.id} value={listItem.id} name={listItem.name} checked />
-                    <label htmlFor={listItem.id} className='font-bold text-base'>
-                      {listItem.title}
-                    </label>
-                  </div>
-                );
-              } else {
-                return (
-                  <div key={listItem.id}>
-                    <input disabled type={type} id={listItem.id} value={listItem.id} name={listItem.name} />
-                    <label htmlFor={listItem.id} className='font-bold text-base'>
-                      {listItem.title}
-                    </label>
-                  </div>
-                );
-              }
+              return (
+                <div key={listItem.id}>
+                  <input
+                    disabled
+                    type={type}
+                    id={listItem.id}
+                    value={listItem.id}
+                    name={listItem.name}
+                    checked={listItem.id === value[0] ? true : false}
+                  />
+                  <label htmlFor={listItem.id} className='font-bold text-base'>
+                    {listItem.title}
+                  </label>
+                </div>
+              );
             })
           : check.map(checkItem => {
-              if (reValue.includes(checkItem.id)) {
-                return (
-                  <div key={checkItem.id}>
-                    {reReplace ? (
-                      <input
-                        className='accent-main-green'
-                        onChange={checkClick}
-                        type={type}
-                        id={checkItem.id}
-                        value={checkItem.id}
-                        name={checkItem.name}
-                        checked
-                      />
-                    ) : (
-                      <input
-                        disabled
-                        type={type}
-                        id={checkItem.id}
-                        value={checkItem.id}
-                        name={checkItem.name}
-                        checked
-                      />
-                    )}
-
-                    <label htmlFor={checkItem.id} className='font-bold text-base'>
-                      {checkItem.title}
-                    </label>
-                  </div>
-                );
-              } else {
-                return (
-                  <div key={checkItem.id}>
-                    {reReplace ? (
-                      <input
-                        type={type}
-                        onChange={checkClick}
-                        id={checkItem.id}
-                        value={checkItem.id}
-                        name={checkItem.name}
-                      />
-                    ) : (
-                      <input disabled type={type} id={checkItem.id} value={checkItem.id} name={checkItem.name} />
-                    )}
-                    <label className='font-bold text-base' htmlFor={checkItem.id}>
-                      {checkItem.title}
-                    </label>
-                  </div>
-                );
-              }
+              return (
+                <div key={checkItem.id}>
+                  <input
+                    className='accent-main-green'
+                    onChange={checkClick}
+                    type={type}
+                    id={checkItem.id}
+                    value={checkItem.id}
+                    name={checkItem.name}
+                    checked={reValue.includes(checkItem.id) ? true : false}
+                    disabled={reReplace ? false : true}
+                  />
+                  <label htmlFor={checkItem.id} className='font-bold text-base'>
+                    {checkItem.title}
+                  </label>
+                </div>
+              );
             })}
       </div>
     </div>

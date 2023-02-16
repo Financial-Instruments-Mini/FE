@@ -60,41 +60,28 @@ const SelectQ = ({ label, name, value, reReplace }: Quest) => {
             {name}
           </label>
           <div className='grow flex justify-evenly'>
-            {reReplace ? (
-              <select name='banks' id={label} className='bg-sub-green rounded border-2 border-main-green p-1'>
-                <option value='' disabled>
-                  은행을 선택해주세요
-                </option>
-                {banks.map(bank => {
-                  if (bank.value === value) {
-                    return (
-                      <option value={bank.value} selected>
-                        {bank.title}
-                      </option>
-                    );
-                  } else {
-                    return <option value={bank.value}>{bank.title}</option>;
-                  }
-                })}
-              </select>
-            ) : (
-              <select name='banks' id={label} disabled className='bg-sub-green rounded border-2 border-main-green p-1'>
-                <option value='' disabled>
-                  은행을 선택해주세요
-                </option>
-                {banks.map(bank => {
-                  if (bank.value === value) {
-                    return (
-                      <option value={bank.value} selected>
-                        {bank.title}
-                      </option>
-                    );
-                  } else {
-                    return <option value={bank.value}>{bank.title}</option>;
-                  }
-                })}
-              </select>
-            )}
+            <select
+              name='banks'
+              id={label}
+              className='bg-sub-green rounded border-2 border-main-green p-1'
+              disabled={reReplace ? false : true}
+              value={value}
+            >
+              <option value='' disabled>
+                은행을 선택해주세요
+              </option>
+              {banks.map(bank => {
+                return (
+                  <option
+                    key={bank.value}
+                    value={bank.value}
+                    // selected={bank.value === value ? true : false}
+                  >
+                    {bank.title}
+                  </option>
+                );
+              })}
+            </select>
           </div>
         </div>
       ) : (
@@ -103,41 +90,28 @@ const SelectQ = ({ label, name, value, reReplace }: Quest) => {
             {name}
           </label>
           <div className='grow flex justify-evenly'>
-            {reReplace ? (
-              <select name='jobs' id={label} className='bg-sub-green rounded border-2 border-main-green p-1'>
-                <option value='' disabled>
-                  직업을 선택해주세요
-                </option>
-                {jobs.map(job => {
-                  if (job.value === value) {
-                    return (
-                      <option value={job.value} selected>
-                        {job.title}
-                      </option>
-                    );
-                  } else {
-                    return <option value={job.value}>{job.title}</option>;
-                  }
-                })}
-              </select>
-            ) : (
-              <select name='jobs' id={label} disabled className='bg-sub-green rounded border-2 border-main-green p-1'>
-                <option value='' disabled>
-                  직업을 선택해주세요
-                </option>
-                {jobs.map(job => {
-                  if (job.value === value) {
-                    return (
-                      <option value={job.value} selected>
-                        {job.title}
-                      </option>
-                    );
-                  } else {
-                    return <option value={job.value}>{job.title}</option>;
-                  }
-                })}
-              </select>
-            )}
+            <select
+              disabled={reReplace ? false : true}
+              name='jobs'
+              id={label}
+              className='bg-sub-green rounded border-2 border-main-green p-1'
+              value={value}
+            >
+              <option value='' disabled>
+                직업을 선택해주세요
+              </option>
+              {jobs.map(job => {
+                return (
+                  <option
+                    key={job.value}
+                    value={job.value}
+                    // selected={job.value === value ? true : false}
+                  >
+                    {job.title}
+                  </option>
+                );
+              })}
+            </select>
           </div>
         </div>
       )}
