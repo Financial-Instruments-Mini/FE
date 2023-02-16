@@ -4,11 +4,11 @@ import KeywordButton from '../components/KeywordButton';
 import Slide from '../components/Slide';
 
 const Home = () => {
-  const keywords = ['전체', '주거래', '직장인', '공무원', '농어촌', '기업전용', '군인', '청소년', '청년'];
+  const keywords = ['전체', '주거래우대', '청년우대', '주택청약', '농어촌'];
 
   return (
     <>
-      <div className='text-xl font-extrabold flex flex-col gap-3'>
+      <div className='text-xl font-bold flex flex-col gap-3'>
         <span className='text-main-blue'>
           {`강해경 `}
           <span className='text-black'>님</span>

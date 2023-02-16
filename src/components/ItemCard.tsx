@@ -22,8 +22,8 @@ const ItemCard = () => {
     }
   };
   return (
-    <div className='h-36 w-full bg-white rounded-lg flex items-center px-9 '>
-      <div className='h-20 w-20 rounded-full mr-8 opacity-75'>
+    <div className='h-36 w-full bg-white rounded-lg flex items-center px-9 -shadow-basic'>
+      <div className='h-20 w-20 rounded-full mr-8 opacity-90'>
         <img src={기업은행} alt='' />
       </div>
       <div className='text-gray flex flex-col gap-1 mr-20'>
