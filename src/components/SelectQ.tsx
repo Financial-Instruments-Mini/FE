@@ -1,13 +1,7 @@
 import React from 'react';
+import { ISelectQuestProps } from '../@types/IProps';
 
-interface Quest {
-  label: string;
-  name: string;
-  value: string;
-  reReplace: boolean;
-}
-
-const SelectQ = ({ label, name, value, reReplace }: Quest) => {
+const SelectQ = ({ label, name, value, replace }: ISelectQuestProps) => {
   const banks = [
     {
       value: 'ibk',
@@ -64,7 +58,7 @@ const SelectQ = ({ label, name, value, reReplace }: Quest) => {
               name='banks'
               id={label}
               className='bg-sub-green rounded border-2 border-main-green p-1'
-              disabled={reReplace ? false : true}
+              disabled={replace ? false : true}
               value={value}
             >
               <option value='' disabled>
@@ -91,7 +85,7 @@ const SelectQ = ({ label, name, value, reReplace }: Quest) => {
           </label>
           <div className='grow flex justify-evenly'>
             <select
-              disabled={reReplace ? false : true}
+              disabled={replace ? false : true}
               name='jobs'
               id={label}
               className='bg-sub-green rounded border-2 border-main-green p-1'

@@ -1,19 +1,7 @@
 import React, { useState } from 'react';
+import { IItemProps, IQuestProps } from '../@types/IProps';
 
-interface Quest {
-  question: string;
-  value: string[];
-  type: string;
-  reReplace?: boolean;
-}
-
-interface item {
-  id: string;
-  title: string;
-  name: string;
-}
-
-const list: item[] = [
+const list: IItemProps[] = [
   {
     id: 'woman',
     title: '여성',
@@ -26,7 +14,7 @@ const list: item[] = [
   },
 ];
 
-const check: item[] = [
+const check: IItemProps[] = [
   {
     id: 'deposit',
     title: '예금',
@@ -39,7 +27,7 @@ const check: item[] = [
   },
 ];
 
-const RadioQ = ({ question, value, type, reReplace }: Quest) => {
+const RadioQ = ({ question, value, type, replace }: IQuestProps) => {
   const [reValue, setReValue] = useState(value);
 
   const checkClick = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,7 +75,7 @@ const RadioQ = ({ question, value, type, reReplace }: Quest) => {
                     value={checkItem.id}
                     name={checkItem.name}
                     checked={reValue.includes(checkItem.id) ? true : false}
-                    disabled={reReplace ? false : true}
+                    disabled={replace ? false : true}
                   />
                   <label htmlFor={checkItem.id} className='font-bold text-base'>
                     {checkItem.title}

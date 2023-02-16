@@ -1,14 +1,10 @@
 import { MdArrowForwardIos } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import { IlistItemProps } from '../@types/IProps';
 import LittleTitle from '../components/LittleTitle';
 
-interface listItem {
-  value: string;
-  name: string;
-}
-
 const MyPage = () => {
-  const list: listItem[] = [
+  const list: IlistItemProps[] = [
     {
       value: '/mydetailpage',
       name: '나의 정보 보기',

@@ -19,7 +19,7 @@ module.exports = {
       xxs: '0.6rem',
       xs: '0.75rem',
       sm: '0.875rem',
-      bamainse: '1rem',
+      base: '1rem',
       lg: '1.1rem',
       xl: '1.2rem',
     },

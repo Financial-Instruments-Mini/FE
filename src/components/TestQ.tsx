@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
+import { ITextQuestProps } from '../@types/IProps';
 
-interface Quest {
-  readonly question: string;
-  value: string;
-  readonly type: string;
-  reReplace?: boolean;
-  placeHolder?: string;
-}
-
-const TestQ = ({ question, type, value, reReplace, placeHolder }: Quest) => {
+const TestQ = ({ question, type, value, replace, placeHolder }: ITextQuestProps) => {
   const [revalue, setRevalue] = useState(value);
 
   return (
@@ -23,7 +16,7 @@ const TestQ = ({ question, type, value, reReplace, placeHolder }: Quest) => {
           }}
           placeholder={placeHolder}
           className='w-full placeholder:text-xxs focus:outline-none border-b-2 border-sub-gray px-2'
-          readOnly={reReplace ? false : true}
+          readOnly={replace ? false : true}
         />
       </div>
     </div>
