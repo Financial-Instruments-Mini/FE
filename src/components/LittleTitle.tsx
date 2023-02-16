@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 interface Subtitle {
   title: string;
-  move: string;
+  move?: string;
 }
 
 const LittleTitle = ({ title, move }: Subtitle) => {
