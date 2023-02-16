@@ -7,9 +7,10 @@ interface Quest {
   readonly type: string;
   reReplace?: boolean;
   id: string;
+  placeHolder?: string;
 }
 
-const TestQ = ({ question, type, value, id, reReplace }: Quest) => {
+const TestQ = ({ question, type, value, id, reReplace, placeHolder }: Quest) => {
   const replaceValue = atom({
     key: id,
     default: value,
@@ -19,9 +20,9 @@ const TestQ = ({ question, type, value, id, reReplace }: Quest) => {
   console.log(revalue, setRevalue);
 
   return (
-    <div>
-      <div>{question}</div>
-      <div>
+    <div className='flex justify-evenly p-5'>
+      <div className='pl-5 w-28 font-bold text-base'>{question}</div>
+      <div className='grow'>
         {reReplace ? (
           <input
             type={type}
@@ -29,6 +30,8 @@ const TestQ = ({ question, type, value, id, reReplace }: Quest) => {
             onChange={event => {
               setRevalue(event.target.value);
             }}
+            placeholder={placeHolder}
+            className='w-full placeholder:text-xxs focus:outline-none border-b-2 border-sub-gray px-2'
           />
         ) : (
           <input
@@ -38,6 +41,7 @@ const TestQ = ({ question, type, value, id, reReplace }: Quest) => {
               setRevalue(event.target.value);
             }}
             readOnly
+            className='w-full focus:outline-none border-b-2 border-sub-gray px-2 '
           />
         )}
       </div>

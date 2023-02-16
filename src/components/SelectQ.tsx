@@ -53,84 +53,92 @@ const SelectQ = ({ label, name, value, reReplace }: Quest) => {
   ];
 
   return (
-    <div>
+    <div className='flex justify-evenly p-5'>
       {label === 'bank' ? (
-        <div>
-          <label htmlFor={label}>{name}</label>
-          {reReplace ? (
-            <select name='banks' id={label}>
-              <option value='' disabled>
-                은행을 선택해주세요
-              </option>
-              {banks.map(bank => {
-                if (bank.value === value) {
-                  return (
-                    <option value={bank.value} selected>
-                      {bank.title}
-                    </option>
-                  );
-                } else {
-                  return <option value={bank.value}>{bank.title}</option>;
-                }
-              })}
-            </select>
-          ) : (
-            <select name='banks' id={label} disabled>
-              <option value='' disabled>
-                은행을 선택해주세요
-              </option>
-              {banks.map(bank => {
-                if (bank.value === value) {
-                  return (
-                    <option value={bank.value} selected>
-                      {bank.title}
-                    </option>
-                  );
-                } else {
-                  return <option value={bank.value}>{bank.title}</option>;
-                }
-              })}
-            </select>
-          )}
+        <div className='flex  w-full items-center'>
+          <label htmlFor={label} className='pl-5 w-28 font-bold text-base'>
+            {name}
+          </label>
+          <div className='grow flex justify-evenly'>
+            {reReplace ? (
+              <select name='banks' id={label} className='bg-sub-green rounded border-2 border-main-green p-1'>
+                <option value='' disabled>
+                  은행을 선택해주세요
+                </option>
+                {banks.map(bank => {
+                  if (bank.value === value) {
+                    return (
+                      <option value={bank.value} selected>
+                        {bank.title}
+                      </option>
+                    );
+                  } else {
+                    return <option value={bank.value}>{bank.title}</option>;
+                  }
+                })}
+              </select>
+            ) : (
+              <select name='banks' id={label} disabled className='bg-sub-green rounded border-2 border-main-green p-1'>
+                <option value='' disabled>
+                  은행을 선택해주세요
+                </option>
+                {banks.map(bank => {
+                  if (bank.value === value) {
+                    return (
+                      <option value={bank.value} selected>
+                        {bank.title}
+                      </option>
+                    );
+                  } else {
+                    return <option value={bank.value}>{bank.title}</option>;
+                  }
+                })}
+              </select>
+            )}
+          </div>
         </div>
       ) : (
-        <div>
-          <label htmlFor={label}>{name}</label>
-          {reReplace ? (
-            <select name='jobs' id={label}>
-              <option value='' disabled>
-                직업을 선택해주세요
-              </option>
-              {jobs.map(job => {
-                if (job.value === value) {
-                  return (
-                    <option value={job.value} selected>
-                      {job.title}
-                    </option>
-                  );
-                } else {
-                  return <option value={job.value}>{job.title}</option>;
-                }
-              })}
-            </select>
-          ) : (
-            <select name='jobs' id={label} disabled>
-              <option value='' disabled>
-                직업을 선택해주세요
-              </option>
-              {jobs.map(job => {
-                if (job.value === value) {
-                  return (
-                    <option value={job.value} selected>
-                      {job.title}
-                    </option>
-                  );
-                } else {
-                  return <option value={job.value}>{job.title}</option>;
-                }
-              })}
-            </select>
-          )}
+        <div className='flex  w-full items-center'>
+          <label htmlFor={label} className='pl-5 w-28 font-bold text-base'>
+            {name}
+          </label>
+          <div className='grow flex justify-evenly'>
+            {reReplace ? (
+              <select name='jobs' id={label} className='bg-sub-green rounded border-2 border-main-green p-1'>
+                <option value='' disabled>
+                  직업을 선택해주세요
+                </option>
+                {jobs.map(job => {
+                  if (job.value === value) {
+                    return (
+                      <option value={job.value} selected>
+                        {job.title}
+                      </option>
+                    );
+                  } else {
+                    return <option value={job.value}>{job.title}</option>;
+                  }
+                })}
+              </select>
+            ) : (
+              <select name='jobs' id={label} disabled className='bg-sub-green rounded border-2 border-main-green p-1'>
+                <option value='' disabled>
+                  직업을 선택해주세요
+                </option>
+                {jobs.map(job => {
+                  if (job.value === value) {
+                    return (
+                      <option value={job.value} selected>
+                        {job.title}
+                      </option>
+                    );
+                  } else {
+                    return <option value={job.value}>{job.title}</option>;
+                  }
+                })}
+              </select>
+            )}
+          </div>
         </div>
       )}
     </div>
