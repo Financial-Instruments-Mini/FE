@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import banner_1 from '../assets/banner_img_1.jpg';
+import banner_2 from '../assets/banner_img_2.jpg';
 
 const variants = {
   enter: (direction: number) => {
@@ -22,13 +24,19 @@ const variants = {
 
 const Slide = () => {
   const [[page, direction], setPage] = useState([0, 0]);
+  const slideImg = [
+    { img: banner_1, bgColor: '#C5D6F4' },
+    { img: banner_2, bgColor: '#FB969C' },
+    { img: banner_1, bgColor: '#C5D6F4' },
+  ];
+
   const paginate = (newDirection: number) => {
-    if (page === 3 && newDirection === 1) {
+    if (page === 2 && newDirection === 1) {
       setPage([0, 1]);
       return;
     }
     if (page === 0 && newDirection === -1) {
-      setPage([3, -1]);
+      setPage([2, -1]);
       return;
     }
     setPage([page + newDirection, newDirection]);
@@ -38,7 +46,7 @@ const Slide = () => {
       <AnimatePresence initial={false} custom={direction} mode='popLayout'>
         <motion.div
           key={page}
-          className='bg-main-green rounded-2xl h-72 w-full p-5'
+          className={`bg-[#FB969C] rounded-2xl h-72 w-full p-5`}
           custom={direction}
           variants={variants}
           initial='enter'
@@ -48,7 +56,9 @@ const Slide = () => {
             x: { duration: 0.4 },
           }}
         >
-          {page}
+          <p>청년우대적금 </p>
+          <p>우리은행</p>
+          <img className='w-1/2' src={slideImg[page].img} alt='배너이미지' />
         </motion.div>
       </AnimatePresence>
       <button className='absolute left-1 inset-y-0 my-auto z-10' onClick={() => paginate(-1)}>
