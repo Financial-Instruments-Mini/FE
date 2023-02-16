@@ -19,11 +19,7 @@ const SavingsButtons = () => {
           key={savingType}
           data-name={savingType}
           onClick={onClick}
-          className={
-            type === savingType
-              ? 'pb-2 pt-3 px-3 rounded-full bg-main-blue text-white font-bold'
-              : 'pb-2 pt-3 px-3 text-sub-gray'
-          }
+          className={type === savingType ? 'pb-2 pt-3 px-3 text-main-blue font-bold' : 'pb-2 pt-3 px-3 text-sub-gray'}
         >
           {savingType}
         </button>

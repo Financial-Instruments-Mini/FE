@@ -2,10 +2,11 @@
   "extends": [
     "plugin:prettier/recommended",
     "react-app",
+    "prettier",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended"
   ],
-  "plugins": ["react", "@typescript-eslint", "react-hooks"],
+  "plugins": ["react", "@typescript-eslint", "react-hooks", "prettier"],
   "rules": {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": [
@@ -13,6 +14,7 @@
       {
         "additionalHooks": "useRecoilCallback"
       }
-    ]
+    ],
+    "prettier/prettier": ["error", { "endOfLine": "auto" }]
   }
 }
