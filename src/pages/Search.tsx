@@ -3,6 +3,8 @@ import { BiSearchAlt2 } from 'react-icons/bi';
 import DropDown from '../components/DropDown';
 import SavingsButtons from '../components/SavingsButtons';
 import ToggleButton from '../components/ToggleButton';
+import items from '../assets/data.json';
+import ItemCard from '../components/ItemCard';
 
 const Search = () => {
   const [input, setInput] = useState('');
@@ -30,10 +32,12 @@ const Search = () => {
         </form>
       </div>
 
-      <div className='my-4 mx-5 flex flex-wrap justify-between items-center gap-2'>
+      <div className='my-5 mx-5 flex flex-wrap justify-between items-center gap-2'>
         <SavingsButtons />
         <ToggleButton />
       </div>
+
+      <div className='flex flex-col gap-3'>{items ? items.map(item => <ItemCard item={item} />) : <div></div>}</div>
     </>
   );
 };

@@ -4,12 +4,8 @@ const SavingsButtons = () => {
   const savingsTypes = ['전체', '예금', '적금'];
   const [type, setType] = useState('전체');
   const onClick = (event: React.SyntheticEvent<HTMLButtonElement>) => {
-    console.log(event.currentTarget.dataset.name);
-    // const typeName = event.currentTarget.dataset.name;
-    // typeName && setType(typeName);
-    // if (event !== null && event.target instanceof HTMLElement) {
-    //   console.log(event.target.dataset.name);
-    // }
+    const typeName = event.currentTarget.dataset.name;
+    typeName && setType(typeName);
   };
 
   return (

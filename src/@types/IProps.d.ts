@@ -1,3 +1,5 @@
+import { item } from './data';
+
 export interface IKeyWordButtonProps {
   keyword: string;
 }
@@ -44,4 +46,8 @@ export interface ITextQuestProps {
 export interface IlistItemProps {
   value: string;
   name: string;
+}
+
+export interface IItemCardProps {
+  item: item;
 }

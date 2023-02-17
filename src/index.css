@@ -139,6 +139,7 @@ table {
 body::-webkit-scrollbar {
   width: 12px;
   padding: 20px;
+  /* display: none; */
 }
 
 body::-webkit-scrollbar-thumb {
@@ -148,4 +149,16 @@ body::-webkit-scrollbar-thumb {
 }
 body::-webkit-scrollbar-track {
   margin: 3px;
+}
+
+@layer html {
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }
