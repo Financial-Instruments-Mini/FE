@@ -5,7 +5,7 @@ const ToggleButton = () => {
   const [toggle, setToggle] = useState(true);
 
   return (
-    <div className='relative w-[7.5rem] h-9 flex justify-around items-center bg-sub-gray bg-opacity-40 text-gray p-3 rounded-full text-sm font-bold mr-5'>
+    <div className='relative w-32 h-9 flex justify-around items-center bg-sub-gray bg-opacity-40 text-gray p-3 rounded-full text-sm font-bold'>
       <button className='h-full w-1/2' onClick={() => setToggle(!toggle)}>
         <p className='absolute inset-y-0 left-1 my-2.5 mx-2 z-10'>금리순</p>
         {toggle ? (
