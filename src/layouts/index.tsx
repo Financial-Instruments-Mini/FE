@@ -4,14 +4,25 @@ import Header from './Header';
 
 const Layout = () => {
   return (
-    <div className='relative'>
-      <Header />
-      <main className='pt-14 bg-main-white min-h-screen'>
-        <div className='max-w-[600px] m-auto py-5 px-4'>
-          <Outlet />
-          <Footer />
-        </div>
-      </main>
+    // <div className='relative'>
+    //   <Header />
+    //   <main className='pt-14 bg-main-white min-h-screen'>
+    //     <div className='max-w-[600px] m-auto py-5 px-4'>
+    //       <Outlet />
+    //       <Footer />
+    //     </div>
+    //   </main>
+    // </div>
+    <div className='flex justify-center items-center h-screen'>
+      <div className='w-[390px] h-[650px] rounded-3xl overflow-auto no-scrollbar relative'>
+        <Header />
+        <main className='pt-14 bg-main-white min-h-screen'>
+          <div className='max-w-[600px] m-auto py-5 px-4'>
+            <Outlet />
+            <Footer />
+          </div>
+        </main>
+      </div>
     </div>
   );
 };

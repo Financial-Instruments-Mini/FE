@@ -4,6 +4,7 @@ import ItemCard from '../components/ItemCard';
 import LittleTitle from '../components/LittleTitle';
 import SavingsButtons from '../components/SavingsButtons';
 import ToggleButton from '../components/ToggleButton';
+import items from '../assets/data.json';
 
 const MyCart = () => {
   return (
@@ -17,9 +18,7 @@ const MyCart = () => {
         </div>
       </div>
       <div className='p-5 flex flex-col gap-5'>
-        <ItemCard />
-        <ItemCard />
-        <ItemCard />
+        {items && items.map(item => <ItemCard key={item.id} item={item} />)}
       </div>
     </div>
   );
