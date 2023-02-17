@@ -11,6 +11,7 @@ import NotFound from './pages/NotFound';
 import Recommend from './pages/Recommend';
 import Register from './pages/Register';
 import Search from './pages/Search';
+import Servey from './pages/Servey';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path='/mycart' element={<MyCart />} />
           <Route path='/bookmark' element={<BookMark />} />
           <Route path='/mydetailpage' element={<MyDetailPage />} />
+          <Route path='/servey' element={<Servey />} />
           <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>

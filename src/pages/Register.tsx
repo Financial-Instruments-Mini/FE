@@ -1,5 +1,4 @@
 import React from 'react';
-import '../index.css';
 import { useNavigate } from 'react-router-dom';
 import MainButton from '../components/ui/MainButton';
 
@@ -11,6 +10,10 @@ const Register = () => {
   };
   const LinkToRegister = () => {
     navigator('/register');
+  };
+
+  const CompleteRegister = () => {
+    navigator('/servey');
   };
 
   return (
@@ -121,7 +124,8 @@ const Register = () => {
             </label>
           </div>
         </form>
-        <MainButton text={'회원가입'} />
+
+        <MainButton text={'회원가입'} onClick={CompleteRegister} />
       </div>
     </div>
   );
