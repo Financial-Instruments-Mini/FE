@@ -9,13 +9,13 @@ const SavingsButtons = () => {
   };
 
   return (
-    <div className='flex gap-3 mr-12 text-gray font-bold text-lg'>
+    <div className='flex gap-2 text-gray font-bold text-base'>
       {savingsTypes.map(savingType => (
         <button
           key={savingType}
           data-name={savingType}
           onClick={onClick}
-          className={type === savingType ? 'pb-2 pt-3 px-3 text-main-blue font-bold' : 'pb-2 pt-3 px-3 text-sub-gray'}
+          className={`p-1 ${type === savingType ? ' text-main-blue font-bold' : ' text-sub-gray'}`}
         >
           {savingType}
         </button>

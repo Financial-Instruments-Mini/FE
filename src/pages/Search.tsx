@@ -16,15 +16,15 @@ const Search = () => {
 
   return (
     <>
-      <div className='my-4 mx-5 flex justify-between items-center gap-1'>
+      <div className='my-2 flex justify-between items-center gap-1'>
         <DropDown />
-        <form onSubmit={onSubmit} className='relative block w-3/4'>
+        <form onSubmit={onSubmit} className='relative block w-72'>
           <button className='absolute right-0 inset-y-0 pr-5'>
-            <BiSearchAlt2 size={25} className='fill-main-blue' />
+            <BiSearchAlt2 size={20} className='fill-main-blue' />
           </button>
           <input
             type='search'
-            className='block h-12 w-full rounded-full border-2 border-main-blue outline-none pl-5 pr-16 pb-[0.15rem] text-main-blue placeholder:text-main-gray '
+            className='block h-10 w-full rounded-full border-2 border-main-blue outline-none pl-5 pr-16 pb-[0.15rem] text-main-blue placeholder:text-main-gray '
             placeholder='검색어를 입력해 주세요.'
             value={input}
             onChange={event => setInput(event.target.value)}
@@ -32,7 +32,7 @@ const Search = () => {
         </form>
       </div>
 
-      <div className='my-5 mx-5 flex flex-wrap justify-between items-center gap-2'>
+      <div className='my-4 mx-3 flex flex-wrap justify-between items-center gap-2'>
         <SavingsButtons />
         <ToggleButton />
       </div>
