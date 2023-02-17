@@ -6,7 +6,7 @@ const Header = () => {
   const location = useLocation();
 
   return (
-    <header className='h-14 w-[390px] fixed flex justify-between items-center z-50 pt-3'>
+    <header className='h-14 w-screen fixed flex justify-between items-center z-50 pt-3 max-w-md'>
       <div className='ml-2'>
         <Link to='/'>
           <img src={logo} alt='로고' className='h-14 m-auto' />
