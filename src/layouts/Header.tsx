@@ -6,13 +6,13 @@ const Header = () => {
   const location = useLocation();
 
   return (
-    <header className='h-14 fixed w-full bg-white flex justify-around items-center font-main z-50 -shadow-basic'>
-      <div className='hidden lg:block h-14 basis-1/2'>
+    <header className='h-14 w-[390px] fixed flex justify-between items-center z-50 pt-3'>
+      <div className='ml-2'>
         <Link to='/'>
           <img src={logo} alt='로고' className='h-14 m-auto' />
         </Link>
       </div>
-      <main className='flex px-10 sm:px-0 justify-around items-center min-w-[600px] font-bold text-lg '>
+      {/* <main className='flex px-10 sm:px-0 justify-around items-center min-w-[600px] font-bold text-lg '>
         <Link to='/' className={location.pathname === '/' ? 'text-main-green' : ''}>
           홈
         </Link>
@@ -25,8 +25,8 @@ const Header = () => {
         <Link to='/search' className={location.pathname === '/search' ? 'text-main-green' : ''}>
           검색
         </Link>
-      </main>
-      <div className='hidden lg:flex h-14  items-center basis-1/2'>
+      </main> */}
+      <div className='mr-5'>
         <Link to='/mypage' className='m-auto'>
           <AiOutlineUser className='h-6 w-6' />
         </Link>

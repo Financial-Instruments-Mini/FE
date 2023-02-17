@@ -136,16 +136,14 @@ table {
   border-spacing: 0;
 }
 
-body::-webkit-scrollbar {
-  width: 12px;
-  padding: 20px;
-}
+@layer html {
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 
-body::-webkit-scrollbar-thumb {
-  height: 10%;
-  background: #aaaaaa;
-  border-radius: 10px;
-}
-body::-webkit-scrollbar-track {
-  margin: 3px;
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }
