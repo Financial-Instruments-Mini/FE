@@ -21,16 +21,16 @@ const ItemCard = ({ item }: IItemCardProps) => {
     }
   };
   return (
-    <div className='h-28 w-full bg-white rounded-lg flex items-center px-4 -shadow-basic'>
+    <div className='h-28 w-full bg-white rounded-lg flex items-center p-4 -shadow-basic'>
       <div className='basis-1/5 rounded-full m-auto opacity-90 flex justify-center items-center'>
         <img src={getImageUrl(item.bankName)} alt='' className='w-14 h-14' />
       </div>
-      <div className='text-gray flex flex-col gap-1 m-auto pl-1 basis-3/5'>
+      <div className='text-gray flex flex-col gap-1 m-auto px-5 basis-3/5 truncate'>
         <p className='text-base font-bold mb-2 leading-tight'>{`${item.productName} `}</p>
-        <p className='text-sm'>최고 연 4.0%</p>
+        <p className='text-sm'>최고 연 {item.interestList[1].rate}%</p>
         <p className='text-sm'>{item.joinWay}</p>
       </div>
-      <button onClick={onClick} className='basis-1/12 flex justify-center'>
+      <button onClick={onClick} className='basis-1/5 flex justify-center'>
         {location.pathname === '/mycart' ? (
           <AiFillMinusCircle size={40} className='fill-main-yellow' />
         ) : (
