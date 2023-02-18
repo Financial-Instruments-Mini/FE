@@ -51,3 +51,7 @@ export interface IlistItemProps {
 export interface IItemCardProps {
   item: item;
 }
+
+export interface IHeaderProps {
+  scrollRef: React.RefObject<HTMLDivElement>;
+}
