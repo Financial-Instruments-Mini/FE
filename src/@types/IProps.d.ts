@@ -1,3 +1,5 @@
+import { item } from './data';
+
 export interface IKeyWordButtonProps {
   keyword: string;
 }
@@ -46,12 +48,6 @@ export interface IlistItemProps {
   name: string;
 }
 
-export interface IitemCardsProps {
-  bankName?: string;
-  productName?: string;
-  maxRate?: number;
-}
-
 export interface IinterestProps {
   id: number;
   dueDate: string;
@@ -74,4 +70,7 @@ export interface IDatasProps {
 export interface valueSaving {
   savingValue?: string;
   setSavingValue?: undefined | React.Dispatch<React.SetStateAction<string>>;
+}
+export interface IItemCardProps {
+  item: item;
 }

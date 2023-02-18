@@ -6,6 +6,7 @@ import ItemCard from '../components/ItemCard';
 import LittleTitle from '../components/LittleTitle';
 import SavingsButtons from '../components/SavingsButtons';
 import ToggleButton from '../components/ToggleButton';
+import items from '../assets/data.json';
 
 const MyCart = () => {
   const [ress, setRess] = useState<IDatasProps[]>();
@@ -49,8 +50,8 @@ const MyCart = () => {
           })
           .map(res => {
             return (
-              <div id={res.content}>
-                <ItemCard bankName={res.bankName} productName={res.productName} maxRate={res.interestList[1].rate} />
+              <div key={res.id}>
+                <ItemCard item={res} />
               </div>
             );
           })}

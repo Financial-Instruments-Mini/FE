@@ -28,7 +28,7 @@ const SavingsButtons = ({ savingValue, setSavingValue }: valueSaving) => {
   // };
 
   return (
-    <div className='flex gap-3 mr-12 text-gray font-bold text-lg'>
+    <div className='flex gap-2 text-gray font-bold text-base'>
       {savingsTypes.map(savingType => (
         <button
           key={savingType.value}
