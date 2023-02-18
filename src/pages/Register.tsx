@@ -17,7 +17,7 @@ const Register = () => {
   };
 
   return (
-    <div className='w-full'>
+    <div className='w-full mb-20'>
       <div className='w-full flex justify-center pt-10 space-x-2'>
         <MainButton text={'로그인'} select={false} onClick={LinkToLogin} />
         <MainButton text={'회원가입'} select={true} page='login/register' onClick={LinkToRegister} />

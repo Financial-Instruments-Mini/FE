@@ -16,7 +16,7 @@ const EndRegister = () => {
   }, [state]);
 
   return (
-    <div className='w-full'>
+    <div className='w-full mb-20'>
       {isData ? (
         <div className='text-center space-y-10 font-bold'>
           <img src={MainImg} alt='success img' />

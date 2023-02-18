@@ -82,7 +82,7 @@ const Servey = () => {
   console.log('선택한 설문 조사 폼:', serveyData);
 
   return (
-    <div className='flex flex-col justify-center items-center overflow-hidden'>
+    <div className='mb-20 flex flex-col justify-center items-center overflow-hidden'>
       <p className='my-16 text-lg font-bold'>
         상품을 <span className='text-main-green'>추천</span>받고 싶다면 선택해주세요!
       </p>

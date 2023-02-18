@@ -25,7 +25,7 @@ const variants = {
   },
 };
 
-const slideImg = [
+const slide = [
   { img: banner_1, bgColor: 'bg-[#C5D6F4]' },
   { img: banner_2, bgColor: 'bg-[#F9EFF0]' },
   { img: banner_3, bgColor: 'bg-[#BCA1E4]' },
@@ -35,7 +35,6 @@ const Slide = () => {
   const navigate = useNavigate();
   const [[page, direction], setPage] = useState([0, 0]);
 
-  console.log(items[1]);
   const paginate = (newDirection: number) => {
     if (page === 2 && newDirection === 1) {
       setPage([0, 1]);
@@ -52,7 +51,7 @@ const Slide = () => {
       <AnimatePresence initial={false} custom={direction} mode='popLayout'>
         <motion.div
           key={page}
-          className={`${slideImg[page].bgColor} rounded-2xl h-52 w-full p-10`}
+          className={`${slide[page].bgColor} rounded-2xl h-52 w-full py-10 px-12`}
           custom={direction}
           variants={variants}
           initial='enter'
@@ -62,21 +61,20 @@ const Slide = () => {
             x: { duration: 0.4 },
           }}
         >
-          <div className='w-full h-full flex flex-col m-1 gap-3'>
-            <h3 className='font-extrabold text-xl text-[#333333]'>{items[page].productName} </h3>
-            {/* <p className='font-bold'>{items[page].bankName}은행</p> */}
-            {/* <p className='text-xs w-1/2 leading-4 text-[#333333]'>{items[page].content}</p> */}
+          <div className='w-full h-full flex flex-col gap-2'>
+            <h3 className='font-extrabold text-xl text-[#333333] truncate'>{items[page].productName} </h3>
+            <p className='text-xs w-2/3 leading-4 text-[#333333]'>{items[page].content.slice(0, 40)} ...</p>
             <p className='text-base'>
               최고 연 <span className='font-bold text-xl'>{items[page].interestList[1].rate}</span>%{' '}
               <span className='text-xs align-[2px]'>(24개월)</span>
             </p>
             <p
-              className='text-sm underline underline-offset-4 cursor-pointer absolute bottom-14'
+              className='text-sm underline underline-offset-4 cursor-pointer absolute bottom-11'
               onClick={() => navigate(`/detail/${items[1].id}`)}
             >
               자세히 보기
             </p>
-            <img className='w-1/2 absolute right-1 bottom-1 -z-10' src={slideImg[page].img} alt='배너이미지' />
+            <img className='w-1/2 h-36 absolute right-1 bottom-1 -z-10' src={slide[page].img} alt='배너이미지' />
           </div>
         </motion.div>
       </AnimatePresence>

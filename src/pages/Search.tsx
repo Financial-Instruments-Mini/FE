@@ -16,15 +16,15 @@ const Search = () => {
 
   return (
     <>
-      <div className='my-2 flex justify-between items-center gap-1'>
+      <div className='m-2 flex flex-wrap justify-between items-center gap-3'>
         <DropDown />
-        <form onSubmit={onSubmit} className='relative block w-72'>
+        <form onSubmit={onSubmit} className='relative w-auto grow flex'>
           <button className='absolute right-0 inset-y-0 pr-5'>
             <BiSearchAlt2 size={20} className='fill-main-blue' />
           </button>
           <input
             type='search'
-            className='block h-10 w-full rounded-full border-2 border-main-blue outline-none pl-5 pr-16 pb-[0.15rem] text-main-blue placeholder:text-main-gray '
+            className='grow h-10 rounded-full border-2 border-main-blue outline-none pl-5 pb-[0.15rem] text-main-blue placeholder:text-main-gray'
             placeholder='검색어를 입력해 주세요.'
             value={input}
             onChange={event => setInput(event.target.value)}
@@ -37,7 +37,7 @@ const Search = () => {
         <ToggleButton />
       </div>
 
-      <div className='flex flex-col gap-3'>{items ? items.map(item => <ItemCard item={item} />) : <div></div>}</div>
+      <div className='flex flex-col gap-3 m-2'>{items ? items.map(item => <ItemCard item={item} />) : <div></div>}</div>
     </>
   );
 };
