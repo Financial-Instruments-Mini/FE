@@ -1,31 +1,18 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { IDatasProps } from '../@types/IProps';
+import { useState } from 'react';
+
 import DropDown from '../components/DropDown';
 import ItemCard from '../components/ItemCard';
 import LittleTitle from '../components/LittleTitle';
 import SavingsButtons from '../components/SavingsButtons';
 import ToggleButton from '../components/ToggleButton';
-import items from '../assets/data.json';
+import { useProductData } from '../assets/useProductData';
 
 const MyCart = () => {
-  const [ress, setRess] = useState<IDatasProps[]>();
   const [savingValue, setSavingValue] = useState<string>('DEPOSIT, SAVING');
+  const [sortValue, setSortValue] = useState(true);
 
-  const useGetData = (url: string) => {
-    useEffect(() => {
-      console.log(url);
-      try {
-        axios.get(url).then(response => {
-          setRess(response.data);
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    }, [url]);
-  };
+  const { ress, setRess } = useProductData('http://localhost:4000/data');
 
-  useGetData('http://localhost:4000/data');
   console.log(ress);
 
   return (
@@ -39,7 +26,13 @@ const MyCart = () => {
         </div>
       </div>
       <div className='flex justify-end'>
-        <button type='button' className='bg-main-blue text-white p-3 mr-5 rounded-3xl'>
+        <button
+          type='button'
+          className='bg-main-blue text-white p-3 mr-5 rounded-3xl'
+          onClick={() => {
+            setRess([]);
+          }}
+        >
           전체삭제
         </button>
       </div>
