@@ -55,3 +55,15 @@ export interface IItemCardProps {
 export interface IHeaderProps {
   scrollRef: React.RefObject<HTMLDivElement>;
 }
+
+export interface IModalProps {
+  onCloseModal: () => void;
+  children: React.ReactNode;
+}
+
+export interface IConfirmModalProps {
+  onConfirm: () => void;
+  onCloseModal: () => void;
+  buttonText?: { confirm: string; cancel: string };
+  children: React.ReactNode;
+}
