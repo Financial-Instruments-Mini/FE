@@ -9,7 +9,7 @@ const DropDown = () => {
 
   return (
     <>
-      <div className='relative w-24'>
+      <div className='relative shrink-0'>
         <button
           type='button'
           className='flex justify-center items-center rounded-lg border-2 border-main-blue px-2 py-3 text-sm text-main-blue font-bold gap-1'
