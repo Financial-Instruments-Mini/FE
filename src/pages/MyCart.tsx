@@ -9,7 +9,7 @@ import { useProductData } from '../assets/useProductData';
 
 const MyCart = () => {
   const [savingValue, setSavingValue] = useState<string>('DEPOSIT, SAVING');
-  const [sortValue, setSortValue] = useState(true);
+  // const [sortValue, setSortValue] = useState(true);
 
   const { ress, setRess } = useProductData('http://localhost:4000/data');
 
