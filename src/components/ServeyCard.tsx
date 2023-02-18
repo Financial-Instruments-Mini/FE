@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 import { IServeyCardProps } from '../@types/IProps';
 import MainButton from './ui/MainButton';
-import { FcNext } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { MdOutlineNavigateNext } from 'react-icons/md';
+import { Link, useNavigate } from 'react-router-dom';
 
-interface ISelect {
+interface ISelectState {
   content: string;
   isSelect: boolean;
 }
 
-const ServeyCard = ({ title, contents, order, setVisible }: IServeyCardProps) => {
+const ServeyCard = ({ title, contents, order, setVisible, serveyData, setServeyData }: IServeyCardProps) => {
   const screenTitle = title.split('/');
-  const [select, setSelect] = useState<ISelect[]>([]);
+  const [select, setSelect] = useState<ISelectState[]>([]);
+  const navigate = useNavigate();
 
-  console.log(select);
+  console.log(screenTitle[1], '선택:', select);
 
   const onClickBtn = (content: string) => {
-    if (screenTitle[1] === '상품') {
+    if (order === 0) {
       setSelect(prev => {
         const oldItemIdx = [...prev].findIndex(i => i.content === content);
         const restContents = [...prev].filter(i => i.content !== content);
@@ -29,7 +30,19 @@ const ServeyCard = ({ title, contents, order, setVisible }: IServeyCardProps) =>
   };
 
   const onClickNext = () => {
-    setVisible((prev: number) => (prev === 2 ? 2 : prev + 1));
+    const isSelectData = select.filter(i => i.isSelect === true); // 예적금 중복선택 가능이라 true 만 필터링
+
+    // 해결x : 마지막 설문조사 결과는 포함x
+    if (isSelectData.length !== 0) {
+      const newSelectData = isSelectData.map(i => i.content);
+      setServeyData((prev: string[]) => [...prev, ...newSelectData]);
+    }
+
+    if (order === 2) {
+      navigate('/success', { state: { serveyData } });
+    } else {
+      setVisible((prev: number) => (prev === 2 ? 2 : prev + 1));
+    }
   };
 
   return (
@@ -60,10 +73,10 @@ const ServeyCard = ({ title, contents, order, setVisible }: IServeyCardProps) =>
         ))}
       </div>
 
-      <div className='w-full mt-14 mb-5 flex justify-between text-gray'>
-        <Link to={`/`}>{screenTitle[1] === '상품' ? '첫 화면으로' : null}</Link>
-        <button onClick={onClickNext} className='flex items-center'>
-          다음으로 <FcNext color='gray' />
+      <div className='w-full mt-14 mb-5 flex items-end justify-between text-gray'>
+        <Link to={`/success`}>{order === 0 ? '건너뛰기' : null}</Link>
+        <button onClick={onClickNext} className='flex items-end'>
+          다음으로 <MdOutlineNavigateNext />
         </button>
       </div>
     </div>

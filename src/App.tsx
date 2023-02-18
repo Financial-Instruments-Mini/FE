@@ -12,6 +12,7 @@ import Recommend from './pages/Recommend';
 import Register from './pages/Register';
 import Search from './pages/Search';
 import Servey from './pages/Servey';
+import EndRegister from './pages/EndRegister';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path='/bookmark' element={<BookMark />} />
           <Route path='/mydetailpage' element={<MyDetailPage />} />
           <Route path='/servey' element={<Servey />} />
+          <Route path='/success' element={<EndRegister />} />
           <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>

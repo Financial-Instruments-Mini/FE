@@ -45,48 +45,16 @@ const options = [
   },
 ];
 
-const Servey = () => {
-  const [visible, setVisible] = useState(0);
-  const [isBack, setIsBack] = useState(false);
-
-  return (
-    <div className='flex flex-col justify-center items-center overflow-hidden'>
-      <p className='my-16 text-lg font-bold'>
-        상품을 <span className='text-main-green'>추천</span>받고 싶다면 선택해주세요!
-      </p>
-      <div className='w-full flex items-center justify-center'>
-        <AnimatePresence custom={isBack}>
-          {options.map((item, index) =>
-            index === visible ? (
-              <motion.div
-                className='w-full flex items-center justify-center'
-                custom={isBack}
-                variants={boxVars}
-                initial='initial'
-                animate='animate'
-                exit='exit'
-                key={index}
-              >
-                <ServeyCard {...item} order={index} setVisible={setVisible} />
-              </motion.div>
-            ) : null,
-          )}
-        </AnimatePresence>
-      </div>
-    </div>
-  );
-};
-
 const boxVars = {
-  initial: (isBack: boolean) => ({
-    x: isBack ? -800 : 800,
+  initial: {
+    x: 800,
     opacity: 0,
     scale: 0,
     display: 'none',
     transition: {
       duration: 1,
     },
-  }),
+  },
   animate: {
     x: 0,
     opacity: 1,
@@ -96,15 +64,54 @@ const boxVars = {
       duration: 1,
     },
   },
-  exit: (isBack: boolean) => ({
-    x: isBack ? 800 : -800,
+  exit: {
+    x: -800,
     opacity: 0,
     scale: 0,
     display: 'none',
     transition: {
       duration: 1,
     },
-  }),
+  },
+};
+
+const Servey = () => {
+  const [visible, setVisible] = useState(0);
+  const [serveyData, setServeyData] = useState<string[]>([]);
+
+  console.log('선택한 설문 조사 폼:', serveyData);
+
+  return (
+    <div className='flex flex-col justify-center items-center overflow-hidden'>
+      <p className='my-16 text-lg font-bold'>
+        상품을 <span className='text-main-green'>추천</span>받고 싶다면 선택해주세요!
+      </p>
+      <div className='w-full flex items-center justify-center'>
+        <AnimatePresence>
+          {options.map((item, index) =>
+            index === visible ? (
+              <motion.div
+                className='w-full flex items-center justify-center'
+                variants={boxVars}
+                initial='initial'
+                animate='animate'
+                exit='exit'
+                key={index}
+              >
+                <ServeyCard
+                  {...item}
+                  order={index}
+                  setVisible={setVisible}
+                  serveyData={serveyData}
+                  setServeyData={setServeyData}
+                />
+              </motion.div>
+            ) : null,
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
 };
 
 export default Servey;

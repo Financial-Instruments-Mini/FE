@@ -58,4 +58,6 @@ export interface IServeyCardProps {
   contents: string[];
   order: number;
   setVisible: Dispatch<SetStateAction<number>>;
+  serveyData: string[];
+  setServeyData: Dispatch<SetStateAction<string[]>>;
 }
