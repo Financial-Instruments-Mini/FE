@@ -6,6 +6,7 @@ import ToggleButton from '../components/ToggleButton';
 
 const Search = () => {
   const [input, setInput] = useState('');
+
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(input);

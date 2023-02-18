@@ -6,16 +6,14 @@ import LittleTitle from '../components/LittleTitle';
 const MyPage = () => {
   const list: IlistItemProps[] = [
     {
-      value: '/mydetailpage',
+      value: '/mypage/mydetailpage',
       name: '나의 정보 보기',
     },
     {
-      value: '/mycart',
+      value: '/mypage/mycart',
       name: '신청한 상품 내역 보기',
     },
   ];
-
-  // const [title, setTitle] = useState('계정관리');
 
   return (
     <div>
