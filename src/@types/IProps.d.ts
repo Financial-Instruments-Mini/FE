@@ -49,6 +49,29 @@ export interface IlistItemProps {
   name: string;
 }
 
+export interface IinterestProps {
+  id: number;
+  dueDate: string;
+  rate: number;
+}
+
+export interface IDatasProps {
+  bankName: string;
+  content: string;
+  id: number;
+  interestList: IinterestProps[];
+  job: string;
+  joinWay: string;
+  keyword: string;
+  productMakeDay: string;
+  productName: string;
+  productType: string;
+}
+
+export interface valueSaving {
+  savingValue?: string;
+  setSavingValue?: undefined | React.Dispatch<React.SetStateAction<string>>;
+}
 export interface IItemCardProps {
   item: item;
 }

@@ -1,23 +1,45 @@
 import React, { useState } from 'react';
+import { valueSaving } from '../@types/IProps';
 
-const SavingsButtons = () => {
-  const savingsTypes = ['전체', '예금', '적금'];
-  const [type, setType] = useState('전체');
-  const onClick = (event: React.SyntheticEvent<HTMLButtonElement>) => {
-    const typeName = event.currentTarget.dataset.name;
-    typeName && setType(typeName);
+const SavingsButtons = ({ savingValue, setSavingValue }: valueSaving) => {
+  const [type, setType] = useState<string>('전체');
+
+  const savingsTypes = [
+    { ko: '전체', value: 'DEPOSIT, SAVING' },
+    { ko: '예금', value: 'SAVING' },
+    { ko: '적금', value: 'DEPOSIT' },
+  ];
+
+  const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setType(`${event.currentTarget.dataset.name}`);
+    if (setSavingValue !== undefined) {
+      setSavingValue(`${event.currentTarget.dataset.value}`);
+    }
   };
+
+  console.log(savingValue);
+
+  // const typeName = event.currentTarget.dataset.name;
+  // typeName && setType(typeName);
+  // if (event !== null && event.target instanceof HTMLElement) {
+  //   console.log(event.target.dataset.name);
+  // }
+
+  // };
 
   return (
     <div className='flex gap-2 text-gray font-bold text-base'>
       {savingsTypes.map(savingType => (
         <button
-          key={savingType}
-          data-name={savingType}
+          key={savingType.value}
+          data-name={savingType.ko}
           onClick={onClick}
-          className={`p-1 ${type === savingType ? ' text-main-blue font-bold' : ' text-sub-gray'}`}
+          data-value={savingType.value}
+          className={
+            type === savingType.ko ? 'pb-2 pt-3 px-3 text-main-blue font-bold' : 'pb-2 pt-3 px-3 text-sub-gray'
+          }
         >
-          {savingType}
+          {savingType.ko}
         </button>
       ))}
     </div>

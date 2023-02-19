@@ -1,9 +1,3 @@
-import React from 'react';
-import 국민 from '../assets/bankicons/금융아이콘_PNG_KB.png';
-import 신한 from '../assets/bankicons/금융아이콘_PNG_신한.png';
-import 우리 from '../assets/bankicons/금융아이콘_PNG_우리.png';
-import 하나 from '../assets/bankicons/금융아이콘_PNG_하나.png';
-
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IItemCardProps } from '../@types/IProps';
@@ -14,7 +8,7 @@ const ItemCard = ({ item }: IItemCardProps) => {
   const location = useLocation();
 
   const onClick = () => {
-    if (location.pathname === '/mycart') {
+    if (location.pathname === '/mypage/mycart') {
       //삭제기능
     } else {
       navigate('/detail/:id');
@@ -30,8 +24,8 @@ const ItemCard = ({ item }: IItemCardProps) => {
         <p className='text-sm'>최고 연 {item.interestList[1].rate}%</p>
         <p className='text-sm'>{item.joinWay}</p>
       </div>
-      <button onClick={onClick} className='basis-1/5 flex justify-center'>
-        {location.pathname === '/mycart' ? (
+      <button onClick={onClick} className='basis-1/12 flex justify-center'>
+        {location.pathname === '/mypage/mycart' ? (
           <AiFillMinusCircle size={40} className='fill-main-yellow' />
         ) : (
           <AiFillPlusCircle size={40} className='fill-main-blue' />

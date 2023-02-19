@@ -4,8 +4,8 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import banner_1 from '../assets/images/banner_img_1.jpg';
 import banner_2 from '../assets/images/banner_img_2.jpg';
 import banner_3 from '../assets/images/banner_img_3.jpg';
-import items from '../assets/data.json';
 import { useNavigate } from 'react-router-dom';
+import { useProductData } from '../assets/useProductData';
 
 const variants = {
   enter: (direction: number) => {
@@ -34,6 +34,7 @@ const slide = [
 const Slide = () => {
   const navigate = useNavigate();
   const [[page, direction], setPage] = useState([0, 0]);
+  const { ress, setRess } = useProductData('http://localhost:4000/data');
 
   const paginate = (newDirection: number) => {
     if (page === 2 && newDirection === 1) {
@@ -61,21 +62,23 @@ const Slide = () => {
             x: { duration: 0.4 },
           }}
         >
-          <div className='w-full h-full flex flex-col gap-2'>
-            <h3 className='font-extrabold text-xl text-[#333333] truncate'>{items[page].productName} </h3>
-            <p className='text-xs w-2/3 leading-4 text-[#333333]'>{items[page].content.slice(0, 40)} ...</p>
-            <p className='text-base'>
-              최고 연 <span className='font-bold text-xl'>{items[page].interestList[1].rate}</span>%{' '}
-              <span className='text-xs align-[2px]'>(24개월)</span>
-            </p>
-            <p
-              className='text-sm underline underline-offset-4 cursor-pointer absolute bottom-11'
-              onClick={() => navigate(`/detail/${items[1].id}`)}
-            >
-              자세히 보기
-            </p>
-            <img className='w-1/2 h-36 absolute right-1 bottom-1 -z-10' src={slide[page].img} alt='배너이미지' />
-          </div>
+          {ress !== undefined && (
+            <div className='w-full h-full flex flex-col gap-2'>
+              <h3 className='font-extrabold text-xl text-[#333333] truncate'>{ress[page].productName} </h3>
+              <p className='text-xs w-2/3 leading-4 text-[#333333]'>{ress[page].content.slice(0, 40)} ...</p>
+              <p className='text-base'>
+                최고 연 <span className='font-bold text-xl'>{ress[page].interestList[1].rate}</span>%{' '}
+                <span className='text-xs align-[2px]'>(24개월)</span>
+              </p>
+              <p
+                className='text-sm underline underline-offset-4 cursor-pointer absolute bottom-11'
+                onClick={() => navigate(`/detail/${ress[1].id}`)}
+              >
+                자세히 보기
+              </p>
+              <img className='w-1/2 h-36 absolute right-1 bottom-1 -z-10' src={slide[page].img} alt='배너이미지' />
+            </div>
+          )}
         </motion.div>
       </AnimatePresence>
       <button className='absolute left-1 inset-y-0 my-auto z-10' onClick={() => paginate(-1)}>
