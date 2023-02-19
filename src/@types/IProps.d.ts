@@ -7,8 +7,9 @@ export interface IKeyWordButtonProps {
 export interface IButtonProps {
   text: string;
   select?: boolean;
+  page?: string;
   children?: React.ReactNode;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 export interface ISubtitleProps {
   title: string;
@@ -73,6 +74,15 @@ export interface valueSaving {
 }
 export interface IItemCardProps {
   item: item;
+}
+
+export interface IServeyCardProps {
+  title: string;
+  contents: string[];
+  order: number;
+  setVisible: Dispatch<SetStateAction<number>>;
+  serveyData: string[];
+  setServeyData: Dispatch<SetStateAction<string[]>>;
 }
 
 export interface IHeaderProps {
