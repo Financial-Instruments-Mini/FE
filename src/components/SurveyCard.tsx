@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { IServeyCardProps } from '../@types/IProps';
+import React, { useState, useEffect } from 'react';
+import { ISurveyCardProps } from '../@types/IProps';
 import MainButton from './ui/MainButton';
 import { MdOutlineNavigateNext } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,7 +9,7 @@ interface ISelectState {
   isSelect: boolean;
 }
 
-const ServeyCard = ({ title, contents, order, setVisible, serveyData, setServeyData }: IServeyCardProps) => {
+const SurveyCard = ({ title, contents, order, setVisible, surveyData, setSurveyData }: ISurveyCardProps) => {
   const screenTitle = title.split('/');
   const [select, setSelect] = useState<ISelectState[]>([]);
   const navigate = useNavigate();
@@ -25,25 +25,50 @@ const ServeyCard = ({ title, contents, order, setVisible, serveyData, setServeyD
         return newArr;
       });
     } else {
-      setSelect([{ content, isSelect: true }]);
+      setSelect(prev => {
+        if (prev.length === 0) {
+          return [{ content, isSelect: true }];
+        } else {
+          return [{ content, isSelect: !prev[0].isSelect }];
+        }
+      });
     }
   };
 
   const onClickNext = () => {
-    const isSelectData = select.filter(i => i.isSelect === true); // 예적금 중복선택 가능이라 true 만 필터링
-
-    // 해결x : 마지막 설문조사 결과는 포함x
-    if (isSelectData.length !== 0) {
-      const newSelectData = isSelectData.map(i => i.content);
-      setServeyData((prev: string[]) => [...prev, ...newSelectData]);
-    }
-
     if (order === 2) {
-      navigate('/success', { state: { serveyData } });
+      navigate('/success', { state: { surveyData } });
     } else {
       setVisible((prev: number) => (prev === 2 ? 2 : prev + 1));
     }
   };
+
+  useEffect(() => {
+    for (const item of select) {
+      if (item.isSelect) {
+        setSurveyData((prev: string[]) => {
+          const addSelect = [...prev, item.content];
+          const newSelects = addSelect.filter((i, idx) => addSelect.indexOf(i) === idx);
+          return newSelects;
+        });
+      } else {
+        setSurveyData((prev: string[]) => {
+          const removeSelect = [...prev].filter(i => item.content !== i);
+          const newSelects = removeSelect.filter((i, idx) => removeSelect.indexOf(i) === idx);
+          return newSelects;
+        });
+      }
+    }
+
+    // 해결x : 마지막 설문조사 결과는 포함x
+    // if (isSelectData.length !== 0) {
+    //   const newSelectData = isSelectData.map(i => i.content);
+    //   setSurveyData((prev: string[]) => {
+    //     const sendData = [...prev, ...newSelectData];
+    //     return sendData.filter((i, idx) => sendData.indexOf(i) === idx);
+    //   });
+    // }
+  }, [select, setSurveyData]);
 
   return (
     <div className='w-[95%] flex flex-col items-center justify-center mb-2 pt-14 px-3 bg-white rounded-3xl -shadow-basic'>
@@ -68,7 +93,7 @@ const ServeyCard = ({ title, contents, order, setVisible, serveyData, setServeyD
             onClick={() => {
               onClickBtn(content);
             }}
-            page='servey'
+            page='survey'
           />
         ))}
       </div>
@@ -83,4 +108,4 @@ const ServeyCard = ({ title, contents, order, setVisible, serveyData, setServeyD
   );
 };
 
-export default ServeyCard;
+export default SurveyCard;

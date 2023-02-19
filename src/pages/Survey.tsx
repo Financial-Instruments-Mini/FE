@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import ServeyCard from './../components/ServeyCard';
+import SurveyCard from '../components/SurveyCard';
 
 const options = [
   {
@@ -75,11 +75,11 @@ const boxVars = {
   },
 };
 
-const Servey = () => {
+const Survey = () => {
   const [visible, setVisible] = useState(0);
-  const [serveyData, setServeyData] = useState<string[]>([]);
+  const [surveyData, setSurveyData] = useState<string[]>([]);
 
-  console.log('선택한 설문 조사 폼:', serveyData);
+  console.log('선택한 설문 조사 폼:', surveyData);
 
   return (
     <div className='mb-20 flex flex-col justify-center items-center overflow-hidden'>
@@ -98,12 +98,12 @@ const Servey = () => {
                 exit='exit'
                 key={index}
               >
-                <ServeyCard
+                <SurveyCard
                   {...item}
                   order={index}
                   setVisible={setVisible}
-                  serveyData={serveyData}
-                  setServeyData={setServeyData}
+                  surveyData={surveyData}
+                  setSurveyData={setSurveyData}
                 />
               </motion.div>
             ) : null,
@@ -114,4 +114,4 @@ const Servey = () => {
   );
 };
 
-export default Servey;
+export default Survey;

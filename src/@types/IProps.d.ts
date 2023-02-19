@@ -53,13 +53,13 @@ export interface IItemCardProps {
   item: item;
 }
 
-export interface IServeyCardProps {
+export interface ISurveyCardProps {
   title: string;
   contents: string[];
   order: number;
   setVisible: Dispatch<SetStateAction<number>>;
-  serveyData: string[];
-  setServeyData: Dispatch<SetStateAction<string[]>>;
+  surveyData: string[];
+  setSurveyData: Dispatch<SetStateAction<string[]>>;
 }
 
 export interface IHeaderProps {
