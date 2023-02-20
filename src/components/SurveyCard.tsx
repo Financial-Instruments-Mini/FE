@@ -23,7 +23,7 @@ const SurveyCard = ({ title, contents, order, setVisible, surveyData, setSurveyD
       setSelect(prev => {
         if (prev.length !== 0) {
           if (prev[prev.length - 1].content === content) {
-            return [{ content, isSelect: false }];
+            return [{ content, isSelect: !prev[prev.length - 1].isSelect }];
           } else {
             return [
               { content: prev[prev.length - 1].content, isSelect: false },
