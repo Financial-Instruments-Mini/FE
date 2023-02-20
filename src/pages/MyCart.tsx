@@ -5,15 +5,16 @@ import ItemCard from '../components/ItemCard';
 import LittleTitle from '../components/LittleTitle';
 import SavingsButtons from '../components/SavingsButtons';
 import ToggleButton from '../components/ToggleButton';
-import { useProductData } from '../assets/useProductData';
+import { useProductData } from '../api/useProductData';
 
 const MyCart = () => {
   const [savingValue, setSavingValue] = useState<string>('DEPOSIT, SAVING');
-  // const [sortValue, setSortValue] = useState(true);
+  const [toggle, setToggle] = useState<boolean>(true);
+  const [bank, setBank] = useState({ title: '모든은행', value: 'KB신한우리하나' });
 
   const { ress, setRess } = useProductData('http://localhost:4000/data');
 
-  console.log(ress);
+  // console.log(ress);
 
   return (
     <div>
@@ -21,8 +22,8 @@ const MyCart = () => {
       <div>
         <div className='my-4 mx-5 flex flex-wrap justify-between items-center gap-2'>
           <SavingsButtons savingValue={savingValue} setSavingValue={setSavingValue} />
-          <ToggleButton />
-          <DropDown />
+          <ToggleButton toggle={toggle} setToggle={setToggle} />
+          <DropDown bank={bank} setBank={setBank} />
         </div>
       </div>
       <div className='flex justify-end'>
@@ -37,30 +38,46 @@ const MyCart = () => {
         </button>
       </div>
       <div className='p-5 flex flex-col gap-5'>
-        {ress
-          ?.filter(res => {
-            return savingValue.includes(res.productType);
-          })
-          .map(res => {
-            return (
-              <div key={res.id}>
-                <ItemCard item={res} />
-              </div>
-            );
-          })}
+        {toggle
+          ? ress
+              ?.filter(res => {
+                return savingValue.includes(res.productType);
+              })
+              .filter(res => {
+                return bank.value.includes(res.productName.split(' ')[0]);
+              })
+              .sort((a, b) => {
+                return b.interestList[1].rate - a.interestList[1].rate;
+              })
+              .map(res => {
+                return (
+                  <div key={res.id}>
+                    <ItemCard item={res} setRess={setRess} ress={ress} />
+                  </div>
+                );
+              })
+          : ress
+              ?.filter(res => {
+                return savingValue.includes(res.productType);
+              })
+              .filter(res => {
+                return bank.value.includes(res.productName.split(' ')[0]);
+              })
+              .sort((a, b) => {
+                const dayA = a.productMakeDay;
+                const dayB = b.productMakeDay;
+                return (dayB as string) < (dayA as string) ? -1 : 1;
+              })
+              .map(res => {
+                return (
+                  <div key={res.id}>
+                    <ItemCard item={res} setRess={setRess} ress={ress} />
+                  </div>
+                );
+              })}
       </div>
     </div>
   );
 };
 
 export default MyCart;
-
-// {
-//   ress?.map(res => {
-//     return (
-//       <div id={res.content}>
-//         <ItemCard bankName={res.bankName} productName={res.productName} maxRate={res.interestList[1].rate} />
-//       </div>
-//     );
-//   });
-// }

@@ -1,7 +1,7 @@
 import ItemCard from '../components/ItemCard';
 import KeywordButton from '../components/KeywordButton';
 import Slide from '../components/Slide';
-import { useProductData } from '../assets/useProductData';
+import { useProductData } from '../api/useProductData';
 
 const Home = () => {
   const keywords = ['전체', '주거래우대', '청년우대', '주택청약', '농어촌'];

@@ -3,13 +3,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { IItemCardProps } from '../@types/IProps';
 import { getImageUrl } from '../utils/getImageUrl';
 
-const ItemCard = ({ item }: IItemCardProps) => {
+const ItemCard = ({ item, setRess, ress }: IItemCardProps) => {
   const navigate = useNavigate();
   const location = useLocation();
+  // console.log(setRess);
 
   const onClick = () => {
-    if (location.pathname === '/mypage/mycart') {
-      //삭제기능
+    if (location.pathname === '/mypage/mycart' && setRess !== undefined) {
+      setRess(ress?.filter(res => res.id !== item.id));
     } else {
       navigate('/detail/:id');
     }
