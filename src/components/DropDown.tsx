@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { SlArrowDown } from 'react-icons/sl';
 import { AnimatePresence, motion } from 'framer-motion';
-import { IbanksProps } from '../@types/IProps';
+import { IDropDownProps } from '../@types/IProps';
 
-const DropDown = ({ bank, setBank }: IbanksProps) => {
+const DropDown = ({ bank, setBank }: IDropDownProps) => {
   const bankList = [
     { title: '모든은행', value: 'KB신한우리하나' },
     { title: '국민은행', value: 'KB' },
@@ -18,7 +18,7 @@ const DropDown = ({ bank, setBank }: IbanksProps) => {
       <div className='relative shrink-0'>
         <button
           type='button'
-          className='flex justify-center items-center rounded-lg border-2 border-main-blue px-2 py-3 text-sm text-main-blue font-bold gap-1'
+          className='w-fit flex justify-center items-center rounded-lg border-2 border-main-blue px-2 py-3 text-sm text-main-blue font-bold gap-1'
           id='menu-button'
           onClick={() => {
             setDropdown(!dropdown);

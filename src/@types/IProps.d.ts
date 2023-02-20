@@ -44,7 +44,7 @@ export interface ITextQuestProps {
   placeHolder?: string;
 }
 
-export interface IlistItemProps {
+export interface IListItemProps {
   value: string;
   name: string;
 }
@@ -84,17 +84,17 @@ export interface IConfirmModalProps {
   children: React.ReactNode;
 }
 
-export interface IsortValueProps {
+export interface IToggleButtonProps {
   toggle?: boolean;
   setToggle?: undefined | React.Dispatch<React.SetStateAction<boolean>>;
 }
-export interface IbanksProps {
-  bank?: bankProp;
+
+export interface IDropDownProps {
+  bank?: bank;
   setBank?: undefined | React.Dispatch<React.SetStateAction<bankProps>>;
 }
-export interface IbankProps {
-  bankProp: {
-    title: string;
-    value: string;
-  };
+
+export interface bank {
+  title: string;
+  value: string;
 }

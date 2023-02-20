@@ -14,7 +14,7 @@ const BookMark = () => {
       <h1 className='flex px-7 pb-5 font-bold text-xl justify-center'>관심 상품</h1>
       <section className='flex flex-wrap text-xs font-base gap-3 text-main-white my-4'>
         {items &&
-          items.map(item => {
+          items.data.map(item => {
             return (
               <section className='relative flex flex-row w-full gap-2'>
                 <ItemCard key={item.id} item={item} />

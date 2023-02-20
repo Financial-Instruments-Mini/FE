@@ -29,7 +29,7 @@ function App() {
           <Route path='/mypage/mycart' element={<MyCart />} />
           <Route path='/bookmark' element={<BookMark />} />
           <Route path='/mypage/mydetailpage' element={<MyDetailPage />} />
-          <Route path='/servey' element={<Servey />} />
+          <Route path='/survey' element={<Servey />} />
           <Route path='/success' element={<EndRegister />} />
           <Route path='*' element={<NotFound />} />
         </Route>

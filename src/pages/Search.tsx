@@ -4,13 +4,12 @@ import DropDown from '../components/DropDown';
 import SavingsButtons from '../components/SavingsButtons';
 import ToggleButton from '../components/ToggleButton';
 import ItemCard from '../components/ItemCard';
-import { useProductData } from '../api/useProductData';
+import items from '../assets/data.json';
 
 const Search = () => {
   const [input, setInput] = useState('');
   const [toggle, setToggle] = useState<boolean>(true);
   const [bank, setBank] = useState({ title: '모든은행', value: 'KB신한우리하나' });
-  const { ress, setRess } = useProductData('http://localhost:4000/data');
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,7 +20,7 @@ const Search = () => {
   return (
     <>
       <div className='m-2 flex flex-wrap justify-between items-center gap-3'>
-        <DropDown />
+        <DropDown bank={bank} setBank={setBank} />
         <form onSubmit={onSubmit} className='relative w-auto grow flex'>
           <button className='absolute right-0 inset-y-0 pr-5'>
             <BiSearchAlt2 size={20} className='fill-main-blue' />
@@ -42,15 +41,7 @@ const Search = () => {
       </div>
 
       <div className='flex flex-col gap-3 m-2'>
-        {ress ? (
-          ress.map(item => (
-            <div key={item.id}>
-              <ItemCard item={item} />
-            </div>
-          ))
-        ) : (
-          <div></div>
-        )}
+        {items && items.data.map(item => <ItemCard key={item.id} item={item} />)}
       </div>
     </>
   );
