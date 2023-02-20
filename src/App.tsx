@@ -26,9 +26,9 @@ function App() {
           <Route path='/detail/:id' element={<DetailItem />} />
           <Route path='/search' element={<Search />} />
           <Route path='/recommend' element={<Recommend />} />
-          <Route path='/mycart' element={<MyCart />} />
+          <Route path='/mypage/mycart' element={<MyCart />} />
           <Route path='/bookmark' element={<BookMark />} />
-          <Route path='/mydetailpage' element={<MyDetailPage />} />
+          <Route path='/mypage/mydetailpage' element={<MyDetailPage />} />
           <Route path='/servey' element={<Servey />} />
           <Route path='/success' element={<EndRegister />} />
           <Route path='*' element={<NotFound />} />
