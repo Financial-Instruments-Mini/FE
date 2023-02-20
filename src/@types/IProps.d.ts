@@ -2,6 +2,8 @@ import { item } from './data';
 
 export interface IKeyWordButtonProps {
   keyword: string;
+  selectedKeyword: string;
+  setSelectedKeyword: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface IButtonProps {

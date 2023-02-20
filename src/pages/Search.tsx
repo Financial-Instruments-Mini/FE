@@ -4,7 +4,7 @@ import DropDown from '../components/DropDown';
 import SavingsButtons from '../components/SavingsButtons';
 import ToggleButton from '../components/ToggleButton';
 import ItemCard from '../components/ItemCard';
-import items from '../assets/data.json';
+import { CgSearchLoading } from 'react-icons/cg';
 
 const Search = () => {
   const [input, setInput] = useState('');
@@ -40,8 +40,13 @@ const Search = () => {
         <ToggleButton toggle={toggle} setToggle={setToggle} />
       </div>
 
-      <div className='flex flex-col gap-3 m-2'>
+      {/* <div className='flex flex-col gap-3 m-2'>
         {items && items.data.map(item => <ItemCard key={item.id} item={item} />)}
+      </div> */}
+      <div className='flex flex-col items-center my-[20vh] text-base gap-2 text-gray font-bold'>
+        <CgSearchLoading className='w-24 h-24 text-sub-gray mb-5' />
+        <p>검색 결과를 찾을 수 없습니다.</p>
+        <p>다른 검색어로 검색 해보시겠어요 ?</p>
       </div>
     </>
   );

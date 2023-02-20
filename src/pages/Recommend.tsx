@@ -18,9 +18,9 @@ const Recommend = () => {
       <div className='grid grid-cols-2 gap-3'>
         {items && items.data.map(item => <ItemGallery key={item.id} item={item} />)}
       </div>
-      <div onClick={() => navigate('/survey')} className='flex justify-center mt-5 text-sm text-gray cursor-pointer'>
+      <button onClick={() => navigate('/survey')} className='block w-fit mx-auto mt-5 text-sm text-gray cursor-pointer'>
         {'설문 다시하고 다른상품 추천받기 →'}
-      </div>
+      </button>
     </>
   );
 };

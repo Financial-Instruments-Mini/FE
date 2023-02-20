@@ -22,15 +22,15 @@ const ItemCard = ({ item, setRess, ress }: IItemCardProps) => {
       className='h-28 w-full bg-white rounded-lg flex items-center p-4 -shadow-basic cursor-pointer'
     >
       <div
-        className={`basis-1/5 rounded-full m-auto opacity-90 flex justify-center items-center ${
-          location.pathname !== '/mypage/mycart' ? 'basis-1/3' : ''
+        className={` rounded-full m-auto opacity-90 flex justify-center items-center ${
+          location.pathname !== '/mypage/mycart' ? 'basis-1/3' : 'basis-1/5'
         }`}
       >
         <img src={getImageUrl(item.bankName)} alt='은행로고' className='w-14 h-14' />
       </div>
       <div
-        className={`text-gray flex flex-col items-start gap-1 basis-3/5 ${
-          location.pathname !== '/mypage/mycart' ? 'basis-2/3' : ''
+        className={`text-gray flex flex-col items-start gap-1  ${
+          location.pathname !== '/mypage/mycart' ? 'basis-2/3' : 'basis-3/5'
         }`}
       >
         <p className='text-base font-bold mb-2 leading-tight'>{`${item.productName} `}</p>

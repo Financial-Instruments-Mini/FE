@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { IItemCardProps } from '../../@types/IProps';
 import { getImageUrl } from '../../utils/getImageUrl';
 import { BsBookmark } from 'react-icons/bs';
+import { Product } from '../../@types/data';
 
-const ItemGallery = ({ item }: IItemCardProps) => {
+const ItemGallery = ({ bankName, productName, maxRate, productType }: Product) => {
   const navigate = useNavigate();
 
   return (
@@ -15,13 +16,20 @@ const ItemGallery = ({ item }: IItemCardProps) => {
       }}
       className='bg-white rounded-lg flex flex-col justify-between items-center px-4 py-5 -shadow-basic cursor-pointer text-gray gap-5 hover:opacity-70 relative'
     >
-      <img src={getImageUrl(item.bankName)} alt='은행로고' className='w-14 h-14' />
-      <p className='text-center align-middle h-4 w-full text-sm font-bold leading-4 px-1'>{`${item.productName} `}</p>
-      <div className='flex flex-col items-center gap-1'>
-        <p className='text-xs'>최고 연 {item.interestList[1].rate}%</p>
-        <p className='text-xs'>{item.joinWay}</p>
+      <img src={getImageUrl(bankName)} alt='은행로고' className='w-14 h-14 mb-1' />
+      <div className='flex flex-col justify-center h-fit'>
+        <p className='text-center align-middle w-full text-sm font-bold leading-4'>{`${productName} `}</p>
       </div>
-      <BsBookmark size={20} className='absolute right-3 top-3 fill-sub-gray' />
+
+      <div className='flex flex-col items-center gap-2'>
+        <p className='text-xs'>
+          {`최고 연 `}
+          <span className='text-base font-bold'>{maxRate}</span>
+          {` %`}
+        </p>
+        <p className='text-xxs bg-sub-gray p-1 rounded-full px-2 text-white font-thin'>{productType}</p>
+      </div>
+      {/* <BsBookmark size={20} className='absolute right-3 top-3 fill-sub-gray' onClick={() => console.log('북마크')} /> */}
     </div>
   );
 };
