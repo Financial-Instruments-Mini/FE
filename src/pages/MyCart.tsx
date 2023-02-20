@@ -66,7 +66,7 @@ const MyCart = () => {
               .sort((a, b) => {
                 const dayA = a.productMakeDay;
                 const dayB = b.productMakeDay;
-                return dayB < dayA ? -1 : 1;
+                return (dayB as string) < (dayA as string) ? -1 : 1;
               })
               .map(res => {
                 return (
