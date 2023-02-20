@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { IsortValueProps } from '../@types/IProps';
 
-const ToggleButton = () => {
-  const [toggle, setToggle] = useState(true);
+const ToggleButton = ({ toggle, setToggle }: IsortValueProps) => {
+  const onClick = () => {
+    if (setToggle !== undefined) {
+      setToggle(!toggle);
+    }
+  };
 
   return (
     <div className='relative w-32 h-9 flex justify-around items-center bg-sub-gray bg-opacity-40 text-gray p-3 rounded-full text-sm font-bold'>
-      <button className='h-full w-1/2' onClick={() => setToggle(!toggle)}>
+      <button className='h-full w-1/2' onClick={onClick}>
         <p className='absolute inset-y-0 left-1 my-2.5 mx-2 z-10'>금리순</p>
         {toggle ? (
           <motion.div
@@ -15,7 +19,7 @@ const ToggleButton = () => {
           ></motion.div>
         ) : null}
       </button>
-      <button className='h-full w-1/2' onClick={() => setToggle(!toggle)}>
+      <button className='h-full w-1/2' onClick={onClick}>
         <p className='absolute inset-y-0 right-1 my-2.5 mx-2 z-10 '>최신순</p>
         {!toggle ? (
           <motion.div

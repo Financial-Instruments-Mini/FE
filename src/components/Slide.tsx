@@ -5,7 +5,7 @@ import banner_1 from '../assets/images/banner_img_1.jpg';
 import banner_2 from '../assets/images/banner_img_2.jpg';
 import banner_3 from '../assets/images/banner_img_3.jpg';
 import { useNavigate } from 'react-router-dom';
-import { useProductData } from '../assets/useProductData';
+import { useProductData } from '../api/useProductData';
 
 const variants = {
   enter: (direction: number) => {

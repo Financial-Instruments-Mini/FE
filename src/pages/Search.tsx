@@ -4,10 +4,12 @@ import DropDown from '../components/DropDown';
 import SavingsButtons from '../components/SavingsButtons';
 import ToggleButton from '../components/ToggleButton';
 import ItemCard from '../components/ItemCard';
-import { useProductData } from '../assets/useProductData';
+import { useProductData } from '../api/useProductData';
 
 const Search = () => {
   const [input, setInput] = useState('');
+  const [toggle, setToggle] = useState<boolean>(true);
+  const [bank, setBank] = useState({ title: '모든은행', value: 'KB신한우리하나' });
   const { ress, setRess } = useProductData('http://localhost:4000/data');
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -36,10 +38,20 @@ const Search = () => {
 
       <div className='my-4 mx-3 flex flex-wrap justify-between items-center gap-2'>
         <SavingsButtons />
-        <ToggleButton />
+        <ToggleButton toggle={toggle} setToggle={setToggle} />
       </div>
 
-      <div className='flex flex-col gap-3 m-2'>{ress ? ress.map(item => <ItemCard item={item} />) : <div></div>}</div>
+      <div className='flex flex-col gap-3 m-2'>
+        {ress ? (
+          ress.map(item => (
+            <div key={item.id}>
+              <ItemCard item={item} />
+            </div>
+          ))
+        ) : (
+          <div></div>
+        )}
+      </div>
     </>
   );
 };

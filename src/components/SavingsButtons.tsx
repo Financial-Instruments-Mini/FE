@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { valueSaving } from '../@types/IProps';
+import { IvalueSavingProps } from '../@types/IProps';
 
-const SavingsButtons = ({ savingValue, setSavingValue }: valueSaving) => {
+const SavingsButtons = ({ savingValue, setSavingValue }: IvalueSavingProps) => {
   const [type, setType] = useState<string>('전체');
 
   const savingsTypes = [

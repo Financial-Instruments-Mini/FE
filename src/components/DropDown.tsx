@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import { SlArrowDown } from 'react-icons/sl';
 import { AnimatePresence, motion } from 'framer-motion';
+import { IbanksProps } from '../@types/IProps';
 
-const DropDown = () => {
-  const bankList = ['모든은행', '국민은행', '신한은행', '우리은행', '하나은행'];
+const DropDown = ({ bank, setBank }: IbanksProps) => {
+  const bankList = [
+    { title: '모든은행', value: 'KB신한우리하나' },
+    { title: '국민은행', value: 'KB' },
+    { title: '신한은행', value: '신한' },
+    { title: '우리은행', value: '우리' },
+    { title: '하나은행', value: '하나' },
+  ];
   const [dropdown, setDropdown] = useState(false);
-  const [bank, setBank] = useState('모든은행');
 
   return (
     <>
@@ -18,7 +24,7 @@ const DropDown = () => {
             setDropdown(!dropdown);
           }}
         >
-          {bank}
+          {bank !== undefined && bank.title}
           <SlArrowDown size={10} className='fill-main-blue' />
         </button>
         <AnimatePresence>
@@ -33,13 +39,16 @@ const DropDown = () => {
               <ul className='w-full h-fit bg-sub-gray border overflow-hidden text-sm flex flex-col items-center text-white font-bold -shadow-basic'>
                 {bankList.map(bank => (
                   <li
+                    key={bank.title}
                     onClick={() => {
-                      setBank(bank);
+                      if (setBank !== undefined) {
+                        setBank(bank);
+                      }
                       setDropdown(false);
                     }}
                     className='hover:bg-main-blue hover:bg-opacity-40 w-full flex justify-center py-3 overflow-hidden'
                   >
-                    <button>{bank}</button>
+                    <button>{bank.title}</button>
                   </li>
                 ))}
               </ul>

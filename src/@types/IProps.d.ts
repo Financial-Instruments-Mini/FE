@@ -1,5 +1,3 @@
-import { item } from './data';
-
 export interface IKeyWordButtonProps {
   keyword: string;
 }
@@ -7,8 +5,9 @@ export interface IKeyWordButtonProps {
 export interface IButtonProps {
   text: string;
   select?: boolean;
+  page?: string;
   children?: React.ReactNode;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 export interface ISubtitleProps {
   title: string;
@@ -67,12 +66,23 @@ export interface IDatasProps {
   productType: string;
 }
 
-export interface valueSaving {
+export interface IvalueSavingProps {
   savingValue?: string;
   setSavingValue?: undefined | React.Dispatch<React.SetStateAction<string>>;
 }
 export interface IItemCardProps {
-  item: item;
+  item: IDatasProps;
+  setRess?: undefined | React.Dispatch<React.SetStateAction<IDatasProps[] | undefined>>;
+  ress?: IDatasProps[];
+}
+
+export interface IServeyCardProps {
+  title: string;
+  contents: string[];
+  order: number;
+  setVisible: Dispatch<SetStateAction<number>>;
+  serveyData: string[];
+  setServeyData: Dispatch<SetStateAction<string[]>>;
 }
 
 export interface IHeaderProps {
@@ -89,4 +99,19 @@ export interface IConfirmModalProps {
   onCloseModal: () => void;
   buttonText?: { confirm: string; cancel: string };
   children: React.ReactNode;
+}
+
+export interface IsortValueProps {
+  toggle?: boolean;
+  setToggle?: undefined | React.Dispatch<React.SetStateAction<boolean>>;
+}
+export interface IbanksProps {
+  bank?: bankProp;
+  setBank?: undefined | React.Dispatch<React.SetStateAction<bankProps>>;
+}
+export interface IbankProps {
+  bankProp: {
+    title: string;
+    value: string;
+  };
 }
