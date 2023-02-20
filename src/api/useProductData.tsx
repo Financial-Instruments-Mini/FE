@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { IDatasProps } from '../@types/IProps';
+import { item } from '../@types/data';
 
 export const useProductData = (url: string) => {
-  const [ress, setRess] = useState<IDatasProps[]>();
+  const [ress, setRess] = useState<item[]>();
 
   useEffect(() => {
     try {

@@ -1,3 +1,5 @@
+import { item } from './data';
+
 export interface IKeyWordButtonProps {
   keyword: string;
 }
@@ -47,33 +49,14 @@ export interface IlistItemProps {
   name: string;
 }
 
-export interface IinterestProps {
-  id: number;
-  dueDate: string;
-  rate: number;
-}
-
-export interface IDatasProps {
-  bankName: string;
-  content: string;
-  id: number;
-  interestList: IinterestProps[];
-  job: string;
-  joinWay: string;
-  keyword: string;
-  productMakeDay: string;
-  productName: string;
-  productType: string;
-}
-
 export interface IvalueSavingProps {
   savingValue?: string;
   setSavingValue?: undefined | React.Dispatch<React.SetStateAction<string>>;
 }
 export interface IItemCardProps {
-  item: IDatasProps;
-  setRess?: undefined | React.Dispatch<React.SetStateAction<IDatasProps[] | undefined>>;
-  ress?: IDatasProps[];
+  item: item;
+  setRess?: undefined | React.Dispatch<React.SetStateAction<item[] | undefined>>;
+  ress?: item[];
 }
 
 export interface IServeyCardProps {
