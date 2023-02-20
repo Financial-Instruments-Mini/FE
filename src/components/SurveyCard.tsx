@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { ISurveyCardProps } from '../@types/IProps';
+import { ISelectState, ISurveyCardProps } from '../@types/IProps';
 import MainButton from './ui/MainButton';
 import { MdOutlineNavigateNext } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
-
-interface ISelectState {
-  content: string;
-  isSelect: boolean;
-}
 
 const SurveyCard = ({ title, contents, order, setVisible, surveyData, setSurveyData }: ISurveyCardProps) => {
   const screenTitle = title.split('/');
@@ -26,11 +21,28 @@ const SurveyCard = ({ title, contents, order, setVisible, surveyData, setSurveyD
       });
     } else {
       setSelect(prev => {
-        if (prev.length === 0) {
-          return [{ content, isSelect: true }];
+        if (prev.length !== 0) {
+          if (prev[prev.length - 1].content === content) {
+            return [{ content, isSelect: false }];
+          } else {
+            return [
+              { content: prev[prev.length - 1].content, isSelect: false },
+              { content, isSelect: true },
+            ];
+          }
         } else {
-          return [{ content, isSelect: !prev[0].isSelect }];
+          return [{ content, isSelect: true }];
         }
+        // const prevData =
+        //   prev.length !== 0
+        //     ? prev[prev.length - 1].content === content
+        //       ? [{ content, isSelect: false }]
+        //       : [
+        //           { content: prev[prev.length - 1].content, isSelect: false },
+        //           { content, isSelect: true },
+        //         ]
+        //     : [{ content, isSelect: true }];
+        // return prevData;
       });
     }
   };
@@ -59,15 +71,6 @@ const SurveyCard = ({ title, contents, order, setVisible, surveyData, setSurveyD
         });
       }
     }
-
-    // 해결x : 마지막 설문조사 결과는 포함x
-    // if (isSelectData.length !== 0) {
-    //   const newSelectData = isSelectData.map(i => i.content);
-    //   setSurveyData((prev: string[]) => {
-    //     const sendData = [...prev, ...newSelectData];
-    //     return sendData.filter((i, idx) => sendData.indexOf(i) === idx);
-    //   });
-    // }
   }, [select, setSurveyData]);
 
   return (
