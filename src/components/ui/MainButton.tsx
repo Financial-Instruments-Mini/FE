@@ -10,6 +10,7 @@ const MainButton = ({ text, select = false, page, onClick }: IButtonProps) => {
       ${select ? 'bg-main-green text-sub-green' : 'bg-sub-green text-main-green'}
       ${page === 'survey' ? null : ' w-5/12'}
       ${page === 'success' ? 'w-3/12' : null}
+      ${page === 'detail/:id' ? 'w-36' : null}
       `}
     >
       {page === 'login/register' ? (

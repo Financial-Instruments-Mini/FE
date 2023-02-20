@@ -4,9 +4,11 @@ import 국민은행 from '../assets/bankicons/금융아이콘_PNG_국민.png';
 import MainButton from '../components/ui/MainButton';
 import { useNavigate } from 'react-router-dom';
 import ConfirmModal from '../components/modal/ConfirmModal';
+import { BsStar, BsStarFill } from 'react-icons/bs';
 
 const DetailItem = () => {
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
+  const [bookmark, setBookmark] = useState<boolean>(false);
 
   const handleOpenModal = () => {
     setVisibleModal(true);
@@ -15,19 +17,42 @@ const DetailItem = () => {
     setVisibleModal(false);
   };
 
+  const handleBookmarkClick = () => {
+    setBookmark(!bookmark);
+  };
+
   return (
     <main>
       <LittleTitle title='상품 상세' />
-      <header className='flex mt-2 ml-10 justify-start'>
-        <h1 className='text-gray flex gap-1'>
+      <section className='px-6 py-2'>
+        {bookmark ? (
+          <section
+            className='w-fit flex flex-row justify-start items-center cursor-pointer gap-1'
+            onClick={handleBookmarkClick}
+          >
+            <BsStarFill className='text-main-green text-xl cursor-pointer' onClick={handleBookmarkClick} />
+            <p className='text-xs text-gray'>관심상품 등록</p>
+          </section>
+        ) : (
+          <section
+            className='w-fit flex flex-row justify-start items-center cursor-pointer gap-1'
+            onClick={handleBookmarkClick}
+          >
+            <BsStar className='text-xl text-gray' />
+            <p className='text-xs text-gray'>관심상품 등록</p>
+          </section>
+        )}
+      </section>
+      <header className='flex mt-2 mx-5'>
+        <h1 className='text-gray flex gap-1 items-center'>
           <img src={국민은행} alt='' className='h-20 w-20 rounded-full mr-8 opacity-75' />
-          <article className='mt-3'>
-            <p className='text-xl font-bold mb-2 leading-tight'>KB 주부 자녀사랑 예금</p>
-            <p className='font-bold mb-2'>국민은행</p>
+          <article className='font-bold'>
+            <p className='text-xl mb-2 leading-tight'>KB 주부 자녀사랑 예금</p>
+            <p className='mb-2'>국민은행</p>
           </article>
         </h1>
       </header>
-      <section className='text-gray p-10 flex flex-col items-center'>
+      <section className='text-gray p-8 flex flex-col items-center'>
         <section className='mb-10 flex flex-col gap-4'>
           <article>
             <h3 className='font-bold mb-2'>상품 종류</h3>
@@ -52,7 +77,7 @@ const DetailItem = () => {
         </section>
         <section className='flex flex-row gap-4 mb-6'>
           {/* <MainButton text={'관심 상품 등록'} onClick={handleOpenModal} /> */}
-          <MainButton select={true} text={'신청하기'} onClick={handleOpenModal} />
+          <MainButton select={true} text={'신청하기'} page={'detail/:id'} onClick={handleOpenModal} />
         </section>
       </section>
       {visibleModal && (

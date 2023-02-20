@@ -1,11 +1,11 @@
-import React from 'react';
 import ItemCard from '../components/ItemCard';
 import KeywordButton from '../components/KeywordButton';
 import Slide from '../components/Slide';
-import items from '../assets/data.json';
+import { useProductData } from '../api/useProductData';
 
 const Home = () => {
   const keywords = ['전체', '주거래우대', '청년우대', '주택청약', '농어촌'];
+  const { ress, setRess } = useProductData('http://localhost:4000/data');
 
   return (
     <>
@@ -23,7 +23,7 @@ const Home = () => {
         ))}
       </div>
       <div className='flex flex-wrap text-xs font-base gap-3 text-main-white my-4'>
-        {items && items.map(item => <ItemCard key={item.id} item={item} />)}
+        {ress && ress.map(item => <ItemCard key={item.id} item={item} />)}
       </div>
     </>
   );

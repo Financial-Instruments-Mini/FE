@@ -49,8 +49,14 @@ export interface IlistItemProps {
   name: string;
 }
 
+export interface IvalueSavingProps {
+  savingValue?: string;
+  setSavingValue?: undefined | React.Dispatch<React.SetStateAction<string>>;
+}
 export interface IItemCardProps {
   item: item;
+  setRess?: undefined | React.Dispatch<React.SetStateAction<item[] | undefined>>;
+  ress?: item[];
 }
 
 export interface ISurveyCardProps {
@@ -97,4 +103,19 @@ export interface IRegisterForm {
   birthDay: number;
   phoneNumber: number;
   agree: boolean;
+}
+
+export interface IsortValueProps {
+  toggle?: boolean;
+  setToggle?: undefined | React.Dispatch<React.SetStateAction<boolean>>;
+}
+export interface IbanksProps {
+  bank?: bankProp;
+  setBank?: undefined | React.Dispatch<React.SetStateAction<bankProps>>;
+}
+export interface IbankProps {
+  bankProp: {
+    title: string;
+    value: string;
+  };
 }
