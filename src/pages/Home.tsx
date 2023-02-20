@@ -11,9 +11,10 @@ const Home = () => {
     <>
       <div className='text-xl font-bold flex flex-col gap-3'>
         <span className='text-main-blue'>
-          {`강해경 `}
+          안녕하세요. {`강해경 `}
           <span className='text-black'>님</span>
         </span>
+        <span>로그인하고 상품추천 받으러 가기</span>
         <p>이런 상품은 어떠신가요?</p>
       </div>
       <Slide />
