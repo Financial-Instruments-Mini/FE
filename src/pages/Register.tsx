@@ -4,15 +4,46 @@ import MainButton from '../components/ui/MainButton';
 import { useForm } from 'react-hook-form';
 import { IRegisterForm } from '../@types/IProps';
 import RegisterInput from './../components/ui/RegisterInput';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 const Register = () => {
   const navigator = useNavigate();
+
+  const schema = yup.object().shape({
+    email: yup
+      .string()
+      // eslint-disable-next-line no-useless-escape
+      .matches(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, '이메일 형식에 맞지 않습니다.')
+      .required('이메일을 입력해주세요.'),
+    password: yup
+      .string()
+      .required('비밀번호를 입력해주세요.')
+      .matches(/^(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,12}$/, '비밀번호 조합기준에 적합하지 않습니다.'),
+    passwordCheck: yup
+      .string()
+      .required('비밀번호를 한번 더 입력해주세요.')
+      .oneOf([yup.ref('password'), ''], '비밀번호가 일치하지 않습니다.'),
+    name: yup.string().required('이름을 입력해주세요.').min(2, '최소 2자 이상 입력해주세요'),
+    birthDay: yup
+      .string()
+      .required('생년월일을 입력해주세요.')
+      .matches(/^[0-9]{8}$/, '8글자를 입력해주세요.'),
+    phoneNumber: yup
+      .string()
+      .required('전화번호를 입력해주세요.')
+      .min(11, '11글자 이상 입력해주세요.')
+      .max(12, '12글자 이하 입력해주세요.'),
+    agree: yup.boolean().oneOf([true], '체크를 해주셔야 회원가입이 가능합니다.'),
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
-  } = useForm<IRegisterForm>();
+  } = useForm<IRegisterForm>({
+    resolver: yupResolver(schema),
+  });
 
   const LinkToLogin = () => {
     navigator('/login');
@@ -22,9 +53,6 @@ const Register = () => {
   };
 
   const onValid = (data: IRegisterForm) => {
-    if (data.password !== data.passwordCheck || data.password === '') {
-      setError('passwordCheck', { message: '동일한 비밀번호를 입력해주세요' }, { shouldFocus: true });
-    }
     console.log(data);
     navigator('/survey');
   };
@@ -42,129 +70,53 @@ const Register = () => {
         </p>
 
         <form onSubmit={handleSubmit(onValid)} className='w-full flex flex-col items-center mt-12 mb-12 space-y-3'>
-          {/* <RegisterInput register={register} errors={errors} /> */}
-          <div className='w-10/12 flex justify-between items-center'>
-            <span className='font-bold text-sm'>이메일</span>
-            <div className='w-[60%] flex flex-col justify-end'>
-              <input
-                {...register('email', {
-                  required: '이메일을 입력해주세요',
-                  pattern: {
-                    // eslint-disable-next-line
-                    value: /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/,
-                    message: '올바른 이메일을 입력해주세요',
-                  },
-                })}
-                className='border-b border-b-black p-2 text-sm font-bold placeholder:font-bold placeholder:text-[0.625rem] outline-none'
-                type='email'
-                placeholder='이메일'
-              />
-              <span className='h-3 mt-2 text-xs text-gray'>{errors.email?.message}</span>
-            </div>
-          </div>
-
-          <div className='w-10/12 flex justify-between items-center'>
-            <span className='font-bold text-sm'>비밀번호</span>
-            <div className='w-[60%] flex flex-col justify-end'>
-              <input
-                {...register('password', {
-                  required: '비밀번호를 입력해주세요',
-                  pattern: {
-                    value: /^(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,12}$/,
-                    message: '올바른 비밀번호를 입력해주세요',
-                  },
-                })}
-                className='w-full border-b border-b-black p-2 text-sm font-bold placeholder:font-bold placeholder:text-[0.625rem] outline-none'
-                type='password'
-                placeholder='영어, 숫자, 특수문자 포함 8~12자 입력'
-              />
-              <span className='h-3 mt-2 text-xs text-gray'>{errors.password?.message}</span>
-            </div>
-          </div>
-
-          <div className='w-10/12 flex justify-between items-center'>
-            <span className='font-bold text-sm'>비밀번호 확인</span>
-            <div className='w-[60%] flex flex-col justify-end'>
-              <input
-                {...register('passwordCheck', {
-                  required: '비밀번호를 한번 더 입력해주세요',
-                  pattern: {
-                    value: /^(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,12}$/,
-                    message: '올바른 비밀번호를 입력해주세요',
-                  },
-                })}
-                className='w-full border-b border-b-black p-2 text-sm font-bold placeholder:font-bold placeholder:text-[0.625rem] outline-none'
-                type='password'
-                placeholder='동일한 비밀번호를 입력해주세요'
-              />
-              <span className='h-3 mt-2 text-xs text-gray'>{errors.passwordCheck?.message}</span>
-            </div>
-          </div>
-
-          <div className='w-10/12 flex justify-between items-center'>
-            <span className='font-bold text-sm'>이름</span>
-            <div className='w-[60%] flex flex-col justify-end'>
-              <input
-                {...register('name', {
-                  required: '이름을 입력해주세요',
-                  minLength: {
-                    value: 2,
-                    message: '최소 2자 이상 입력해주세요',
-                  },
-                })}
-                className='w-full border-b border-b-black p-2 text-sm font-bold placeholder:font-bold placeholder:text-[0.625rem] outline-none'
-                type='text'
-                placeholder='2자 이상 입력해주세요'
-              />
-              <span className='h-3 mt-2 text-xs text-gray'>{errors.name?.message}</span>
-            </div>
-          </div>
-
-          <div className='w-10/12 flex justify-between items-center'>
-            <span className='font-bold text-sm'>생년월일</span>
-            <div className='w-[60%] flex flex-col justify-end'>
-              <input
-                {...register('birthDay', {
-                  required: '생년월일을 입력해주세요',
-                  minLength: {
-                    value: 8,
-                    message: '8글자를 입력해주세요',
-                  },
-                  maxLength: {
-                    value: 8,
-                    message: '8글자를 입력해주세요',
-                  },
-                })}
-                className='w-full border-b border-b-black p-2 text-sm font-bold placeholder:font-bold placeholder:text-[0.625rem] outline-none'
-                type='number'
-                placeholder='‘-’ 제외 8글자 입력 (예. 19980606)'
-              />
-              <span className='h-3 mt-2 text-xs text-gray'>{errors.birthDay?.message}</span>
-            </div>
-          </div>
-
-          <div className='w-10/12 flex justify-between items-center'>
-            <span className='pb-3 font-bold text-sm'>전화번호</span>
-            <div className='w-[60%] flex flex-col justify-end'>
-              <input
-                {...register('phoneNumber', {
-                  required: '전화번호를 입력해주세요',
-                  minLength: {
-                    value: 11,
-                    message: '11글자 이상 입력해주세요',
-                  },
-                  maxLength: {
-                    value: 12,
-                    message: '12글자 이하 입력해주세요',
-                  },
-                })}
-                className='w-full border-b border-b-black p-2 text-sm font-bold placeholder:font-bold placeholder:text-[0.625rem] outline-none'
-                type='number'
-                placeholder='‘-’ 제외 11글자 이상 입력 (예. 01012345678)'
-              />
-              <span className='h-3 mt-2 text-xs text-gray'>{errors.phoneNumber?.message}</span>
-            </div>
-          </div>
+          <RegisterInput
+            title='이메일'
+            name='email'
+            text='이메일'
+            type='email'
+            register={register}
+            errorMessege={errors.email?.message}
+          />
+          <RegisterInput
+            title='비밀번호'
+            name='password'
+            text='영어, 숫자, 특수문자 포함 8~12자 입력'
+            type='password'
+            register={register}
+            errorMessege={errors.password?.message}
+          />
+          <RegisterInput
+            title='비밀번호 확인'
+            name='passwordCheck'
+            text='동일한 비밀번호를 입력해주세요'
+            type='password'
+            register={register}
+            errorMessege={errors.passwordCheck?.message}
+          />
+          <RegisterInput
+            title='이름'
+            name='name'
+            text='2자 이상 입력해주세요'
+            register={register}
+            errorMessege={errors.name?.message}
+          />
+          <RegisterInput
+            title='생년월일'
+            name='birthDay'
+            text='‘-’ 제외 8글자 입력 (예. 19980606)'
+            type='number'
+            register={register}
+            errorMessege={errors.birthDay?.message}
+          />
+          <RegisterInput
+            title='전화번호'
+            name='phoneNumber'
+            text='‘-’ 제외 8글자 입력 (예. 19980606)'
+            type='number'
+            register={register}
+            errorMessege={errors.phoneNumber?.message}
+          />
 
           <div className='w-full pt-4 flex flex-col items-center'>
             <label className='mr-8 font-bold' htmlFor='agree'>

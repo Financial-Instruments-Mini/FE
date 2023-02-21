@@ -3,14 +3,32 @@ import { useNavigate } from 'react-router-dom';
 import MainButton from '../components/ui/MainButton';
 import { useForm } from 'react-hook-form';
 import { ILoginForm } from './../@types/IProps.d';
+import LoginInput from './../components/ui/LoginInput';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const Login = () => {
   const navigator = useNavigate();
+
+  const schema = yup.object().shape({
+    email: yup
+      .string()
+      // eslint-disable-next-line no-useless-escape
+      .matches(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, '이메일 형식에 맞지 않습니다.')
+      .required('이메일을 입력해주세요.'),
+    password: yup
+      .string()
+      .required('비밀번호를 입력해주세요.')
+      .matches(/^(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,12}$/, '비밀번호 조합기준에 적합하지 않습니다.'),
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ILoginForm>();
+  } = useForm<ILoginForm>({
+    resolver: yupResolver(schema),
+  });
 
   const LinkToLogin = () => {
     navigator('/login');
@@ -36,38 +54,20 @@ const Login = () => {
         </p>
 
         <form onSubmit={handleSubmit(onValid)} className='flex flex-col items-center my-20 space-y-2'>
-          <div className='w-10/12 flex flex-col'>
-            <input
-              {...register('email', {
-                required: '이메일을 입력해주세요',
-                pattern: {
-                  // eslint-disable-next-line
-                  value: /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/,
-                  message: '올바른 이메일을 입력해주세요',
-                },
-              })}
-              className='w-full border-b border-b-black p-3 text-lg font-bold placeholder:font-bold outline-none'
-              type='email'
-              placeholder='이메일'
-            />
-            <span className='mt-2 text-xs text-gray'>{errors.email?.message}</span>
-          </div>
-
-          <div className='w-10/12 flex flex-col'>
-            <input
-              {...register('password', {
-                required: '비밀번호를 입력해주세요',
-                pattern: {
-                  value: /^(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,12}$/,
-                  message: '올바른 비밀번호를 입력해주세요',
-                },
-              })}
-              className='w-full border-b border-b-black p-3 text-lg font-bold placeholder:font-bold outline-none'
-              type='password'
-              placeholder='비밀번호'
-            />
-            <span className='mt-2 text-xs text-gray'>{errors.password?.message}</span>
-          </div>
+          <LoginInput
+            name='email'
+            text='이메일'
+            type='email'
+            register={register}
+            errorMessege={errors.email?.message}
+          />
+          <LoginInput
+            name='password'
+            text='비밀번호'
+            type='password'
+            register={register}
+            errorMessege={errors.password?.message}
+          />
         </form>
 
         <MainButton text={'로그인'} onClick={handleSubmit(onValid)} />

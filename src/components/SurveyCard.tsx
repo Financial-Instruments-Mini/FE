@@ -33,16 +33,6 @@ const SurveyCard = ({ title, contents, order, setVisible, surveyData, setSurveyD
         } else {
           return [{ content, isSelect: true }];
         }
-        // const prevData =
-        //   prev.length !== 0
-        //     ? prev[prev.length - 1].content === content
-        //       ? [{ content, isSelect: false }]
-        //       : [
-        //           { content: prev[prev.length - 1].content, isSelect: false },
-        //           { content, isSelect: true },
-        //         ]
-        //     : [{ content, isSelect: true }];
-        // return prevData;
       });
     }
   };
