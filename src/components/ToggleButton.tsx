@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
-import { IsortValueProps } from '../@types/IProps';
+import { IToggleButtonProps } from '../@types/IProps';
 
-const ToggleButton = ({ toggle, setToggle }: IsortValueProps) => {
+const ToggleButton = ({ toggle, setToggle }: IToggleButtonProps) => {
   const onClick = () => {
     if (setToggle !== undefined) {
       setToggle(!toggle);

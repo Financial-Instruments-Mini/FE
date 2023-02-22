@@ -1,45 +1,32 @@
 import React, { useState } from 'react';
-import { IvalueSavingProps } from '../@types/IProps';
+import { ISavingButtonsProps } from '../@types/IProps';
 
-const SavingsButtons = ({ savingValue, setSavingValue }: IvalueSavingProps) => {
-  const [type, setType] = useState<string>('전체');
-
-  const savingsTypes = [
-    { ko: '전체', value: 'DEPOSIT, SAVING' },
-    { ko: '예금', value: 'SAVING' },
-    { ko: '적금', value: 'DEPOSIT' },
+const SavingsButtons = ({ savingValue, setSavingValue }: ISavingButtonsProps) => {
+  const savingTypes = [
+    { title: '전체', value: '예금적금' },
+    { title: '예금', value: '예금' },
+    { title: '적금', value: '적금' },
   ];
 
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setType(`${event.currentTarget.dataset.name}`);
-    if (setSavingValue !== undefined) {
-      setSavingValue(`${event.currentTarget.dataset.value}`);
-    }
+    const newType = event.currentTarget.dataset.name;
+    newType && setSavingValue(newType);
   };
-
-  console.log(savingValue);
-
-  // const typeName = event.currentTarget.dataset.name;
-  // typeName && setType(typeName);
-  // if (event !== null && event.target instanceof HTMLElement) {
-  //   console.log(event.target.dataset.name);
-  // }
-
-  // };
 
   return (
     <div className='flex gap-2 text-gray font-bold text-base'>
-      {savingsTypes.map(savingType => (
+      {savingTypes.map(savingType => (
         <button
-          key={savingType.value}
-          data-name={savingType.ko}
+          key={savingType.title}
+          data-name={savingType.value}
           onClick={onClick}
-          data-value={savingType.value}
           className={
-            type === savingType.ko ? 'pb-2 pt-3 px-3 text-main-blue font-bold' : 'pb-2 pt-3 px-3 text-sub-gray'
+            savingValue === savingType.value
+              ? 'pb-2 pt-3 px-3 text-main-blue font-bold'
+              : 'pb-2 pt-3 px-3 text-sub-gray'
           }
         >
-          {savingType.ko}
+          {savingType.title}
         </button>
       ))}
     </div>
