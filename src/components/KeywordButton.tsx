@@ -1,9 +1,14 @@
 import React from 'react';
 import { IKeyWordButtonProps } from '../@types/IProps';
 
-const KeywordButton = ({ keyword }: IKeyWordButtonProps) => {
+const KeywordButton = ({ keyword, selectedKeyword, setSelectedKeyword }: IKeyWordButtonProps) => {
   return (
-    <button className='h-3 bg-main-blue opacity-70 py-4 px-3 flex justify-center items-center rounded-full text-xs font-bold'>
+    <button
+      className={`h-3 font-bold py-4 px-3 flex justify-center items-center rounded-full text-xs
+    ${selectedKeyword === keyword ? `bg-main-blue ` : `bg-sub-gray opacity-70`}
+    `}
+      onClick={() => setSelectedKeyword(keyword)}
+    >
       {keyword}
     </button>
   );
