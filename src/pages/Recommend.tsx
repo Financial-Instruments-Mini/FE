@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import ItemGallery from '../components/ui/ItemGallery';
 
 const Recommend = () => {
   const navigate = useNavigate();

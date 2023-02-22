@@ -16,5 +16,6 @@
       }
     ],
     "prettier/prettier": ["error", { "endOfLine": "auto" }]
-  }
+  },
+  "ignorePatterns": ["vite.config.ts"]
 }

@@ -1,11 +1,8 @@
-import ItemCard from '../components/ItemCard';
 import KeywordButton from '../components/KeywordButton';
 import Slide from '../components/Slide';
-import items from '../assets/data.json';
 import ItemGallery from '../components/ui/ItemGallery';
 import { getAllProducts, getKeywordProducts, Keyword } from '../api/api';
 import { keywordProduct } from '../@types/data';
-import { AxiosError } from 'axios';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
