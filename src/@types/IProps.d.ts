@@ -18,9 +18,11 @@ export interface ISubtitleProps {
 
 export interface IQuestProps {
   question: string;
-  value: string[];
+  loginData: IloginDataProps;
+  setLoginData: undefined | React.Dispatch<React.SetStateAction<IloginDataProps>>;
   type: string;
   replace?: boolean;
+  value: string;
 }
 
 export interface IItemProps {
@@ -30,18 +32,23 @@ export interface IItemProps {
 }
 
 export interface ISelectQuestProps {
-  label: string;
   name: string;
-  value: string;
+  loginData: IloginDataProps;
+  setLoginData: undefined | React.Dispatch<React.SetStateAction<IloginDataProps>>;
   replace: boolean;
+  value: string;
+  question: string;
 }
 
 export interface ITextQuestProps {
   readonly question: string;
-  value: string;
+  loginData: IloginDataProps;
+  setLoginData: undefined | React.Dispatch<React.SetStateAction<IloginDataProps>>;
   readonly type: string;
   replace?: boolean;
   placeHolder?: string;
+  value?: string;
+  name: string;
 }
 
 export interface IlistItemProps {
@@ -97,4 +104,39 @@ export interface IbankProps {
     title: string;
     value: string;
   };
+}
+
+export interface IloginResProps {
+  success: boolean;
+  code: number;
+  message: string;
+  data: IloginDataProps;
+}
+export interface IloginDataProps {
+  memberId: number;
+  tokenDto: ItokenProps;
+  email: string;
+  password: string;
+  name: string;
+  phoneNumber: string;
+  birthDate: string;
+  productType: string;
+  job: string;
+  bankName: string;
+}
+export interface ItokenProps {
+  accessToken: string;
+  refreshToken: string;
+  accessStartTime: string;
+  accessExpirationTime: string;
+}
+export interface IloginGetProps {
+  url: string;
+  method: string;
+  body?: IemailProps;
+}
+
+export interface IemailProps {
+  email: string;
+  password: string;
 }
