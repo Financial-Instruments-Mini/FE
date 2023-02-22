@@ -125,7 +125,7 @@ export interface bank {
 
 export interface IItemGalleryProps {
   productId?: number;
-  maxRate: number;
+  maxRate?: number;
   productName: string;
   bankName: string;
   productType?: string;
