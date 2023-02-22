@@ -14,7 +14,7 @@ const Login = () => {
   const [accessToken, setAccessToken] = useCookies();
   const [token] = useCookies();
 
-  console.log(token.accessToken);
+  // console.log(token.accessToken);
 
   const schema = yup.object().shape({
     email: yup
