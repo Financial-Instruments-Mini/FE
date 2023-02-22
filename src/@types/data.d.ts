@@ -31,7 +31,7 @@ export interface ProductsResponse {
 
 export interface Product {
   productId?: number;
-  maxRate: number;
+  maxRate?: number;
   productName: string;
   bankName: string;
   productType: string;
