@@ -10,7 +10,7 @@ export enum Keyword {
 }
 
 export const instance = axios.create({
-  baseURL: 'http://13.124.15.174:8080/api/v1/',
+  baseURL: 'https://www.ticcle.store:8080/api/v1',
 });
 
 export const logIn = async (email: string, password: string): Promise<any> => {
