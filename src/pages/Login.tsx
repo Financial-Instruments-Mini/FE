@@ -12,6 +12,9 @@ import { useCookies, Cookies } from 'react-cookie';
 const Login = () => {
   const navigator = useNavigate();
   const [accessToken, setAccessToken] = useCookies();
+  const [token] = useCookies();
+
+  console.log(token.accessToken);
 
   const schema = yup.object().shape({
     email: yup
