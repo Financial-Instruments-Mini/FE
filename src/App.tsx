@@ -11,7 +11,7 @@ import NotFound from './pages/NotFound';
 import Recommend from './pages/Recommend';
 import Register from './pages/Register';
 import Search from './pages/Search';
-import Servey from './pages/Servey';
+import Survey from './pages/Survey';
 import EndRegister from './pages/EndRegister';
 
 function App() {
@@ -28,8 +28,10 @@ function App() {
           <Route path='/recommend' element={<Recommend />} />
           <Route path='/mypage/mycart' element={<MyCart />} />
           <Route path='/bookmark' element={<BookMark />} />
+          <Route path='/mydetailpage' element={<MyDetailPage />} />
+          <Route path='/survey' element={<Survey />} />
           <Route path='/mypage/mydetailpage' element={<MyDetailPage />} />
-          <Route path='/survey' element={<Servey />} />
+          <Route path='/survey' element={<Survey />} />
           <Route path='/success' element={<EndRegister />} />
           <Route path='*' element={<NotFound />} />
         </Route>

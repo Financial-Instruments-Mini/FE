@@ -1,23 +1,13 @@
-import React, { useState, useEffect } from 'react';
 import MainImg from '../assets/images/register_success_img.png';
 import MainButton from './../components/ui/MainButton';
 import { useLocation } from 'react-router-dom';
 
 const EndRegister = () => {
-  const [isData, setIsData] = useState(false);
   const { state } = useLocation();
-
-  console.log(state);
-
-  useEffect(() => {
-    if (state && state.serveyData.length !== 0) {
-      setIsData(true);
-    }
-  }, [state]);
 
   return (
     <div className='w-full mb-20'>
-      {isData ? (
+      {state && state.surveyData.length !== 0 ? (
         <div className='text-center space-y-10 font-bold'>
           <img src={MainImg} alt='success img' />
           <p>
@@ -27,8 +17,8 @@ const EndRegister = () => {
             <span className='text-main-green'>추천상품</span> 메뉴로 들어가시면 회원님이 선택하신 정보들로 상품을
             추천해드려요
           </p>
-          <div className='w-full mt-14 flex flex-wrap justify-center space-x-3'>
-            {state.serveyData.map((data: string, index: number) => (
+          <div className='w-full mt-14 flex flex-wrap justify-center gap-3'>
+            {state.surveyData.map((data: string, index: number) => (
               <MainButton key={index} text={data} select={true} page='success' />
             ))}
           </div>
