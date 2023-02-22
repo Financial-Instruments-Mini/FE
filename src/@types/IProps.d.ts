@@ -66,13 +66,13 @@ export interface IItemCardProps {
   ress?: item[];
 }
 
-export interface IServeyCardProps {
+export interface ISurveyCardProps {
   title: string;
   contents: string[];
   order: number;
   setVisible: Dispatch<SetStateAction<number>>;
-  serveyData: string[];
-  setServeyData: Dispatch<SetStateAction<string[]>>;
+  surveyData: string[];
+  setSurveyData: Dispatch<SetStateAction<string[]>>;
 }
 
 export interface IHeaderProps {
@@ -89,6 +89,27 @@ export interface IConfirmModalProps {
   onCloseModal: () => void;
   buttonText?: { confirm: string; cancel: string };
   children: React.ReactNode;
+}
+
+export interface ISelectState {
+  content: string;
+  isSelect: boolean;
+}
+
+export interface ILoginForm {
+  email: string;
+  password: string;
+}
+
+export interface IRegisterForm {
+  email: string;
+  password: string;
+  passwordCheck: string;
+  name: string;
+  gender: string;
+  birthDay: number;
+  phoneNumber: number;
+  agree: boolean;
 }
 
 export interface IsortValueProps {

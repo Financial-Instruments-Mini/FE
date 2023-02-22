@@ -6,9 +6,9 @@ const MainButton = ({ text, select = false, page, onClick }: IButtonProps) => {
     <button
       name={text}
       onClick={onClick}
-      className={`relative h-16 px-1 shrink-0 rounded-3xl text-md font-bold -shadow-basic text-lg flex-grow
+      className={`relative h-16 px-1 shrink-0 rounded-3xl text-md font-bold -shadow-basic text-lg
       ${select ? 'bg-main-green text-sub-green' : 'bg-sub-green text-main-green'}
-      ${page === 'servey' ? '' : ' w-5/12'}
+      ${page === 'survey' ? null : ' w-5/12'}
       ${page === 'success' ? 'w-3/12' : null}
       ${page === 'detail/:id' ? 'w-36' : null}
       `}
