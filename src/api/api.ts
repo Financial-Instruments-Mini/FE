@@ -2,7 +2,7 @@ import axios from 'axios';
 import { ProductsResponse, ISearchForm } from '../@types/data';
 
 const instance = axios.create({
-  baseURL: '//13.124.15.174:8080/api/v1/',
+  baseURL: 'http://13.124.15.174:8080/api/v1/',
 });
 
 export const getAllProducts = async (page = 0): Promise<ProductsResponse> => {
@@ -40,9 +40,9 @@ export const getSearchResult = async ({ input, toggle }: ISearchForm) => {
   return response.data.data;
 };
 
-export const getRecommendProducts = async (accessToken: string) => {
+export const getRecommendProducts = async (accessToken: string): Promise<ProductsResponse | undefined> => {
   try {
-    const response = await instance.get('/products/recommend', {
+    const response = await instance.get('/member/recommend', {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

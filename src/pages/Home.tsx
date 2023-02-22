@@ -33,7 +33,7 @@ const Home = () => {
   }, [selectedKeyword]);
 
   return (
-    <>
+    <section className='mb-16'>
       <div className='text-xl font-bold flex flex-col gap-3'>
         <span className='text-black'>
           안녕하세요.
@@ -65,13 +65,11 @@ const Home = () => {
       <button
         onClick={() => fetchNextPage()}
         disabled={hasNextPage ? false : true}
-        className={`w-fit block mx-auto text-sm text-gray cursor-pointer ${
-          selectedKeyword === '전체' && hasNextPage ? '' : '-mb-10'
-        }`}
+        className={`w-fit block mx-auto text-sm text-gray cursor-pointer`}
       >
-        {selectedKeyword === '전체' && hasNextPage ? '더보기' : '준비한 목록을 모두 불러왔습니다.'}
+        {selectedKeyword === '전체' && hasNextPage ? '더보기' : ''}
       </button>
-    </>
+    </section>
   );
 };
 
