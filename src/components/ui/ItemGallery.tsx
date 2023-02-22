@@ -6,13 +6,13 @@ import { getImageUrl } from '../../utils/getImageUrl';
 import { BsBookmark } from 'react-icons/bs';
 import { Product } from '../../@types/data';
 
-const ItemGallery = ({ bankName, productName, maxRate, productType, keyword }: IItemGalleryProps) => {
+const ItemGallery = ({ productId, bankName, productName, maxRate, productType, keyword }: IItemGalleryProps) => {
   const navigate = useNavigate();
 
   return (
     <div
       onClick={() => {
-        navigate('/detail/:id');
+        navigate(`/detail/${productId}`);
       }}
       className='bg-white rounded-lg flex flex-col justify-between items-center px-4 py-5 -shadow-basic cursor-pointer text-gray gap-5 hover:opacity-70 relative'
     >

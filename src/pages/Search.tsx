@@ -52,13 +52,11 @@ const Search = () => {
     const products = result;
     const bankValue = bank.value;
     const filtered = getFilteredResults({ products, bankValue, savingValue });
-    console.log(filtered);
     if (!filtered.length) return setNoResult(true);
     setFilteredResult(filtered);
   }, [bank, savingValue, result]);
 
   useEffect(() => {
-    console.log(input);
     refetch();
   }, [input, toggle, refetch]);
 

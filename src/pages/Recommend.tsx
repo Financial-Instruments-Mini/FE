@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import items from '../assets/data.json';
 import ItemGallery from '../components/ui/ItemGallery';
 
 const Recommend = () => {
@@ -16,7 +15,7 @@ const Recommend = () => {
         <p className='text-sm leading-4'>응해주신 설문을 기반으로 예적금 상품을 추천해 드립니다. </p>
       </div>
       <div className='grid grid-cols-2 gap-3'>
-        {items && items.data.map(item => <ItemGallery key={item.id} item={item} />)}
+        {/* {items && items.data.map(item => <ItemGallery key={item.id} item={item} />)} */}
       </div>
       <button onClick={() => navigate('/survey')} className='block w-fit mx-auto mt-5 text-sm text-gray cursor-pointer'>
         {'설문 다시하고 다른상품 추천받기 →'}

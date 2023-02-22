@@ -11,13 +11,13 @@ const ItemCard = ({ product, setRess, ress }: IItemCardProps) => {
     if (location.pathname === '/mypage/mycart' && setRess !== undefined) {
       setRess(ress?.filter(res => res.id !== product.productId));
     } else {
-      navigate('/detail/:id');
+      navigate(`/detail/${product.productId}`);
     }
   };
   return (
     <div
       onClick={() => {
-        navigate('/detail/:id');
+        navigate(`/detail/${product.productId}`);
       }}
       className='h-28 w-full bg-white rounded-lg flex items-center p-4 -shadow-basic cursor-pointer'
     >
