@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { ProductsResponse, ISearchForm } from '../@types/data';
 
-// const instance = axios.create({
-//   baseURL: 'http://13.124.15.174:8080/api/v1/',
-// });
+const instance = axios.create({
+  baseURL: 'http://13.124.15.174:8080/api/v1/',
+});
 
 export const getAllProducts = async (page = 0): Promise<ProductsResponse> => {
-  const response = await axios.get('/api/products', {
+  const response = await instance.get('/api/products', {
     params: {
       page,
       sort: 'last',
@@ -24,14 +24,14 @@ export enum Keyword {
 }
 
 export const getKeywordProducts = async (keyword: keyof typeof Keyword) => {
-  const response = await axios.get(`/api/keyword/${Keyword[`${keyword}`]}`);
+  const response = await instance.get(`/api/keyword/${Keyword[`${keyword}`]}`);
   return response.data.data;
 };
 
 export const getSearchResult = async ({ input, toggle }: ISearchForm) => {
   if (input === '') return [];
   const sort = toggle ? 'interest' : 'last';
-  const response = await axios.get(`/api/products/search?`, {
+  const response = await instance.get(`/api/products/search?`, {
     params: {
       search: input,
       sort,
@@ -42,7 +42,7 @@ export const getSearchResult = async ({ input, toggle }: ISearchForm) => {
 
 export const getRecommendProducts = async (accessToken: string) => {
   try {
-    const response = await axios.get('/api/products/recommend', {
+    const response = await instance.get('/api/products/recommend', {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
