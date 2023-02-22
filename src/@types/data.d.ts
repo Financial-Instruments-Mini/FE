@@ -17,11 +17,11 @@ interface InterestList {
   rate: number;
 }
 
-export interface AllProductsResponse {
+export interface ProductsResponse {
   content: Product[];
   pageable: Pageable;
   number: number;
-  sort: Sort2;
+  sort: Sort;
   size: number;
   numberOfElements: number;
   first: boolean;
@@ -30,7 +30,7 @@ export interface AllProductsResponse {
 }
 
 export interface Product {
-  productId: number;
+  productId?: number;
   maxRate: number;
   productName: string;
   bankName: string;
@@ -50,4 +50,18 @@ export interface Sort {
   empty: boolean;
   sorted: boolean;
   unsorted: boolean;
+}
+
+export interface keywordProduct {
+  proId: number;
+  productName: string;
+  maxLimit?: number;
+  bankName: string;
+  minimumAmount?: number;
+  maxRate: number;
+}
+
+export interface ISearchForm {
+  input: string;
+  toggle?: boolean;
 }

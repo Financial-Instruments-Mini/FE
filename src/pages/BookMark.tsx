@@ -17,7 +17,7 @@ const BookMark = () => {
           items.data.map(item => {
             return (
               <section className='relative flex flex-row w-full gap-2'>
-                <ItemCard key={item.id} item={item} />
+                {/* <ItemCard key={item.id} item={item} /> */}
                 <MdDeleteForever
                   className='text-gray text-xl absolute top-2 right-2 cursor-pointer'
                   onClick={handleDeleteClick}

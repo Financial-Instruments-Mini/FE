@@ -1,9 +1,10 @@
-import { item } from './data';
+import { Keyword } from '../api/api';
+import { item, Product } from './data';
 
 export interface IKeyWordButtonProps {
-  keyword: string;
-  selectedKeyword: string;
-  setSelectedKeyword: React.Dispatch<React.SetStateAction<string>>;
+  keyword: keyof typeof Keyword;
+  selectedKeyword: keyof typeof Keyword;
+  setSelectedKeyword: React.Dispatch<React.SetStateAction<keyof typeof Keyword>>;
 }
 
 export interface IButtonProps {
@@ -51,12 +52,12 @@ export interface IListItemProps {
   name: string;
 }
 
-export interface IvalueSavingProps {
-  savingValue?: string;
-  setSavingValue?: undefined | React.Dispatch<React.SetStateAction<string>>;
+export interface ISavingButtonsProps {
+  savingValue: string;
+  setSavingValue: React.Dispatch<React.SetStateAction<string>>;
 }
 export interface IItemCardProps {
-  item: item;
+  product: Product;
   setRess?: undefined | React.Dispatch<React.SetStateAction<item[] | undefined>>;
   ress?: item[];
 }
@@ -99,4 +100,13 @@ export interface IDropDownProps {
 export interface bank {
   title: string;
   value: string;
+}
+
+export interface IItemGalleryProps {
+  productId?: number;
+  maxRate: number;
+  productName: string;
+  bankName: string;
+  productType?: string;
+  keyword?: string;
 }
