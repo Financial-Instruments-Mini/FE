@@ -1,12 +1,25 @@
 import React from 'react';
 import { ITextQuestProps } from '../@types/IProps';
 
-const TestQ = ({ question, name, type, loginData, setLoginData, replace, placeHolder, value }: ITextQuestProps) => {
+const TestQ = ({ question, name, type, loginData, setLoginData, value, replace, placeHolder }: ITextQuestProps) => {
   const onchange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (setLoginData !== undefined) {
-      setLoginData({ ...loginData, [name]: event.target.value });
+    if (setLoginData !== undefined && loginData !== undefined) {
+      setLoginData({
+        ...loginData,
+        [name as string]: event.target.value,
+      });
     }
   };
+
+  // const passwordValue = () => {
+  //   if (name === 'password' && setLoginData !== undefined && loginData !== undefined) {
+  //     setLoginData({
+  //       ...loginData,
+  //       password: '',
+  //     });
+  //     return loginData.password;
+  //   } else return value as string;
+  // };
 
   return (
     <div className='flex justify-evenly p-5'>

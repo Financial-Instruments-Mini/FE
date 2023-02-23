@@ -1,29 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ISelectQuestProps } from '../@types/IProps';
 
 const SelectQ = ({ question, name, loginData, setLoginData, replace, value }: ISelectQuestProps) => {
-  // const [majorBank, setMajorBank] = useState(loginData);
-  // // console.log(value);
-  // // console.log(majorBank);
+  const banks = ['국민', '신한', '우리', '하나'];
 
-  // useEffect(() => {
-  //   setMajorBank(loginData);
-  // }, [loginData]);
-
-  const banks = ['국민은행', '신한은행', '우리은행', '하나은행'];
-
-  const jobs = [
-    '직장인',
-    '공무원',
-    '전문직',
-    '농축수산업 종사자',
-    '개인사업자 / 자영업자',
-    '자유직 / 프리랜서',
-    '전업주부',
-    '학생',
-    '군인',
-    '무직',
-  ];
+  const jobs = ['회사원', '공무원', '전문직', '농부', '사업가/자영업자', '프리랜서', '주부', '학생', '군인', '무직'];
 
   const onchange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     if (setLoginData !== undefined) {
@@ -53,7 +34,7 @@ const SelectQ = ({ question, name, loginData, setLoginData, replace, value }: IS
               {banks.map(bank => {
                 return (
                   <option key={bank} value={bank}>
-                    {bank}
+                    {bank}은행
                   </option>
                 );
               })}

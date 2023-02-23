@@ -38,9 +38,9 @@ export const useGetLoginDataApi = (args: IloginGetProps) => {
     } catch (error) {
       console.log(error);
     }
-  });
+  }, []);
 
-  // console.log(accToken, getLoginData);
+  console.log(accToken, getLoginData);
 
   return { getLoginData };
 };

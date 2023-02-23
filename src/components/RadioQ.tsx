@@ -3,7 +3,7 @@ import { IQuestProps } from '../@types/IProps';
 
 const check: string[] = ['예금', '적금'];
 
-const RadioQ = ({ question, loginData, value, setLoginData, type, replace }: IQuestProps) => {
+const RadioQ = ({ question, loginData, setLoginData, replace, value }: IQuestProps) => {
   const checkClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked && setLoginData !== undefined) {
       setLoginData({ ...loginData, productType: loginData.productType + event.target.value });
@@ -22,7 +22,7 @@ const RadioQ = ({ question, loginData, value, setLoginData, type, replace }: IQu
               <input
                 className='accent-main-green'
                 onChange={checkClick}
-                type={type}
+                type='checkbox'
                 id={checkItem}
                 value={checkItem}
                 name={checkItem}

@@ -20,8 +20,7 @@ export interface IQuestProps {
   question: string;
   loginData: IloginDataProps;
   setLoginData: undefined | React.Dispatch<React.SetStateAction<IloginDataProps>>;
-  type: string;
-  replace?: boolean;
+  replace: boolean;
   value: string;
 }
 
@@ -41,14 +40,14 @@ export interface ISelectQuestProps {
 }
 
 export interface ITextQuestProps {
-  readonly question: string;
-  loginData: IloginDataProps;
-  setLoginData: undefined | React.Dispatch<React.SetStateAction<IloginDataProps>>;
-  readonly type: string;
+  question?: string;
+  loginData?: IloginDataProps;
+  setLoginData?: undefined | React.Dispatch<React.SetStateAction<IloginDataProps>>;
+  type?: string;
   replace?: boolean;
   placeHolder?: string;
   value?: string;
-  name: string;
+  name?: string;
 }
 
 export interface IlistItemProps {
@@ -132,6 +131,7 @@ export interface IloginResProps {
   code: number;
   message: string;
   data: IloginDataProps;
+  error?: [];
 }
 export interface IloginDataProps {
   memberId: number;
@@ -160,4 +160,27 @@ export interface IloginGetProps {
 export interface IemailProps {
   email: string;
   password: string;
+}
+
+export interface IloginPushProps {
+  url: string;
+  method: string;
+  token: string;
+  body: IloginPushBodyProps;
+}
+
+export interface IloginPushResProps {
+  success: boolean;
+  code: number;
+  message: string;
+  data: IloginDataProps;
+  error?: [];
+}
+
+export interface IloginPushBodyProps {
+  password: string;
+  phoneNumber: string;
+  productType: string;
+  job: string;
+  bankName: string;
 }
