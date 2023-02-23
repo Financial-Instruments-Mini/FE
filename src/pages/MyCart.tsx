@@ -52,7 +52,7 @@ const MyCart = () => {
               .map(res => {
                 return (
                   <div key={res.id}>
-                    <ItemCard item={res} setRess={setRess} ress={ress} />
+                    <ItemCard product={res} setRess={setRess} ress={ress} />
                   </div>
                 );
               })
@@ -71,7 +71,7 @@ const MyCart = () => {
               .map(res => {
                 return (
                   <div key={res.id}>
-                    <ItemCard item={res} setRess={setRess} ress={ress} />
+                    <ItemCard product={res} setRess={setRess} ress={ress} />
                   </div>
                 );
               })}

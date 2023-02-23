@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MainButton from '../components/ui/MainButton';
 import { useForm } from 'react-hook-form';
@@ -6,9 +6,15 @@ import { ILoginForm } from './../@types/IProps.d';
 import LoginInput from './../components/ui/LoginInput';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { logIn } from '../api/api';
+import { useCookies, Cookies } from 'react-cookie';
 
 const Login = () => {
   const navigator = useNavigate();
+  const [accessToken, setAccessToken] = useCookies();
+  const [token] = useCookies();
+
+  // console.log(token.accessToken);
 
   const schema = yup.object().shape({
     email: yup
@@ -26,6 +32,7 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<ILoginForm>({
     resolver: yupResolver(schema),
   });
@@ -37,8 +44,19 @@ const Login = () => {
     navigator('/register');
   };
 
-  const onValid = (data: ILoginForm) => {
+  const onValid = async (data: ILoginForm) => {
     console.log(data);
+    const res = await logIn(data.email, data.password);
+    console.log(res);
+
+    // access, refresh 를 둘 다 쿠키에 저장하여 시간 설정
+    if (res.success) {
+      console.log('성공');
+      setAccessToken('accessToken', res.data.tokenDto.accessToken, { maxAge: 60 * 30 });
+      setAccessToken('refreshToken', res.data.tokenDto.refreshToken, { maxAge: 60 * 60 * 24 * 14 });
+    } else {
+      alert('아이디 또는 비밀번호가 일치하지 않습니다.');
+    }
   };
 
   return (
