@@ -1,6 +1,6 @@
 import { UseFormRegister } from 'react-hook-form';
 import { Path } from 'react-hook-form/dist/types';
-import { ILoginForm } from '../../@types/IProps';
+import { ILoginForm } from './../../@types/data.d';
 
 interface ILoginInputProps {
   name: Path<ILoginForm>;

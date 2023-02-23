@@ -1,6 +1,6 @@
 import { UseFormRegister } from 'react-hook-form';
 import { Path } from 'react-hook-form/dist/types';
-import { IRegisterForm } from '../../@types/IProps';
+import { IRegisterForm } from './../../@types/data.d';
 
 interface IRegisterInputProps {
   title: string;
