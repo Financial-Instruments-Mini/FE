@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import SurveyCard from '../components/SurveyCard';
-import { options, boxVars } from '../constant';
+import { options, boxVars } from '../data/constant';
+import { editMemberInfo } from '../api/api';
+import { useCookies } from 'react-cookie';
 
 const Survey = () => {
   const [visible, setVisible] = useState(0);
   const [surveyData, setSurveyData] = useState<string[]>([]);
+  const [token, setToken] = useCookies();
+
+  // useEffect(() => {
+  //   const payload = { productType: 'DEPOSIT', job: 'STUDENT', backName: 'HA_NA' };
+  //   editMemberInfo(payload, token.accessToken).then(data => console.log(data));
+  // }, []);
 
   console.log('선택한 설문 조사 폼:', surveyData);
 

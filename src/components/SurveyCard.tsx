@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ISelectState, ISurveyCardProps } from '../@types/IProps';
+import { ISurveyCardProps } from '../@types/IProps';
 import MainButton from './ui/MainButton';
 import { MdOutlineNavigateNext } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
+import { ISelectState } from './../@types/data.d';
 
 const SurveyCard = ({ title, contents, order, setVisible, surveyData, setSurveyData }: ISurveyCardProps) => {
   const screenTitle = title.split('/');

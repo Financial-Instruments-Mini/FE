@@ -2,19 +2,25 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import MainButton from '../components/ui/MainButton';
 import { useForm } from 'react-hook-form';
-import { IRegisterForm } from '../@types/IProps';
 import RegisterInput from './../components/ui/RegisterInput';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { IRegisterForm } from './../@types/data.d';
+import { signUp } from '../api/api';
+import { useCookies } from 'react-cookie';
 
 const Register = () => {
   const navigator = useNavigate();
+  const [accessToken, setAccessToken] = useCookies();
 
   const schema = yup.object().shape({
     email: yup
       .string()
-      // eslint-disable-next-line no-useless-escape
-      .matches(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, '이메일 형식에 맞지 않습니다.')
+      .matches(
+        // eslint-disable-next-line no-useless-escape
+        /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i,
+        '이메일 형식에 맞지 않습니다.',
+      )
       .required('이메일을 입력해주세요.'),
     password: yup
       .string()
@@ -25,15 +31,14 @@ const Register = () => {
       .required('비밀번호를 한번 더 입력해주세요.')
       .oneOf([yup.ref('password'), ''], '비밀번호가 일치하지 않습니다.'),
     name: yup.string().required('이름을 입력해주세요.').min(2, '최소 2자 이상 입력해주세요'),
-    birthDay: yup
+    birthDate: yup
       .string()
       .required('생년월일을 입력해주세요.')
-      .matches(/^[0-9]{8}$/, '8글자를 입력해주세요.'),
+      .matches(/^\d{8}$/, '숫자만 8글자로 입력해주세요.'),
     phoneNumber: yup
       .string()
       .required('전화번호를 입력해주세요.')
-      .min(11, '11글자 이상 입력해주세요.')
-      .max(12, '12글자 이하 입력해주세요.'),
+      .matches(/^\d{11,12}$/, '숫자만 11글자로 입력해주세요.'),
     agree: yup.boolean().oneOf([true], '체크를 해주셔야 회원가입이 가능합니다.'),
   });
 
@@ -52,9 +57,23 @@ const Register = () => {
     navigator('/register');
   };
 
-  const onValid = (data: IRegisterForm) => {
-    console.log(data);
-    navigator('/survey');
+  const onValid = async (data: IRegisterForm) => {
+    const { email, password, name, phoneNumber, birthDate } = data;
+    console.log(email, password, name, phoneNumber, birthDate);
+    const payload = { email, password, name, phoneNumber, birthDate };
+
+    const res = await signUp(payload);
+    console.log(res);
+
+    // access, refresh 를 둘 다 쿠키에 저장하여 시간 설정
+    if (res.success) {
+      console.log('성공');
+      setAccessToken('accessToken', res.data.tokenDto.accessToken, { maxAge: 60 * 30 });
+      setAccessToken('refreshToken', res.data.tokenDto.refreshToken, { maxAge: 60 * 60 * 24 * 14 });
+      navigator('/survey');
+    } else {
+      alert('회원가입에 실패했습니다.');
+    }
   };
 
   return (
@@ -103,16 +122,16 @@ const Register = () => {
           />
           <RegisterInput
             title='생년월일'
-            name='birthDay'
+            name='birthDate'
             text='‘-’ 제외 8글자 입력 (예. 19980606)'
             type='number'
             register={register}
-            errorMessege={errors.birthDay?.message}
+            errorMessege={errors.birthDate?.message}
           />
           <RegisterInput
             title='전화번호'
             name='phoneNumber'
-            text='‘-’ 제외 8글자 입력 (예. 19980606)'
+            text='‘-’ 제외 11글자 입력 (예. 01012345678)'
             type='number'
             register={register}
             errorMessege={errors.phoneNumber?.message}

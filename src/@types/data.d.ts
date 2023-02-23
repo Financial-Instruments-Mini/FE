@@ -70,3 +70,40 @@ export interface ISearchForm {
   input: string;
   toggle?: boolean;
 }
+
+export interface ISelectState {
+  content: string;
+  isSelect: boolean;
+}
+
+export interface ILoginForm {
+  email: string;
+  password: string;
+}
+
+export interface IRegisterForm {
+  email: string;
+  password: string;
+  passwordCheck: string;
+  name: string;
+  gender: string;
+  birthDate: number;
+  phoneNumber: number;
+  agree: boolean;
+}
+
+export interface ISignUpPayload {
+  email: string;
+  password: string;
+  name: string;
+  phoneNumber: number;
+  birthDate: number;
+}
+
+export interface IEditMemberInfo {
+  password?: string;
+  phoneNumber?: string;
+  productType?: string;
+  job?: string;
+  backName?: string;
+}
