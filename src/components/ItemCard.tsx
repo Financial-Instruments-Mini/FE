@@ -8,10 +8,10 @@ const ItemCard = ({ product, setRess, ress }: IItemCardProps) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    console.log(product);
-    console.log(ress);
-  }, [product, ress]);
+  // useEffect(() => {
+  //   console.log(product);
+  //   console.log(ress);
+  // }, [product, ress]);
 
   const onClick = () => {
     if (location.pathname === '/mypage/mycart' && setRess !== undefined && ress !== undefined) {
