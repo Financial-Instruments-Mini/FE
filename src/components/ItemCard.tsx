@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { AiFillMinusCircle } from 'react-icons/ai';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IItemCardProps } from '../@types/IProps';

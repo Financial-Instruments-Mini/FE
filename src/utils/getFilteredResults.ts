@@ -11,6 +11,5 @@ export const getFilteredResults = ({ products, bankValue, savingValue }: Results
   const filteredResults: Product[] = products.filter(
     product => savingValue.includes(product.productType) && bankValue.includes(product.bankName),
   );
-  console.log(filteredResults);
   return filteredResults;
 };

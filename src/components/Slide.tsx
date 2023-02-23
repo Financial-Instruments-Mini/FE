@@ -47,16 +47,16 @@ const Slide = () => {
     setPage([page + newDirection, newDirection]);
   };
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     if (page === 2) {
-  //       setPage([0, 1]);
-  //     } else {
-  //       setPage([page + 1, 1]);
-  //     }
-  //   }, 3000);
-  //   return () => clearInterval(interval);
-  // }, [page]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (page === 2) {
+        setPage([0, 1]);
+      } else {
+        setPage([page + 1, 1]);
+      }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [page]);
 
   return (
     <div className='overflow-x-hidden relative flex justify-center items-center my-4 rounded-2xl -shadow-basic'>
@@ -114,15 +114,15 @@ const Slide = () => {
         }}
       >
         <button
-          className={`bg-white w-[${page === 0 ? '10px' : '7px'}] h-[6px] rounded-full opacity-90`}
+          className={`bg-white ${page === 0 ? 'w-[9px]' : 'w-[6px]'} h-[6px] rounded-full opacity-90`}
           data-num={0}
         ></button>
         <button
-          className={`bg-white w-[${page === 1 ? '10px' : '7px'}] h-[6px] rounded-full opacity-90`}
+          className={`bg-white ${page === 1 ? 'w-[9px]' : 'w-[6px]'} h-[6px] rounded-full opacity-90`}
           data-num={1}
         ></button>
         <button
-          className={`bg-white w-[${page === 2 ? '10px' : '7px'}] h-[6px] rounded-full opacity-90`}
+          className={`bg-white ${page === 2 ? 'w-[9px]' : 'w-[6px]'} h-[6px] rounded-full opacity-90`}
           data-num={2}
         ></button>
       </div>

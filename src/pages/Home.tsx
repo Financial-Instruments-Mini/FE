@@ -5,11 +5,15 @@ import { getAllProducts, getKeywordProducts, Keyword } from '../api/api';
 import { keywordProduct } from '../@types/data';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const keywords = Object.keys(Keyword) as Array<keyof typeof Keyword>;
   const [selectedKeyword, setSelectedKeyword] = useState<keyof typeof Keyword>('전체');
   const [keywordProducts, setKeywordProducts] = useState<keywordProduct[]>([]);
+
+  const navigate = useNavigate();
+  const isLogIn = true;
 
   const {
     data: InfiniteData,
@@ -36,11 +40,31 @@ const Home = () => {
     <section className='mb-16'>
       <div className='text-xl font-bold flex flex-col gap-3'>
         <span className='text-black'>
-          안녕하세요.
-          <span className='text-main-blue'>{` 강해경`}</span>님
+          안녕하세요
+          {isLogIn ? (
+            <span className='text-main-blue'>{' 강해경'}님</span>
+          ) : (
+            <>
+              {' tickle'}
+              <span className='text-main-green'>{' + '}</span>입니다
+            </>
+          )}
         </span>
-        <p>이런 상품은 어떠신가요?</p>
-        {/* <span>로그인하고 상품추천 받으러 가기</span> */}
+        {isLogIn ? (
+          <p>이런 상품은 어떠신가요? </p>
+        ) : (
+          <p>
+            <span
+              className='text-main-green cursor-pointer'
+              onClick={() => {
+                navigate('/login');
+              }}
+            >
+              {' 로그인'}
+            </span>
+            하러가기
+          </p>
+        )}
       </div>
       <Slide />
       <div className='flex flex-wrap text-xs  gap-2 text-main-white'>

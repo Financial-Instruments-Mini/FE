@@ -14,7 +14,10 @@ export interface item {
   minimumAmount?: number | null;
   dueDate?: number;
   rate?: number;
+<<<<<<< HEAD
   maxRate?: number;
+=======
+>>>>>>> 773b7a9ede20a3b90eec781d2ec97a6e85f18788
 }
 
 interface InterestList {
@@ -73,4 +76,41 @@ export interface keywordProduct {
 export interface ISearchForm {
   input: string;
   toggle?: boolean;
+}
+
+export interface ISelectState {
+  content: string;
+  isSelect: boolean;
+}
+
+export interface ILoginForm {
+  email: string;
+  password: string;
+}
+
+export interface IRegisterForm {
+  email: string;
+  password: string;
+  passwordCheck: string;
+  name: string;
+  gender: string;
+  birthDate: number;
+  phoneNumber: number;
+  agree: boolean;
+}
+
+export interface ISignUpPayload {
+  email: string;
+  password: string;
+  name: string;
+  phoneNumber: number;
+  birthDate: number;
+}
+
+export interface IEditMemberInfo {
+  password?: string;
+  phoneNumber?: string;
+  productType?: string;
+  job?: string;
+  backName?: string;
 }

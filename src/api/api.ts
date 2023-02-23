@@ -1,6 +1,10 @@
 import axios, { AxiosError } from 'axios';
 import { ProductsResponse, ISearchForm } from '../@types/data';
+<<<<<<< HEAD
 import { IloginPushProps } from '../@types/IProps';
+=======
+import { ISignUpPayload, IEditMemberInfo } from './../@types/data.d';
+>>>>>>> 773b7a9ede20a3b90eec781d2ec97a6e85f18788
 
 export enum Keyword {
   '전체' = '',
@@ -16,9 +20,59 @@ export const instance = axios.create({
 
 export const logIn = async (email: string, password: string): Promise<any> => {
   try {
-    const response = await instance.post(`auth/login`, {
+    const response = await instance.post(`/auth/login`, {
       email,
       password,
+    });
+    return response.data;
+  } catch (error) {
+    const { response } = error as unknown as AxiosError;
+    return response?.data;
+  }
+};
+
+export const signUp = async (payload: ISignUpPayload): Promise<any> => {
+  const { email, password, name, phoneNumber, birthDate } = payload;
+  try {
+    const response = await instance.post(`/auth/signup`, {
+      email,
+      password,
+      name,
+      phoneNumber,
+      birthDate,
+    });
+    return response.data;
+  } catch (error) {
+    const { response } = error as unknown as AxiosError;
+    return response?.data;
+  }
+};
+
+export const editMemberInfo = async (payload: IEditMemberInfo, accessToken: string): Promise<any> => {
+  const { password, phoneNumber, productType, job, backName } = payload;
+  try {
+    const response = await instance.put(
+      `/member`,
+      {
+        password,
+        phoneNumber,
+        productType,
+        job,
+        backName,
+      },
+      { headers: { Authorization: `Bearer ${accessToken}` } },
+    );
+    return response.data;
+  } catch (error) {
+    const { response } = error as unknown as AxiosError;
+    return response;
+  }
+};
+
+export const postRefreshToken = async (refreshToken: string): Promise<any> => {
+  try {
+    const response = await instance.post(`/auth/refresh`, {
+      refreshToken,
     });
     return response.data;
   } catch (error) {
@@ -67,6 +121,7 @@ export const getRecommendProducts = async (accessToken: string): Promise<Product
   }
 };
 
+<<<<<<< HEAD
 export const putLoginData = async ({
   token,
   password,
@@ -97,6 +152,8 @@ export const putLoginData = async ({
   }
 };
 
+=======
+>>>>>>> 773b7a9ede20a3b90eec781d2ec97a6e85f18788
 export const getApplyItemData = async (token: string): Promise<any> => {
   try {
     const response = await instance.get('/apply', { headers: { Authorization: `Bearer ${token}` } });

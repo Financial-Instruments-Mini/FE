@@ -93,27 +93,6 @@ export interface IConfirmModalProps {
   children: React.ReactNode;
 }
 
-export interface ISelectState {
-  content: string;
-  isSelect: boolean;
-}
-
-export interface ILoginForm {
-  email: string;
-  password: string;
-}
-
-export interface IRegisterForm {
-  email: string;
-  password: string;
-  passwordCheck: string;
-  name: string;
-  gender: string;
-  birthDay: number;
-  phoneNumber: number;
-  agree: boolean;
-}
-
 export interface IToggleButtonProps {
   toggle?: boolean;
   setToggle?: undefined | React.Dispatch<React.SetStateAction<boolean>>;
@@ -176,19 +155,6 @@ export interface IloginPushProps {
   bankName: string;
 }
 
-export interface IcartItem {
-  productId: number;
-  bankName: string;
-  productType: string;
-  productName: string;
-  maxLimit: number;
-  minimumAmount: number;
-  dueDate: number;
-  rate: number;
-}
-
-export interface IitemCard2 {
-  product: IcartItem;
-  setRess: React.Dispatch<React.SetStateAction<IcartItem[]>>;
-  ress: IcartItem[];
+export interface ISearchKeywordsProps {
+  children: React.ReactNode;
 }
