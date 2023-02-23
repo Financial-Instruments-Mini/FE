@@ -1,5 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { ProductsResponse, ISearchForm } from '../@types/data';
+import { IloginPushProps } from '../@types/IProps';
 
 export enum Keyword {
   '전체' = '',
@@ -10,7 +11,7 @@ export enum Keyword {
 }
 
 export const instance = axios.create({
-  baseURL: 'https://www.ticcle.store:8080/api/v1',
+  baseURL: 'https://www.ticcle.store/api/v1',
 });
 
 export const logIn = async (email: string, password: string): Promise<any> => {
@@ -61,6 +62,46 @@ export const getRecommendProducts = async (accessToken: string): Promise<Product
       },
     });
     return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const putLoginData = async ({
+  token,
+  password,
+  phoneNumber,
+  productType,
+  job,
+  bankName,
+}: IloginPushProps): Promise<any> => {
+  try {
+    const response = await instance.put(
+      '/member',
+      {
+        password: password,
+        phoneNumber: phoneNumber,
+        productType: productType,
+        job: job,
+        bankName: bankName,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getApplyItemData = async (token: string): Promise<any> => {
+  try {
+    const response = await instance.get('/apply', { headers: { Authorization: `Bearer ${token}` } });
+    // console.log(response.data);
+    return response.data;
   } catch (error) {
     console.log(error);
   }

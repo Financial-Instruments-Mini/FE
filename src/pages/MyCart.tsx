@@ -1,20 +1,46 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import DropDown from '../components/DropDown';
 import ItemCard from '../components/ItemCard';
 import LittleTitle from '../components/LittleTitle';
 import SavingsButtons from '../components/SavingsButtons';
 import ToggleButton from '../components/ToggleButton';
-import { useProductData } from '../api/useProductData';
+import { getApplyItemData } from '../api/api';
+import { item } from '../@types/data';
+import { IcartItem } from '../@types/IProps';
 
 const MyCart = () => {
-  const [savingValue, setSavingValue] = useState<string>('DEPOSIT, SAVING');
+  const [savingValue, setSavingValue] = useState<string>('예금, 적금');
   const [toggle, setToggle] = useState<boolean>(true);
-  const [bank, setBank] = useState({ title: '모든은행', value: 'KB신한우리하나' });
+  const [bank, setBank] = useState({ title: '모든은행', value: '국민신한우리하나' });
 
-  const { ress, setRess } = useProductData('http://localhost:4000/data');
+  const [ress, setRess] = useState<item[]>();
 
-  // console.log(ress);
+  useEffect(() => {
+    const cartData = () => {
+      getApplyItemData(
+        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhQG5hdmVyLmNvbSIsImlzcyI6InRpY2NsZSIsImlhdCI6MTY3NzE1NzI3MiwiZXhwIjoxNjc3MTU5MDcyfQ.Ynnjr-VCMmmgYXVtSbrBORV-sqagNrcciaGXWTVeNlQ',
+      ).then(appData => {
+        appData.data.content.map((item: item) => {
+          if (item.productType === '예금') {
+            return (item.maxLimit = 0);
+          } else {
+            return (item.minimumAmount = 0);
+          }
+        });
+        setRess(appData.data.content);
+      });
+    };
+
+    cartData();
+  }, []);
+
+  // useEffect(() => {
+  //   setRess([...ress]);
+  //   // console.log(ress);
+  // }, [ress]);
+
+  console.log(ress);
 
   return (
     <div>
@@ -26,7 +52,7 @@ const MyCart = () => {
           <DropDown bank={bank} setBank={setBank} />
         </div>
       </div>
-      <div className='flex justify-end'>
+      {/* <div className='flex justify-end'>
         <button
           type='button'
           className='bg-main-blue text-white p-3 mr-5 rounded-3xl'
@@ -36,23 +62,28 @@ const MyCart = () => {
         >
           전체삭제
         </button>
-      </div>
+      </div> */}
       <div className='p-5 flex flex-col gap-5'>
-        {toggle
+        {toggle && ress !== undefined
           ? ress
               ?.filter(res => {
                 return savingValue.includes(res.productType);
+                console.log(res);
               })
               .filter(res => {
-                return bank.value.includes(res.productName.split(' ')[0]);
+                return bank.value.includes(res.bankName);
               })
-              .sort((a, b) => {
-                return b.interestList[1].rate - a.interestList[1].rate;
-              })
+              // .sort((a, b) => {
+              //   return b.rate - a.rate;
+              // })
               .map(res => {
                 return (
-                  <div key={res.id}>
-                    <ItemCard product={res} setRess={setRess} ress={ress} />
+                  <div key={res.productId}>
+                    <ItemCard
+                      product={res}
+                      setRess={setRess as React.Dispatch<React.SetStateAction<item[]>>}
+                      ress={ress}
+                    />
                   </div>
                 );
               })
@@ -61,17 +92,21 @@ const MyCart = () => {
                 return savingValue.includes(res.productType);
               })
               .filter(res => {
-                return bank.value.includes(res.productName.split(' ')[0]);
+                return bank.value.includes(res.bankName);
               })
-              .sort((a, b) => {
-                const dayA = a.productMakeDay;
-                const dayB = b.productMakeDay;
-                return (dayB as string) < (dayA as string) ? -1 : 1;
-              })
+              // .sort((a, b) => {
+              //   const dayA = a.productMakeDay;
+              //   const dayB = b.productMakeDay;
+              //   return (dayB as string) < (dayA as string) ? -1 : 1;
+              // })
               .map(res => {
                 return (
-                  <div key={res.id}>
-                    <ItemCard product={res} setRess={setRess} ress={ress} />
+                  <div key={res.productId}>
+                    <ItemCard
+                      product={res}
+                      setRess={setRess as React.Dispatch<React.SetStateAction<item[]>>}
+                      ress={ress}
+                    />
                   </div>
                 );
               })}

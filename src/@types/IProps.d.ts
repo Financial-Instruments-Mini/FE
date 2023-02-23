@@ -63,8 +63,8 @@ export interface ISavingButtonsProps {
   setSavingValue: React.Dispatch<React.SetStateAction<string>>;
 }
 export interface IItemCardProps {
-  product: Product;
-  setRess?: undefined | React.Dispatch<React.SetStateAction<item[] | undefined>>;
+  product: item;
+  setRess?: React.Dispatch<React.SetStateAction<item[]>>;
   ress?: item[];
 }
 
@@ -146,8 +146,6 @@ export interface IloginResProps {
   error?: [];
 }
 export interface IloginDataProps {
-  memberId: number;
-  tokenDto: ItokenProps;
   email: string;
   password: string;
   name: string;
@@ -156,12 +154,7 @@ export interface IloginDataProps {
   productType: string;
   job: string;
   bankName: string;
-}
-export interface ItokenProps {
   accessToken: string;
-  refreshToken: string;
-  accessStartTime: string;
-  accessExpirationTime: string;
 }
 export interface IloginGetProps {
   url: string;
@@ -175,24 +168,27 @@ export interface IemailProps {
 }
 
 export interface IloginPushProps {
-  url: string;
-  method: string;
   token: string;
-  body: IloginPushBodyProps;
-}
-
-export interface IloginPushResProps {
-  success: boolean;
-  code: number;
-  message: string;
-  data: IloginDataProps;
-  error?: [];
-}
-
-export interface IloginPushBodyProps {
   password: string;
   phoneNumber: string;
   productType: string;
   job: string;
   bankName: string;
+}
+
+export interface IcartItem {
+  productId: number;
+  bankName: string;
+  productType: string;
+  productName: string;
+  maxLimit: number;
+  minimumAmount: number;
+  dueDate: number;
+  rate: number;
+}
+
+export interface IitemCard2 {
+  product: IcartItem;
+  setRess: React.Dispatch<React.SetStateAction<IcartItem[]>>;
+  ress: IcartItem[];
 }

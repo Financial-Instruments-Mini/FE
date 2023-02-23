@@ -1,14 +1,20 @@
 export interface item {
-  id: number;
+  id?: number;
   productType: string;
   bankName: string;
   productName: string;
-  joinWay: string;
-  content: string;
-  job: string;
+  joinWay?: string;
+  content?: string;
+  job?: string;
   productMakeDay?: string | null;
   keyword?: string | null;
-  interestList: InterestList[];
+  interestList?: InterestList[];
+  productId?: number;
+  maxLimit?: number | null;
+  minimumAmount?: number | null;
+  dueDate?: number;
+  rate?: number;
+  maxRate?: number;
 }
 
 interface InterestList {
@@ -35,6 +41,9 @@ export interface Product {
   productName: string;
   bankName: string;
   productType: string;
+  rate?: number;
+  maxLimit?: number;
+  minimumAmount?: number;
 }
 
 export interface Pageable {

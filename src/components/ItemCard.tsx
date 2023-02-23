@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { AiFillMinusCircle } from 'react-icons/ai';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IItemCardProps } from '../@types/IProps';
@@ -7,11 +8,26 @@ const ItemCard = ({ product, setRess, ress }: IItemCardProps) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  useEffect(() => {
+    console.log(product);
+    console.log(ress);
+  }, [product, ress]);
+
   const onClick = () => {
-    if (location.pathname === '/mypage/mycart' && setRess !== undefined) {
-      setRess(ress?.filter(res => res.id !== product.productId));
+    if (location.pathname === '/mypage/mycart' && setRess !== undefined && ress !== undefined) {
+      // setRess(ress.filter(res => res.id !== product.productId));
     } else {
       navigate(`/detail/${product.productId}`);
+    }
+  };
+
+  const comma = () => {
+    if (product.minimumAmount !== 0) {
+      const dallor = product.minimumAmount as number;
+      return dallor.toLocaleString();
+    } else {
+      const dallor = product.maxLimit as number;
+      return dallor.toLocaleString();
     }
   };
   return (
@@ -34,8 +50,17 @@ const ItemCard = ({ product, setRess, ress }: IItemCardProps) => {
         }`}
       >
         <p className='text-base font-bold mb-2 leading-tight'>{`${product.productName} `}</p>
-        <p className='text-sm'>최고 연 {product.maxRate}%</p>
-        <p className='text-sm'>{product.productType}</p>
+        <p className='text-sm'>
+          {location.pathname === '/mypage/mycart' && `${product.productType}상품 `}최고 연
+          {location.pathname === '/mypage/mycart' ? product.rate : product.maxRate}%
+        </p>
+        <p className='text-sm'>
+          {location.pathname !== '/mypage/mycart'
+            ? product.productType
+            : product.productType === 'saving'
+            ? `최대한도 ${comma()}원`
+            : `최저금액 ${comma()}원`}
+        </p>
       </div>
       <button onClick={onClick} className='basis-1/5 flex justify-center'>
         {location.pathname === '/mypage/mycart' ? <AiFillMinusCircle size={40} className='fill-main-yellow' /> : ''}

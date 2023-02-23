@@ -4,30 +4,68 @@ import LittleTitle from '../components/LittleTitle';
 import TestQ from '../components/TestQ';
 import SelectQ from '../components/SelectQ';
 import { IloginDataProps } from '../@types/IProps';
-import { useLoginApi } from '../api/useLoginApi';
+// import { useLoginApi } from '../api/useLoginApi';
 import { usePushLoginData } from '../api/usePushLoginData';
+import { logIn, putLoginData } from '../api/api';
 // import { usePushLoginData } from '../api/usePushLoginData';
 
 const MyDetailPage = () => {
   const [replace, setReplace] = useState(false);
 
-  const { loginData } = useLoginApi({
-    url: 'https://www.ticcle.store:8080/api/v1/auth/login',
-    method: 'POST',
-    body: {
-      email: 'a@naver.com',
-      password: 'asdf123@',
-    },
+  const [accToken, setAccToken] = useState({
+    email: '',
+    password: '',
+    name: '',
+    birthDate: '',
+    phoneNumber: '',
+    productType: '',
+    bankName: '',
+    job: '',
+    accessToken: '',
   });
 
-  const [accToken, setAccToken] = useState(loginData?.data as IloginDataProps);
+  useEffect(() => {
+    const logData = () => {
+      logIn('a@naver.com', 'asdf123@').then(appData => {
+        setAccToken({
+          //   ...accToken,
+          email: appData.data.email,
+          password: appData.data.password,
+          name: appData.data.name,
+          birthDate: appData.data.birthDate,
+          phoneNumber: appData.data.phoneNumber,
+          productType: appData.data.productType,
+          bankName: appData.data.bankName,
+          job: appData.data.job,
+          accessToken: appData.data.tokenDto.accessToken,
+        });
+        // console.log(appData.data.email);
+      });
+    };
+
+    logData();
+  }, []);
+
+  // console.log(accToken);
+
+  // const { loginData } = useLoginApi({
+  //   url: 'https://www.ticcle.store:8080/api/v1/auth/login',
+  //   method: 'POST',
+  //   body: {
+  //     email: 'a@naver.com',
+  //     password: 'asdf123@',
+  //   },
+  // });
+
+  // const [accToken, setAccToken] = useState(loginData?.data as IloginDataProps);
+  // const [accToken, setAccToken] = useState(loginData())
   const [submitData, setSubmitData] = useState(false);
 
-  useEffect(() => {
-    if (loginData?.data !== undefined) {
-      setAccToken({ ...loginData?.data });
-    }
-  }, [loginData?.data]);
+  // useEffect(() => {
+  //   if (loginData() !== undefined) {
+  //     setAccToken({ ...loginData() });
+  //   }
+  // }, [loginData?.data]);
 
   const submit = async () => {
     await setReplace(!replace);
@@ -35,14 +73,12 @@ const MyDetailPage = () => {
   };
 
   const subData = {
-    token: '',
-    body: {
-      password: '',
-      phoneNumber: '',
-      productType: '',
-      job: '',
-      bankName: '',
-    },
+    token: accToken.accessToken,
+    password: '',
+    phoneNumber: '',
+    productType: '',
+    job: '',
+    bankName: '',
   };
 
   useEffect(() => {
@@ -51,52 +87,52 @@ const MyDetailPage = () => {
     // } else subData.token = '';
 
     if (accToken?.productType.includes('예금') && accToken?.productType.includes('적금')) {
-      subData.body.productType = 'DEPOSIT_AND_SAVING';
+      subData.productType = 'DEPOSIT_AND_SAVING';
     } else if (accToken?.productType.includes('예금') && !accToken?.productType.includes('적금')) {
-      subData.body.productType = 'DEPOSIT';
+      subData.productType = 'DEPOSIT';
     } else if (!accToken?.productType.includes('예금') && accToken?.productType.includes('적금')) {
-      subData.body.productType = 'SAVING';
-    } else subData.body.productType = '';
+      subData.productType = 'SAVING';
+    } else subData.productType = '';
 
     if (accToken?.job === '회사원') {
-      subData.body.job = 'OFFICE_WORKERS';
+      subData.job = 'OFFICE_WORKERS';
     } else if (accToken?.job === '공무원') {
-      subData.body.job = 'PUBLIC_OFFICIAL';
+      subData.job = 'PUBLIC_OFFICIAL';
     } else if (accToken?.job === '전문직') {
-      subData.body.job = 'PROFESSION';
+      subData.job = 'PROFESSION';
     } else if (accToken?.job === '농부') {
-      subData.body.job = 'AGRICULTURAL_WORKER';
+      subData.job = 'AGRICULTURAL_WORKER';
     } else if (accToken?.job === '사업가/자영업자') {
-      subData.body.job = 'BUISNESSMAN';
+      subData.job = 'BUISNESSMAN';
     } else if (accToken?.job === '프리랜서') {
-      subData.body.job = 'FREELANCER';
+      subData.job = 'FREELANCER';
     } else if (accToken?.job === '주부') {
-      subData.body.job = 'HOUSEWIFE';
+      subData.job = 'HOUSEWIFE';
     } else if (accToken?.job === '학생') {
-      subData.body.job = 'STUDENT';
+      subData.job = 'STUDENT';
     } else if (accToken?.job === '군인') {
-      subData.body.job = 'SOLDIER';
+      subData.job = 'SOLDIER';
     } else if (accToken?.job === '무직') {
-      subData.body.job = 'INOCCUPATION';
-    } else subData.body.job = '';
+      subData.job = 'INOCCUPATION';
+    } else subData.job = '';
 
     if (accToken?.bankName === '국민') {
-      subData.body.bankName = 'KOOK_MIN';
+      subData.bankName = 'KOOK_MIN';
     } else if (accToken?.bankName === '신한') {
-      subData.body.bankName = 'SHIN_HAN';
+      subData.bankName = 'SHIN_HAN';
     } else if (accToken?.bankName === '우리') {
-      subData.body.bankName = 'WOO_RIE';
+      subData.bankName = 'WOO_RIE';
     } else if (accToken?.bankName === '하나') {
-      subData.body.bankName = 'HA_NA';
-    } else subData.body.bankName = '';
+      subData.bankName = 'HA_NA';
+    } else subData.bankName = '';
 
     if (accToken?.password !== undefined) {
-      subData.body.password = accToken.password;
-    } else subData.body.password = '';
+      subData.password = accToken.password;
+    } else subData.password = '';
 
     if (accToken?.phoneNumber !== undefined) {
-      subData.body.phoneNumber = accToken.phoneNumber;
-    } else subData.body.phoneNumber = '';
+      subData.phoneNumber = accToken.phoneNumber;
+    } else subData.phoneNumber = '';
   }, [accToken, subData]);
 
   if (
@@ -119,21 +155,23 @@ const MyDetailPage = () => {
     setSubmitData(true);
   }
 
-  const option = !submitData
-    ? {
-        url: 'https://www.ticcle.store:8080/api/v1/member',
-        method: 'PUT',
-        token: accToken?.tokenDto.accessToken,
-        body: subData.body,
-      }
-    : {
-        url: '',
-        method: 'PUT',
-        token: '',
-        body: subData.body,
-      };
+  const option =
+    !replace && submitData
+      ? subData
+      : { token: '', password: '', phoneNumber: '', productType: '', job: '', bankName: '' };
 
-  usePushLoginData(option);
+  useEffect(() => {
+    const putlogData = () => {
+      putLoginData(option).then(appData => {
+        console.log(appData);
+      });
+    };
+    putlogData();
+  }, [option]);
+
+  // console.log(option);
+
+  // usePushLoginData(option);
 
   // console.log(replace, submitData);
 
