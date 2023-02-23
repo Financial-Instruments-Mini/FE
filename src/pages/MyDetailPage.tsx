@@ -5,7 +5,6 @@ import TestQ from '../components/TestQ';
 import SelectQ from '../components/SelectQ';
 import { IloginDataProps } from '../@types/IProps';
 // import { useLoginApi } from '../api/useLoginApi';
-import { usePushLoginData } from '../api/usePushLoginData';
 import { logIn, putLoginData } from '../api/api';
 // import { usePushLoginData } from '../api/usePushLoginData';
 
