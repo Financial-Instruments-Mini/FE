@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form';
 import { ISearchForm, Product, ProductsResponse } from '../@types/data';
 import { getFilteredResults } from '../utils/getFilteredResults';
 import SearchKeywords from '../components/ui/SearchKeywords';
-import { searchKeywords } from '../constant';
+import { searchKeywords } from '../data/constant';
 
 const Search = () => {
   const { register, handleSubmit, reset } = useForm<ISearchForm>();
