@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
-import { ProductsResponse, ISearchForm } from '../@types/data';
-import { ISignUpPayload, IEditMemberInfo } from './../@types/data.d';
+import { ProductsResponse, ISearchForm, BookmarkProducts } from '../@types/data';
+import { ISignUpPayload, IEditMemberInfo, ProductDetails } from './../@types/data.d';
 
 export enum Keyword {
   '전체' = '',
@@ -122,6 +122,28 @@ export const getApplyItemData = async (token: string): Promise<any> => {
     const response = await instance.get('/apply', { headers: { Authorization: `Bearer ${token}` } });
     // console.log(response.data);
     return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getProductDetails = async (id: number): Promise<ProductDetails | undefined> => {
+  try {
+    const response = await instance.get(`products/ + ${id}`);
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getBookmarkProducts = async (accessToken: string) => {
+  try {
+    const response = await instance.get('/bookmarks/', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return response.data.data;
   } catch (error) {
     console.log(error);
   }
