@@ -1,10 +1,7 @@
 import React from 'react';
-import { AiFillMinusCircle } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { IItemGalleryProps } from '../../@types/IProps';
 import { getImageUrl } from '../../utils/getImageUrl';
-import { BsBookmark } from 'react-icons/bs';
-import { Product } from '../../@types/data';
 
 const ItemGallery = ({ productId, bankName, productName, maxRate, productType, keyword }: IItemGalleryProps) => {
   const navigate = useNavigate();

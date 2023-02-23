@@ -1,11 +1,8 @@
-import ItemCard from '../components/ItemCard';
 import KeywordButton from '../components/KeywordButton';
 import Slide from '../components/Slide';
-import items from '../assets/data.json';
 import ItemGallery from '../components/ui/ItemGallery';
 import { getAllProducts, getKeywordProducts, Keyword } from '../api/api';
 import { keywordProduct } from '../@types/data';
-import { AxiosError } from 'axios';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
@@ -36,7 +33,7 @@ const Home = () => {
   }, [selectedKeyword]);
 
   return (
-    <>
+    <section className='mb-16'>
       <div className='text-xl font-bold flex flex-col gap-3'>
         <span className='text-black'>
           안녕하세요.
@@ -68,13 +65,11 @@ const Home = () => {
       <button
         onClick={() => fetchNextPage()}
         disabled={hasNextPage ? false : true}
-        className={`w-fit block mx-auto text-sm text-gray cursor-pointer ${
-          selectedKeyword === '전체' && hasNextPage ? '' : '-mb-10'
-        }`}
+        className={`w-fit block mx-auto text-sm text-gray cursor-pointer`}
       >
-        {selectedKeyword === '전체' && hasNextPage ? '더보기' : '준비한 목록을 모두 불러왔습니다.'}
+        {selectedKeyword === '전체' && hasNextPage ? '더보기' : ''}
       </button>
-    </>
+    </section>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import banner_1 from '../assets/images/banner_img_1.jpg';
@@ -46,6 +46,18 @@ const Slide = () => {
     }
     setPage([page + newDirection, newDirection]);
   };
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     if (page === 2) {
+  //       setPage([0, 1]);
+  //     } else {
+  //       setPage([page + 1, 1]);
+  //     }
+  //   }, 3000);
+  //   return () => clearInterval(interval);
+  // }, [page]);
+
   return (
     <div className='overflow-x-hidden relative flex justify-center items-center my-4 rounded-2xl -shadow-basic'>
       <AnimatePresence initial={false} custom={direction} mode='popLayout'>
@@ -62,21 +74,29 @@ const Slide = () => {
           }}
         >
           {items && (
-            <div className='w-full h-full flex flex-col gap-2'>
-              <h3 className='font-extrabold text-xl text-[#333333] truncate'>{items.data[page].productName} </h3>
-              <p className='text-xs w-2/3 leading-4 text-[#333333]'>{items.data[page].content.slice(0, 40)} ...</p>
-              <p className='text-base'>
+            <motion.div className='w-full h-full flex flex-col gap-2'>
+              <motion.h3 className='font-extrabold text-xl text-[#333333] truncate'>
+                {items.data[page].productName}{' '}
+              </motion.h3>
+              <motion.p className='text-xs w-2/3 leading-4 text-[#333333]'>
+                {items.data[page].content.slice(0, 40)} ...
+              </motion.p>
+              <motion.p className='text-base'>
                 최고 연 <span className='font-bold text-xl'>{items.data[page].interestList[1].rate}</span>%{' '}
-                <span className='text-xs align-[2px]'>(24개월)</span>
-              </p>
-              <p
+                <motion.span className='text-xs align-[2px]'>(24개월)</motion.span>
+              </motion.p>
+              <motion.p
                 className='text-sm underline underline-offset-4 cursor-pointer absolute bottom-11'
                 onClick={() => navigate(`/detail/${items.data[1].id}`)}
               >
                 자세히 보기
-              </p>
-              <img className='w-1/2 h-36 absolute right-1 bottom-1 -z-10' src={slide[page].img} alt='배너이미지' />
-            </div>
+              </motion.p>
+              <motion.img
+                className='w-1/2 h-36 absolute right-1 bottom-1 -z-10'
+                src={slide[page].img}
+                alt='배너이미지'
+              />
+            </motion.div>
           )}
         </motion.div>
       </AnimatePresence>
@@ -86,6 +106,26 @@ const Slide = () => {
       <button className='absolute right-1 inset-y-0 my-auto z-10' onClick={() => paginate(1)}>
         <IoIosArrowForward size={35} className='fill-white' />
       </button>
+      <div
+        className='absolute bottom-4 mx-auto z-10 flex gap-1'
+        onClick={event => {
+          if (event.target instanceof HTMLElement && event.target.dataset.num)
+            setPage([Number(event.target.dataset.num), 1]);
+        }}
+      >
+        <button
+          className={`bg-white w-[${page === 0 ? '10px' : '7px'}] h-[6px] rounded-full opacity-90`}
+          data-num={0}
+        ></button>
+        <button
+          className={`bg-white w-[${page === 1 ? '10px' : '7px'}] h-[6px] rounded-full opacity-90`}
+          data-num={1}
+        ></button>
+        <button
+          className={`bg-white w-[${page === 2 ? '10px' : '7px'}] h-[6px] rounded-full opacity-90`}
+          data-num={2}
+        ></button>
+      </div>
     </div>
   );
 };

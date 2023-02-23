@@ -10,7 +10,7 @@ export enum Keyword {
 }
 
 export const instance = axios.create({
-  baseURL: 'http://13.124.15.174:8080/api/v1/',
+  baseURL: 'https://www.ticcle.store:8080/api/v1',
 });
 
 export const logIn = async (email: string, password: string): Promise<any> => {
@@ -51,4 +51,17 @@ export const getSearchResult = async ({ input, toggle }: ISearchForm) => {
     },
   });
   return response.data.data;
+};
+
+export const getRecommendProducts = async (accessToken: string): Promise<ProductsResponse | undefined> => {
+  try {
+    const response = await instance.get('/member/recommend', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
 };

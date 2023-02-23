@@ -115,7 +115,7 @@ export interface IToggleButtonProps {
 
 export interface IDropDownProps {
   bank?: bank;
-  setBank?: undefined | React.Dispatch<React.SetStateAction<bankProps>>;
+  setBank?: undefined | React.Dispatch<React.SetStateAction<bank>>;
 }
 
 export interface bank {

@@ -4,8 +4,8 @@ import { IKeyWordButtonProps } from '../@types/IProps';
 const KeywordButton = ({ keyword, selectedKeyword, setSelectedKeyword }: IKeyWordButtonProps) => {
   return (
     <button
-      className={`h-3 font-bold py-4 px-3 flex justify-center items-center rounded-full text-xs
-    ${selectedKeyword === keyword ? `bg-main-blue ` : `bg-sub-gray opacity-70`}
+      className={`h-3 font-bold py-4 px-3 flex justify-center items-center rounded-lg text-xs
+    ${selectedKeyword === keyword ? `bg-main-blue ` : `bg-sub-gray`}
     `}
       onClick={() => setSelectedKeyword(keyword)}
     >
