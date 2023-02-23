@@ -72,7 +72,7 @@ const Search = () => {
 
   if (isLoading) return <p>로딩중</p>;
   return (
-    <>
+    <section className='mb-16'>
       <div className='m-2 flex flex-wrap justify-between items-center gap-3'>
         <DropDown bank={bank} setBank={setBank} />
         <form onSubmit={handleSubmit(onValid)} className='relative w-auto grow flex'>
@@ -104,7 +104,7 @@ const Search = () => {
           bestResult && bestResult.map(product => <ItemCard key={product.productId} product={product} />)
         )}
       </div>
-    </>
+    </section>
   );
 };
 

@@ -5,7 +5,7 @@ const NavBar = () => {
   const location = useLocation();
 
   return (
-    <nav className='h-16 bg-white rounded-t-xl drop-shadow-[0_0_3px_rgba(0,0,0,0.2)] w-full fixed bottom-0 flex justify-between items-center z-50 max-w-md px-8'>
+    <nav className='h-16 bg-white rounded-t-xl drop-shadow-[0_0_3px_rgba(0,0,0,0.2)] w-full fixed bottom-0 flex justify-between items-center z-40 max-w-md px-8'>
       <main className='w-full flex justify-between items-center font-medium text-sub-gray'>
         <Link to='/'>
           <div
