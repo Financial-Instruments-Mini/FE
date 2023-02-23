@@ -14,10 +14,7 @@ export interface item {
   minimumAmount?: number | null;
   dueDate?: number;
   rate?: number;
-<<<<<<< HEAD
   maxRate?: number;
-=======
->>>>>>> 773b7a9ede20a3b90eec781d2ec97a6e85f18788
 }
 
 interface InterestList {

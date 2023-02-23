@@ -1,10 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { ProductsResponse, ISearchForm } from '../@types/data';
-<<<<<<< HEAD
 import { IloginPushProps } from '../@types/IProps';
-=======
 import { ISignUpPayload, IEditMemberInfo } from './../@types/data.d';
->>>>>>> 773b7a9ede20a3b90eec781d2ec97a6e85f18788
 
 export enum Keyword {
   '전체' = '',
@@ -121,7 +118,6 @@ export const getRecommendProducts = async (accessToken: string): Promise<Product
   }
 };
 
-<<<<<<< HEAD
 export const putLoginData = async ({
   token,
   password,
@@ -152,8 +148,6 @@ export const putLoginData = async ({
   }
 };
 
-=======
->>>>>>> 773b7a9ede20a3b90eec781d2ec97a6e85f18788
 export const getApplyItemData = async (token: string): Promise<any> => {
   try {
     const response = await instance.get('/apply', { headers: { Authorization: `Bearer ${token}` } });
