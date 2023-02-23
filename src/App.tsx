@@ -33,7 +33,14 @@ function App() {
           />
           <Route path='/detail/:id' element={<DetailItem />} />
           <Route path='/search' element={<Search />} />
-          <Route path='/recommend' element={<Recommend />} />
+          <Route
+            path='/recommend'
+            element={
+              <ProtectedRoute>
+                <Recommend />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path='/mypage/mycart'
             element={

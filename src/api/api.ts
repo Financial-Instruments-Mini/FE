@@ -103,3 +103,16 @@ export const getSearchResult = async ({ input, toggle }: ISearchForm) => {
   });
   return response.data.data;
 };
+
+export const getRecommendProducts = async (accessToken: string): Promise<ProductsResponse | undefined> => {
+  try {
+    const response = await instance.get('/member/recommend', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
