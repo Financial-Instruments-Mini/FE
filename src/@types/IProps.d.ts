@@ -64,7 +64,7 @@ export interface ISavingButtonsProps {
 }
 export interface IItemCardProps {
   product: Product;
-  setRess?: undefined | React.Dispatch<React.SetStateAction<item[] | undefined>>;
+  setRess?: undefined | React.Dispatch<React.SetStateAction<item[]>>;
   ress?: item[];
 }
 
@@ -174,4 +174,8 @@ export interface IloginPushBodyProps {
   productType: string;
   job: string;
   bankName: string;
+}
+
+export interface ISearchKeywordsProps {
+  children: React.ReactNode;
 }

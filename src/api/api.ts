@@ -11,12 +11,12 @@ export enum Keyword {
 }
 
 export const instance = axios.create({
-  baseURL: 'https://www.ticcle.store/api/v1/',
+  baseURL: 'https://www.ticcle.store/api/v1',
 });
 
 export const logIn = async (email: string, password: string): Promise<any> => {
   try {
-    const response = await instance.post(`auth/login`, {
+    const response = await instance.post(`/auth/login`, {
       email,
       password,
     });
@@ -30,7 +30,7 @@ export const logIn = async (email: string, password: string): Promise<any> => {
 export const signUp = async (payload: ISignUpPayload): Promise<any> => {
   const { email, password, name, phoneNumber, birthDate } = payload;
   try {
-    const response = await instance.post(`auth/signup`, {
+    const response = await instance.post(`/auth/signup`, {
       email,
       password,
       name,
@@ -48,7 +48,7 @@ export const editMemberInfo = async (payload: IEditMemberInfo, accessToken: stri
   const { password, phoneNumber, productType, job, backName } = payload;
   try {
     const response = await instance.put(
-      `member`,
+      `/member`,
       {
         password,
         phoneNumber,
@@ -67,7 +67,7 @@ export const editMemberInfo = async (payload: IEditMemberInfo, accessToken: stri
 
 export const postRefreshToken = async (refreshToken: string): Promise<any> => {
   try {
-    const response = await instance.post(`auth/refresh`, {
+    const response = await instance.post(`/auth/refresh`, {
       refreshToken,
     });
     return response.data;
@@ -112,6 +112,16 @@ export const getRecommendProducts = async (accessToken: string): Promise<Product
       },
     });
     return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getApplyItemData = async (token: string): Promise<any> => {
+  try {
+    const response = await instance.get('/apply', { headers: { Authorization: `Bearer ${token}` } });
+    // console.log(response.data);
+    return response.data;
   } catch (error) {
     console.log(error);
   }

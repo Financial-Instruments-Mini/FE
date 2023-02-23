@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { AiFillMinusCircle } from 'react-icons/ai';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IItemCardProps } from '../@types/IProps';
@@ -9,11 +10,17 @@ const ItemCard = ({ product, setRess, ress }: IItemCardProps) => {
 
   const onClick = () => {
     if (location.pathname === '/mypage/mycart' && setRess !== undefined) {
-      setRess(ress?.filter(res => res.id !== product.productId));
+      // setRess(ress?.filter(res => res.id !== product.productId));
     } else {
       navigate(`/detail/${product.productId}`);
     }
   };
+
+  useEffect(() => {
+    console.log(product);
+    console.log(ress);
+  }, [ress]);
+
   return (
     <div
       onClick={() => {

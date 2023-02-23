@@ -5,8 +5,8 @@ import { IDropDownProps } from '../@types/IProps';
 
 const DropDown = ({ bank, setBank }: IDropDownProps) => {
   const bankList = [
-    { title: '모든은행', value: 'KB신한우리하나' },
-    { title: '국민은행', value: 'KB' },
+    { title: '모든은행', value: '국민신한우리하나' },
+    { title: '국민은행', value: '국민' },
     { title: '신한은행', value: '신한' },
     { title: '우리은행', value: '우리' },
     { title: '하나은행', value: '하나' },

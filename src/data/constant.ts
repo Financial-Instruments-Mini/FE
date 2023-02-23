@@ -70,3 +70,5 @@ export const boxVars = {
     },
   },
 };
+
+export const searchKeywords: string[] = ['목돈', '직장인', '사업', '내맘대로', '여행', '정기', '적립식'];
