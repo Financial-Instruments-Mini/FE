@@ -131,3 +131,7 @@ export interface IItemGalleryProps {
   productType?: string;
   keyword?: string;
 }
+
+export interface ISearchKeywordsProps {
+  children: React.ReactNode;
+}
