@@ -93,27 +93,6 @@ export interface IConfirmModalProps {
   children: React.ReactNode;
 }
 
-export interface ISelectState {
-  content: string;
-  isSelect: boolean;
-}
-
-export interface ILoginForm {
-  email: string;
-  password: string;
-}
-
-export interface IRegisterForm {
-  email: string;
-  password: string;
-  passwordCheck: string;
-  name: string;
-  gender: string;
-  birthDay: number;
-  phoneNumber: number;
-  agree: boolean;
-}
-
 export interface IToggleButtonProps {
   toggle?: boolean;
   setToggle?: undefined | React.Dispatch<React.SetStateAction<boolean>>;
