@@ -5,11 +5,20 @@ import MainButton from '../components/ui/MainButton';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ConfirmModal from '../components/modal/ConfirmModal';
 import { BsStar, BsStarFill } from 'react-icons/bs';
-import { getProductDetails } from '../api/api';
+import {
+  getBookmarkProducts,
+  getProductDetails,
+  requestAddBookmark,
+  requestApplyProduct,
+  requestDeleteBookmark,
+} from '../api/api';
 import { getImageUrl } from '../utils/getImageUrl';
-import { ProductDetails } from '../@types/data';
+import { BookmarkProducts, ProductDetails } from '../@types/data';
+import { useQuery } from '@tanstack/react-query';
+import { useCookies } from 'react-cookie';
 
 const DetailItem = () => {
+  const [Token] = useCookies();
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
   const [bookmark, setBookmark] = useState<boolean>(false);
   const [detail, setDetail] = useState<ProductDetails>();
@@ -22,14 +31,30 @@ const DetailItem = () => {
     setVisibleModal(false);
   };
 
+  const addBookmark = async () => {
+    if (await requestAddBookmark(Token.accessToken, Number(placeId), 2)) setBookmark(true);
+  };
+
+  const deleteBookmark = async () => {
+    if (await requestDeleteBookmark(Token.accessToken, Number(placeId))) setBookmark(false);
+  };
+
+  const applyProduct = async () => {
+    if (await requestApplyProduct(Token.accessToken, Number(placeId), 2)) return true;
+    return false;
+  };
   const handleBookmarkClick = () => {
-    setBookmark(!bookmark);
+    if (bookmark) deleteBookmark();
+    else addBookmark();
   };
 
   useEffect(() => {
     async function getDetailData() {
       try {
         const data = await getProductDetails(Number(placeId));
+        const bookMarkList = await getBookmarkProducts(Token.accessToken);
+        if (bookMarkList?.find((bookMark: BookmarkProducts) => bookMark.productId === Number(placeId)))
+          setBookmark(true);
         setDetail(data);
       } catch (error) {
         console.log(error);
@@ -105,9 +130,8 @@ const DetailItem = () => {
           {visibleModal && (
             <ConfirmModal
               onCloseModal={handleCloseModal}
-              onConfirm={() => {
-                // 동작
-                alert('신청완료');
+              onConfirm={async () => {
+                if (await applyProduct()) alert('신청완료');
               }}
               buttonText={{ confirm: '신청', cancel: '취소' }}
             >

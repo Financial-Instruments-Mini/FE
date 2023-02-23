@@ -55,6 +55,15 @@ export interface ProductDetails {
   interests: Array;
 }
 
+export interface BookmarkProducts {
+  productId: number;
+  bankName: string;
+  productType: string;
+  productName: string;
+  dueDate: number;
+  rate: number;
+}
+
 export interface Pageable {
   sort: Sort;
   offset: number;
