@@ -37,7 +37,7 @@ const MyCart = () => {
   //   // console.log(ress);
   // }, [ress]);
 
-  console.log(ress);
+  // console.log(ress);
 
   return (
     <div>
