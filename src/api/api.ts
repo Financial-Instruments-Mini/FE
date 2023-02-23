@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
-import { ProductsResponse, ISearchForm } from '../@types/data';
-import { ISignUpPayload, IEditMemberInfo } from './../@types/data.d';
+import { ProductsResponse, ISearchForm, BookmarkProducts } from '../@types/data';
+import { ISignUpPayload, IEditMemberInfo, ProductDetails } from './../@types/data.d';
 
 export enum Keyword {
   '전체' = '',
@@ -124,5 +124,111 @@ export const getApplyItemData = async (token: string): Promise<any> => {
     return response.data;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const getProductDetails = async (id: number): Promise<ProductDetails | undefined> => {
+  try {
+    const response = await instance.get(`products/ + ${id}`);
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getBookmarkProducts = async (accessToken: string): Promise<BookmarkProducts[] | undefined> => {
+  try {
+    const response = await instance.get('/bookmarks/', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return response.data.data.content;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const requestAddBookmark = async (
+  accessToken: string,
+  productId: number,
+  interestId: number,
+): Promise<boolean> => {
+  try {
+    const res = await instance.post(
+      '/bookmarks/',
+      {
+        productId,
+        interestId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+    console.log(res);
+    if (res.data === 'success') return true;
+    return false;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+export const requestDeleteBookmark = async (accessToken: string, productId: number): Promise<boolean> => {
+  console.log(productId);
+  try {
+    const res = await instance.delete(`/bookmarks/${productId}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    if (res.data === 'success') return true;
+    return false;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+export const requestDeleteBookmarkAll = async (accessToken: string): Promise<boolean> => {
+  try {
+    const res = await instance.delete('/bookmarks', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    if (res.data === 'success') return true;
+    return false;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+export const requestApplyProduct = async (
+  accessToken: string,
+  productId: number,
+  interestId: number,
+): Promise<boolean> => {
+  try {
+    const res = await instance.post(
+      '/apply',
+      {
+        productId,
+        interestId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+    if (res.data === 'success') return true;
+    return false;
+  } catch (error) {
+    console.log(error);
+    return false;
   }
 };
