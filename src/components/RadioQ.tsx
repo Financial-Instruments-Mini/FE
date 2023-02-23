@@ -1,88 +1,40 @@
-import React, { useState } from 'react';
-import { IItemProps, IQuestProps } from '../@types/IProps';
+import React from 'react';
+import { IQuestProps } from '../@types/IProps';
 
-const list: IItemProps[] = [
-  {
-    id: 'woman',
-    title: '여성',
-    name: 'sex',
-  },
-  {
-    id: 'man',
-    title: '남성',
-    name: 'sex',
-  },
-];
+const check: string[] = ['예금', '적금'];
 
-const check: IItemProps[] = [
-  {
-    id: 'deposit',
-    title: '예금',
-    name: 'deposit',
-  },
-  {
-    id: 'saving',
-    title: '적금',
-    name: 'deposit',
-  },
-];
-
-const RadioQ = ({ question, value, type, replace }: IQuestProps) => {
-  const [reValue, setReValue] = useState(value);
-
+const RadioQ = ({ question, loginData, setLoginData, replace, value }: IQuestProps) => {
   const checkClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      setReValue(prev => {
-        return [...prev, event.target.value];
-      });
-    } else {
-      setReValue(() => {
-        return reValue.filter(arr => arr !== event.target.value);
-      });
+    if (event.target.checked && setLoginData !== undefined) {
+      setLoginData({ ...loginData, productType: loginData.productType + event.target.value });
+    } else if (!event.target.checked && setLoginData !== undefined) {
+      setLoginData({ ...loginData, productType: loginData.productType.replace(event.target.value, '') });
     }
   };
 
   return (
     <div className='flex justify-evenly p-5'>
-      <div className='pl-5 w-28 font-bold text-base'>{question}</div>
+      <div className='font-bold text-base'>{question}</div>
       <div className='grow flex justify-evenly'>
-        {type === 'radio'
-          ? list.map(listItem => {
-              return (
-                <div key={listItem.id}>
-                  <input
-                    disabled
-                    type={type}
-                    id={listItem.id}
-                    value={listItem.id}
-                    name={listItem.name}
-                    checked={listItem.id === value[0] ? true : false}
-                  />
-                  <label htmlFor={listItem.id} className='font-bold text-base'>
-                    {listItem.title}
-                  </label>
-                </div>
-              );
-            })
-          : check.map(checkItem => {
-              return (
-                <div key={checkItem.id}>
-                  <input
-                    className='accent-main-green'
-                    onChange={checkClick}
-                    type={type}
-                    id={checkItem.id}
-                    value={checkItem.id}
-                    name={checkItem.name}
-                    checked={reValue.includes(checkItem.id) ? true : false}
-                    disabled={replace ? false : true}
-                  />
-                  <label htmlFor={checkItem.id} className='font-bold text-base'>
-                    {checkItem.title}
-                  </label>
-                </div>
-              );
-            })}
+        {check.map(checkItem => {
+          return (
+            <div key={checkItem}>
+              <input
+                className='accent-main-green'
+                onChange={checkClick}
+                type='checkbox'
+                id={checkItem}
+                value={checkItem}
+                name={checkItem}
+                checked={value !== undefined && value.includes(checkItem) ? true : false}
+                disabled={replace ? false : true}
+              />
+              <label htmlFor={checkItem} className='font-bold text-base'>
+                {checkItem}
+              </label>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
