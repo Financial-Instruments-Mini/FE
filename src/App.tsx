@@ -28,8 +28,6 @@ function App() {
           <Route path='/recommend' element={<Recommend />} />
           <Route path='/mypage/mycart' element={<MyCart />} />
           <Route path='/bookmark' element={<BookMark />} />
-          <Route path='/mydetailpage' element={<MyDetailPage />} />
-          <Route path='/survey' element={<Survey />} />
           <Route path='/mypage/mydetailpage' element={<MyDetailPage />} />
           <Route path='/survey' element={<Survey />} />
           <Route path='/success' element={<EndRegister />} />

@@ -65,3 +65,13 @@ export const getRecommendProducts = async (accessToken: string): Promise<Product
     console.log(error);
   }
 };
+
+export const getApplyItemData = async (token: string): Promise<any> => {
+  try {
+    const response = await instance.get('/apply', { headers: { Authorization: `Bearer ${token}` } });
+    // console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

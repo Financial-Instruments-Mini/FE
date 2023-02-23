@@ -64,7 +64,7 @@ export interface ISavingButtonsProps {
 }
 export interface IItemCardProps {
   product: Product;
-  setRess?: undefined | React.Dispatch<React.SetStateAction<item[] | undefined>>;
+  setRess?: undefined | React.Dispatch<React.SetStateAction<item[]>>;
   ress?: item[];
 }
 

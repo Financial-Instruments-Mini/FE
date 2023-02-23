@@ -18,7 +18,7 @@ const Search = () => {
   const { register, handleSubmit, reset } = useForm<ISearchForm>();
   const [input, setInput] = useState<string>('');
   const [toggle, setToggle] = useState<boolean>(true);
-  const [bank, setBank] = useState({ title: '모든은행', value: 'KB신한우리하나' });
+  const [bank, setBank] = useState({ title: '모든은행', value: '국민신한우리하나' });
   const [savingValue, setSavingValue] = useState<string>('예금적금');
   const [result, setResult] = useState<Product[]>([]);
   const [filteredResult, setFilteredResult] = useState<Product[]>([]);
@@ -135,7 +135,7 @@ const Search = () => {
               </SearchKeywords>
             </div>
             <div className='flex flex-col items-center gap-5 h-fit my-20 opacity-40 font-bold'>
-              <GrSearchAdvanced size={50} />
+              <GrSearchAdvanced size={45} />
               <p>궁금하신 상품을 검색해보세요.</p>
             </div>
           </>
