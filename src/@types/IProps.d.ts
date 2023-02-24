@@ -1,5 +1,5 @@
-import { Keyword } from '../@types/enum.d';
-import { item, Product } from './data';
+import { item } from './data';
+import { Keyword } from './enum';
 
 export interface IKeyWordButtonProps {
   keyword: keyof typeof Keyword;
@@ -160,4 +160,26 @@ export interface IputLoginDataProps {
 
 export interface ISearchKeywordsProps {
   children: React.ReactNode;
+}
+
+export interface ISlideContentProps {
+  products: ProductDetails[];
+  page: number;
+}
+
+export interface ISearchBoxProps {
+  setInput: React.Dispatch<React.SetStateAction<string>>;
+  bank: {
+    title: string;
+    value: string;
+  };
+  setBank: React.Dispatch<React.SetStateAction<bank>>;
+  savingValue: string;
+  setSavingValue: React.Dispatch<React.SetStateAction<string>>;
+  toggle: boolean;
+  setToggle: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface IProtectedRouteProps {
+  children: React.ReactElement;
 }

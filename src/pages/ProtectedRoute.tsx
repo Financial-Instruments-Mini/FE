@@ -5,10 +5,7 @@ import { useRecoilState } from 'recoil';
 import { isLogInState } from '../data/atoms';
 import { userInfoState } from './../data/atoms';
 import { postRefreshToken } from './../api/api';
-
-interface IProtectedRouteProps {
-  children: React.ReactElement;
-}
+import { IProtectedRouteProps } from './../@types/IProps.d';
 
 const ProtectedRoute = ({ children }: IProtectedRouteProps) => {
   const [isLogIn, setIsLogIn] = useRecoilState(isLogInState);
@@ -16,15 +13,15 @@ const ProtectedRoute = ({ children }: IProtectedRouteProps) => {
   const [token, setToken] = useCookies();
 
   console.log(isLogIn, userInfo);
-  console.log('토큰: ', token);
 
-  if (!token.accessToken && token.refreshToken) {
-    postRefreshToken(token.refreshToken).then(res => {
-      console.log(res);
-      setToken('accessToken', res.data.accessToken, { maxAge: 60 * 30 });
-      setToken('refreshToken', res.data.refreshToken, { maxAge: 60 * 60 * 24 * 14 });
-    });
-  }
+  useEffect(() => {
+    if (!token.accessToken && token.refreshToken) {
+      postRefreshToken(token.refreshToken).then(res => {
+        setToken('accessToken', res.data.accessToken, { maxAge: 60 * 30 });
+        setToken('refreshToken', res.data.refreshToken, { maxAge: 60 * 60 * 24 * 14 });
+      });
+    }
+  }, []);
 
   if (isLogIn && !token.accessToken && !token.refreshToken) {
     setIsLogIn(false);
@@ -43,7 +40,7 @@ const ProtectedRoute = ({ children }: IProtectedRouteProps) => {
     alert('회원가입이나 로그인을 먼저 해주세요.');
     return <Navigate to='/login' />;
   }
-  return children;
+  return token.accessToken && children;
 };
 
 export default ProtectedRoute;

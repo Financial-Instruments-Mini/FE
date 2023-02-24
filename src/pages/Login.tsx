@@ -8,15 +8,15 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { logIn } from '../api/api';
 import { useCookies } from 'react-cookie';
 import { ILoginForm } from './../@types/data.d';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { isLogInState, userInfoState } from './../data/atoms';
 
 const Login = () => {
   const navigator = useNavigate();
-  const [Token, setToken] = useCookies();
+  const [, setToken] = useCookies();
 
   const [isLogIn, setIsLogIn] = useRecoilState(isLogInState);
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const setUserInfo = useSetRecoilState(userInfoState);
 
   useEffect(() => {
     if (isLogIn) {
@@ -55,22 +55,16 @@ const Login = () => {
   };
 
   const onValid = async (data: ILoginForm) => {
-    console.log(data);
     const res = await logIn(data.email, data.password);
-    console.log(res);
     const { email, phoneNumber, name, birthDate, productType, job, bankName } = res.data;
-    console.log(email, phoneNumber, name, birthDate, productType, job, bankName);
 
-    // access, refresh 를 둘 다 쿠키에 저장하여 시간 설정
     if (res.success) {
-      console.log('성공');
       setToken('accessToken', res.data.tokenDto.accessToken, { maxAge: 60 * 30 });
       setToken('refreshToken', res.data.tokenDto.refreshToken, { maxAge: 60 * 60 * 24 * 14 });
       setIsLogIn(true);
       setUserInfo({ email, phoneNumber, name, birthDate, productType, job, bankName });
       navigator('/');
     } else {
-      console.log('실패');
       alert('아이디 또는 비밀번호가 일치하지 않습니다.');
     }
   };

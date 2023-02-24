@@ -1,12 +1,14 @@
-import KeywordButton from '../components/KeywordButton';
-import Slide from '../components/Slide';
+import KeywordButton from '../components/home/KeywordButton';
+import Slide from '../components/home/Slide';
 import ItemGallery from '../components/ui/ItemGallery';
 import { getAllProducts, getKeywordProducts } from '../api/api';
 import { Keyword } from '../@types/enum.d';
-import { keywordProduct } from '../@types/data';
+import { keywordProduct } from '../@types/data.d';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { isLogInState, userInfoState } from '../data/atoms';
 
 const Home = () => {
   const keywords = Object.keys(Keyword) as Array<keyof typeof Keyword>;
@@ -14,7 +16,8 @@ const Home = () => {
   const [keywordProducts, setKeywordProducts] = useState<keywordProduct[]>([]);
 
   const navigate = useNavigate();
-  const isLogIn = true;
+  const isLogIn = useRecoilValue(isLogInState);
+  const userInfo = useRecoilValue(userInfoState);
 
   const {
     data: InfiniteData,
@@ -43,7 +46,13 @@ const Home = () => {
         <span className='text-black'>
           안녕하세요
           {isLogIn ? (
-            <span className='text-main-blue'>{' 강해경'}님</span>
+            <span>
+              <span
+                onClick={() => navigate('/mypage')}
+                className='text-main-blue cursor-pointer'
+              >{` ${userInfo.name}`}</span>
+              님
+            </span>
           ) : (
             <>
               {' tickle'}
@@ -56,7 +65,7 @@ const Home = () => {
         ) : (
           <p>
             <span
-              className='text-main-green cursor-pointer'
+              className='text-main-blue cursor-pointer'
               onClick={() => {
                 navigate('/login');
               }}
@@ -79,12 +88,19 @@ const Home = () => {
         ))}
       </div>
       <div className='grid grid-cols-2 text-xs font-base gap-4 text-main-white my-4'>
-        {selectedKeyword === '전체' && InfiniteData
+        {selectedKeyword === '전체'
           ? InfiniteData?.pages.map(products =>
-              products.content.map(product => <ItemGallery key={product.productId} {...product} />),
+              products?.content.map(product => <ItemGallery key={product.productId} {...product} />),
             )
           : keywordProducts.map(keywordProduct => (
-              <ItemGallery key={keywordProduct.proId} {...keywordProduct} keyword={selectedKeyword} />
+              <ItemGallery
+                key={keywordProduct.proId}
+                productId={keywordProduct.proId}
+                maxRate={keywordProduct.maxRate}
+                productName={keywordProduct.productName}
+                bankName={keywordProduct.bankName}
+                keyword={selectedKeyword}
+              />
             ))}
       </div>
       <button

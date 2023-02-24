@@ -49,10 +49,14 @@ export const editMemberInfo = async (payload: IEditMemberInfo, accessToken: stri
         productType: ProductType[`${productType}`],
         job: Job[`${job}`],
         bankName: BankName[`${bankName}`],
+        // productType: 'DEPOSIT',
+        // job: 'SOLDIER',
+        // bankName: 'WOO_RIE',
       },
       { headers: { Authorization: `Bearer ${accessToken}` } },
     );
-    return response.data;
+    console.log(response);
+    return response;
   } catch (error) {
     const { response } = error as unknown as AxiosError;
     return response;
@@ -61,11 +65,9 @@ export const editMemberInfo = async (payload: IEditMemberInfo, accessToken: stri
 
 export const postRefreshToken = async (refreshToken: string): Promise<any> => {
   try {
-    // console.log(refreshToken);
     const response = await instance.post(`/auth/refresh`, {
       refreshToken,
     });
-
     return response.data;
   } catch (error) {
     const { response } = error as unknown as AxiosError;
