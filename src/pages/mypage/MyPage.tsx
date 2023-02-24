@@ -1,7 +1,7 @@
 import { MdArrowForwardIos } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import { IListItemProps } from '../@types/IProps';
-import LittleTitle from '../components/LittleTitle';
+import { IListItemProps } from '../../@types/IProps';
+import LittleTitle from '../../components/LittleTitle';
 
 const MyPage = () => {
   const list: IListItemProps[] = [

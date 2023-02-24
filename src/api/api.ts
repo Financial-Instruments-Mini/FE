@@ -291,16 +291,3 @@ export const deleteCartData = async (accessToken: string, applyId: number) => {
     console.log(error);
   }
 };
-
-export enum MyJob {
-  '회사원' = 'OFFICE_WORKERS',
-  '공무원' = 'PUBLIC_OFFICIAL',
-  '전문직' = 'PROFESSION',
-  '농부' = 'AGRICULTURAL_WORKER',
-  '사업가/자영업자' = 'BUISNESSMAN',
-  '프리랜서' = 'FREELANCER',
-  '주부' = 'HOUSEWIFE',
-  '학생' = 'STUDENT',
-  '군인' = 'SOLDIER',
-  '무직' = 'INOCCUPATION',
-}
