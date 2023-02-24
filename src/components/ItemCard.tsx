@@ -8,11 +8,6 @@ const ItemCard = ({ product, setRess, ress, Token }: IItemCardProps) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // useEffect(() => {
-  //   console.log(product);
-  //   console.log(ress);
-  // }, [product, ress]);
-
   const onClick = () => {
     if (location.pathname === '/mypage/mycart' && setRess !== undefined && ress !== undefined) {
       // console.log(product.productId, ress[0].id);
@@ -48,14 +43,14 @@ const ItemCard = ({ product, setRess, ress, Token }: IItemCardProps) => {
           <img src={getImageUrl(product.bankName)} alt='은행로고' className='w-14 h-14' />
         </div>
         <div
-          className={`text-gray flex flex-col items-start gap-1  ${
+          className={`text-gray flex flex-col items-start justify-center  gap-1  ${
             location.pathname !== '/mypage/mycart' ? 'basis-2/3' : 'basis-3/5'
           }`}
         >
           <p className='text-base font-bold mb-2 leading-tight'>{`${product.productName} `}</p>
           <p className='text-sm'>
             {location.pathname === '/mypage/mycart' && `${product.productType}상품 `}최고 연
-            {location.pathname === '/mypage/mycart' ? product.rate : product.maxRate}%
+            {product.rate || product.maxRate}%
           </p>
           <p className='text-sm'>
             {location.pathname !== '/mypage/mycart'

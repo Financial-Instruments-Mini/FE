@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { CgSearchLoading } from 'react-icons/cg';
-import { MdDeleteForever } from 'react-icons/md';
+import { TiDeleteOutline } from 'react-icons/ti';
 import { BookmarkProducts } from '../@types/data';
 import { getBookmarkProducts, requestDeleteBookmark, requestDeleteBookmarkAll } from '../api/api';
 import ItemCard from '../components/ItemCard';
@@ -57,12 +57,13 @@ const BookMark = () => {
                 return (
                   <section className='relative flex flex-row w-full gap-2'>
                     <ItemCard key={item.productId} product={item} />
-                    <MdDeleteForever
-                      key={`${item.productId}icon`}
-                      className='text-gray absolute top-2 right-2 cursor-pointer'
-                      onClick={() => handleDeleteClick(item.productId)}
-                      size='1.5rem'
-                    />
+                    <span
+                      key={`${item.id}icon`}
+                      className='text-gray absolute top-3 right-3 cursor-pointer text-base font-bold'
+                      onClick={() => handleDeleteClick(item.id)}
+                    >
+                      ×
+                    </span>
                   </section>
                 );
               })}

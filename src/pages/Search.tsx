@@ -60,7 +60,7 @@ const Search = () => {
   }, [result, filteredResult]);
 
   const bestResult = filteredResult.length !== 0 ? filteredResult : result;
-
+  console.log(result);
   if (isLoading) return <p>로딩중</p>;
   return (
     <section className='mb-16'>
