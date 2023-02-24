@@ -1,5 +1,5 @@
 import React from 'react';
-import { ISelectQProps } from '../@types/IProps';
+import { ISelectQProps } from '../../@types/IProps';
 
 const SelectQ = ({ question, name, loginData, setLoginData, replace, value }: ISelectQProps) => {
   const banks = ['국민', '신한', '우리', '하나'];

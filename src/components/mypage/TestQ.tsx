@@ -1,5 +1,5 @@
 import React from 'react';
-import { ITextQProps } from '../@types/IProps';
+import { ITextQProps } from '../../@types/IProps';
 
 const TestQ = ({ question, name, type, loginData, setLoginData, value, replace, placeHolder }: ITextQProps) => {
   const onchange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -10,16 +10,6 @@ const TestQ = ({ question, name, type, loginData, setLoginData, value, replace, 
       });
     }
   };
-
-  // const passwordValue = () => {
-  //   if (name === 'password' && setLoginData !== undefined && loginData !== undefined) {
-  //     setLoginData({
-  //       ...loginData,
-  //       password: '',
-  //     });
-  //     return loginData.password;
-  //   } else return value as string;
-  // };
 
   return (
     <div className='flex justify-evenly p-5'>

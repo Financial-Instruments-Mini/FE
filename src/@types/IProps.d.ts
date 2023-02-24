@@ -106,11 +106,6 @@ export interface IDropDownProps {
   setBank?: undefined | React.Dispatch<React.SetStateAction<bank>>;
 }
 
-// export interface bank {
-//   title: string;
-//   value: string;
-// }
-
 export interface IItemGalleryProps {
   productId?: number;
   maxRate?: number;
@@ -119,35 +114,6 @@ export interface IItemGalleryProps {
   productType?: string;
   keyword?: string;
 }
-
-// export interface IloginResProps {
-//   success: boolean;
-//   code: number;
-//   message: string;
-//   data: IloginDataProps;
-//   error?: [];
-// }
-// export interface IloginDataProps {
-//   email: string;
-//   password: string;
-//   name: string;
-//   phoneNumber: string;
-//   birthDate: string;
-//   productType: string;
-//   job: string;
-//   bankName: string;
-//   accessToken: string;
-// }
-// export interface IloginGetProps {
-//   url: string;
-//   method: string;
-//   body?: IemailProps;
-// }
-
-// export interface IemailProps {
-//   email: string;
-//   password: string;
-// }
 
 export interface IputLoginDataProps {
   token: string;

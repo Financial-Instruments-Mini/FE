@@ -8,14 +8,8 @@ const ItemCard = ({ product, setRess, ress, Token }: IItemCardProps) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // useEffect(() => {
-  //   console.log(product);
-  //   console.log(ress);
-  // }, [product, ress]);
-
   const onClick = () => {
     if (location.pathname === '/mypage/mycart' && setRess !== undefined && ress !== undefined) {
-      // console.log(product.productId, ress[0].id);
       deleteCartData(Token?.accessToken, product.id as number);
       setRess(ress.filter(res => res.productId !== product.productId));
     } else {

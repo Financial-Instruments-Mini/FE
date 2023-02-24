@@ -1,5 +1,5 @@
 import React from 'react';
-import { IRadioQProps } from '../@types/IProps';
+import { IRadioQProps } from '../../@types/IProps';
 
 const check: string[] = ['예금', '적금'];
 
