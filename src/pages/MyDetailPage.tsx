@@ -3,13 +3,16 @@ import RadioQ from '../components/RadioQ';
 import LittleTitle from '../components/LittleTitle';
 import TestQ from '../components/TestQ';
 import SelectQ from '../components/SelectQ';
-import { IloginDataProps } from '../@types/IProps';
+// import { IloginDataProps } from '../@types/IProps';
 // import { useLoginApi } from '../api/useLoginApi';
-import { logIn, putLoginData } from '../api/api';
+import { getLoginData, logIn, putLoginData } from '../api/api';
+import { useCookies } from 'react-cookie';
 // import { usePushLoginData } from '../api/usePushLoginData';
 
 const MyDetailPage = () => {
   const [replace, setReplace] = useState(false);
+  const [Token] = useCookies();
+  // console.log(Token);
 
   const [accToken, setAccToken] = useState({
     email: '',
@@ -24,26 +27,27 @@ const MyDetailPage = () => {
   });
 
   useEffect(() => {
-    const logData = () => {
-      logIn('a@naver.com', 'asdf123@').then(appData => {
+    const loginData = () => {
+      getLoginData(Token.accessToken).then(appData => {
         setAccToken({
           //   ...accToken,
           email: appData.data.email,
-          password: appData.data.password,
+          password: '',
           name: appData.data.name,
           birthDate: appData.data.birthDate,
           phoneNumber: appData.data.phoneNumber,
           productType: appData.data.productType,
           bankName: appData.data.bankName,
           job: appData.data.job,
-          accessToken: appData.data.tokenDto.accessToken,
+          accessToken: Token.accessToken,
         });
         // console.log(appData.data.email);
       });
     };
 
-    logData();
+    loginData();
   }, []);
+  console.log(Token, accToken);
 
   // console.log(accToken);
 

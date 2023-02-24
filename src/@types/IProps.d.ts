@@ -1,5 +1,5 @@
 import { Keyword } from '../api/api';
-import { item, Product } from './data';
+import { item } from './data';
 
 export interface IKeyWordButtonProps {
   keyword: keyof typeof Keyword;
@@ -66,6 +66,9 @@ export interface IItemCardProps {
   product: item;
   setRess?: React.Dispatch<React.SetStateAction<item[]>>;
   ress?: item[];
+  Token: {
+    [x: string]: any;
+  };
 }
 
 export interface ISurveyCardProps {
