@@ -1,3 +1,4 @@
+import { boolean, string } from 'yup';
 import { Keyword } from '../api/api';
 import { item, Product } from './data';
 
@@ -183,4 +184,17 @@ export interface ISearchKeywordsProps {
 export interface ISlideContentProps {
   products: ProductDetails[];
   page: number;
+}
+
+export interface ISearchBoxProps {
+  setInput: React.Dispatch<React.SetStateAction<string>>;
+  bank: {
+    title: string;
+    value: string;
+  };
+  setBank: React.Dispatch<React.SetStateAction<bank>>;
+  savingValue: string;
+  setSavingValue: React.Dispatch<React.SetStateAction<string>>;
+  toggle: boolean;
+  setToggle: React.Dispatch<React.SetStateAction<boolean>>;
 }

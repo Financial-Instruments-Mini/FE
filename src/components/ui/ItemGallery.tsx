@@ -26,7 +26,6 @@ const ItemGallery = ({ productId, bankName, productName, maxRate, productType, k
         </p>
         <p className='text-xxs bg-sub-gray p-1 rounded-full px-2 text-white font-thin'>{productType || keyword}</p>
       </div>
-      {/* <BsBookmark size={20} className='absolute right-3 top-3 fill-sub-gray' onClick={() => console.log('북마크')} /> */}
     </div>
   );
 };

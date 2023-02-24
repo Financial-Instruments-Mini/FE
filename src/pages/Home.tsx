@@ -46,7 +46,11 @@ const Home = () => {
           안녕하세요
           {isLogIn ? (
             <span>
-              <span className='text-main-blue'>{` ${userInfo.name}`}</span>님
+              <span
+                onClick={() => navigate('/mypage')}
+                className='text-main-blue cursor-pointer'
+              >{` ${userInfo.name}`}</span>
+              님
             </span>
           ) : (
             <>
@@ -83,12 +87,19 @@ const Home = () => {
         ))}
       </div>
       <div className='grid grid-cols-2 text-xs font-base gap-4 text-main-white my-4'>
-        {selectedKeyword === '전체' && InfiniteData
+        {selectedKeyword === '전체'
           ? InfiniteData?.pages.map(products =>
-              products.content.map(product => <ItemGallery key={product.productId} {...product} />),
+              products?.content.map(product => <ItemGallery key={product.productId} {...product} />),
             )
           : keywordProducts.map(keywordProduct => (
-              <ItemGallery key={keywordProduct.proId} {...keywordProduct} keyword={selectedKeyword} />
+              <ItemGallery
+                key={keywordProduct.proId}
+                productId={keywordProduct.proId}
+                maxRate={keywordProduct.maxRate}
+                productName={keywordProduct.productName}
+                bankName={keywordProduct.bankName}
+                keyword={selectedKeyword}
+              />
             ))}
       </div>
       <button

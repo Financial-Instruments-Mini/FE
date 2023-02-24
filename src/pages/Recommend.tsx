@@ -22,6 +22,7 @@ const Recommend = () => {
       }
     },
   });
+
   return (
     <>
       <div className='text-xl font-bold flex flex-col gap-3 mb-3'>
