@@ -5,22 +5,18 @@ import { useRecoilState } from 'recoil';
 import { isLogInState } from '../data/atoms';
 import { userInfoState } from './../data/atoms';
 import { postRefreshToken } from './../api/api';
-
-interface IProtectedRouteProps {
-  children: React.ReactElement;
-}
+import { IProtectedRouteProps } from './../@types/IProps.d';
 
 const ProtectedRoute = ({ children }: IProtectedRouteProps) => {
   const [isLogIn, setIsLogIn] = useRecoilState(isLogInState);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [token, setToken] = useCookies();
 
-  // console.log(isLogIn, userInfo, token.accessToken);
+  console.log(isLogIn, userInfo);
 
   useEffect(() => {
     if (!token.accessToken && token.refreshToken) {
       postRefreshToken(token.refreshToken).then(res => {
-        console.log('hello', token.refreshToken);
         setToken('accessToken', res.data.accessToken, { maxAge: 60 * 30 });
         setToken('refreshToken', res.data.refreshToken, { maxAge: 60 * 60 * 24 * 14 });
       });
@@ -31,9 +27,9 @@ const ProtectedRoute = ({ children }: IProtectedRouteProps) => {
     setIsLogIn(false);
     setUserInfo({
       email: '',
-      phoneNumber: '',
+      phoneNumber: 0,
       name: '',
-      birthday: '',
+      birthDate: 0,
       productType: '',
       job: '',
       bankName: '',

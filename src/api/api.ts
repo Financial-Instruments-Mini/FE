@@ -1,15 +1,8 @@
 import axios, { AxiosError } from 'axios';
 import { IputLoginDataProps } from '../@types/IProps';
 import { ProductsResponse, ISearchForm, BookmarkProducts } from '../@types/data';
+import { BankName, Job, Keyword, ProductType } from '../@types/enum.d';
 import { ISignUpPayload, IEditMemberInfo, ProductDetails } from './../@types/data.d';
-
-export enum Keyword {
-  '전체' = '',
-  '주거래 우대' = 'MAIN_BANK',
-  '청년 우대' = 'YOUTH_PREFERENTIAL_TREATMENT',
-  '주택 청약' = 'HOUSING_SUBSCRIPTION',
-  '노후 준비' = 'PREPARING_FOR_OLD_AGE',
-}
 
 export const instance = axios.create({
   baseURL: 'https://www.ticcle.store/api/v1',
@@ -47,20 +40,24 @@ export const signUp = async (payload: ISignUpPayload): Promise<any> => {
 };
 
 export const editMemberInfo = async (payload: IEditMemberInfo, accessToken: string): Promise<any> => {
-  const { password, phoneNumber, productType, job, backName } = payload;
+  const { password, phoneNumber, productType, job, bankName } = payload;
   try {
     const response = await instance.put(
       `/member`,
       {
         password,
         phoneNumber,
-        productType,
-        job,
-        backName,
+        productType: ProductType[`${productType}`],
+        job: Job[`${job}`],
+        bankName: BankName[`${bankName}`],
+        // productType: 'DEPOSIT',
+        // job: 'SOLDIER',
+        // bankName: 'WOO_RIE',
       },
       { headers: { Authorization: `Bearer ${accessToken}` } },
     );
-    return response.data;
+    console.log(response);
+    return response;
   } catch (error) {
     const { response } = error as unknown as AxiosError;
     return response;
@@ -69,7 +66,6 @@ export const editMemberInfo = async (payload: IEditMemberInfo, accessToken: stri
 
 export const postRefreshToken = async (refreshToken: string): Promise<any> => {
   try {
-    // console.log(refreshToken);
     const response = await instance.post(`/auth/refresh`, {
       refreshToken,
     });

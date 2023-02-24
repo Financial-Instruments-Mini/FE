@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MainButton from '../components/ui/MainButton';
 import { useForm } from 'react-hook-form';
@@ -8,14 +8,25 @@ import * as yup from 'yup';
 import { IRegisterForm } from './../@types/data.d';
 import { signUp } from '../api/api';
 import { useCookies } from 'react-cookie';
+import { useRecoilValue } from 'recoil';
+import { isLogInState } from '../data/atoms';
 
 const Register = () => {
   const navigator = useNavigate();
-  const [accessToken, setAccessToken] = useCookies();
+  const [, setAccessToken] = useCookies();
+  const isLogIn = useRecoilValue(isLogInState);
+
+  useEffect(() => {
+    if (isLogIn) {
+      alert('로그인 상태입니다. 회원가입을 하시려면 로그아웃을 먼저 해주세요.');
+      navigator('/');
+    }
+  }, []);
 
   const schema = yup.object().shape({
     email: yup
       .string()
+      .trim()
       .matches(
         // eslint-disable-next-line no-useless-escape
         /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i,
@@ -24,19 +35,23 @@ const Register = () => {
       .required('이메일을 입력해주세요.'),
     password: yup
       .string()
+      .trim()
       .required('비밀번호를 입력해주세요.')
       .matches(/^(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,12}$/, '비밀번호 조합기준에 적합하지 않습니다.'),
     passwordCheck: yup
       .string()
+      .trim()
       .required('비밀번호를 한번 더 입력해주세요.')
       .oneOf([yup.ref('password'), ''], '비밀번호가 일치하지 않습니다.'),
     name: yup.string().required('이름을 입력해주세요.').min(2, '최소 2자 이상 입력해주세요'),
     birthDate: yup
       .string()
+      .trim()
       .required('생년월일을 입력해주세요.')
       .matches(/^\d{8}$/, '숫자만 8글자로 입력해주세요.'),
     phoneNumber: yup
       .string()
+      .trim()
       .required('전화번호를 입력해주세요.')
       .matches(/^\d{11,12}$/, '숫자만 11글자로 입력해주세요.'),
     agree: yup.boolean().oneOf([true], '체크를 해주셔야 회원가입이 가능합니다.'),

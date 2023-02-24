@@ -1,6 +1,5 @@
-import { boolean, string } from 'yup';
-import { Keyword } from '../api/api';
 import { item } from './data';
+import { Keyword } from './enum';
 
 export interface IKeyWordButtonProps {
   keyword: keyof typeof Keyword;
@@ -145,4 +144,8 @@ export interface ISearchBoxProps {
   setSavingValue: React.Dispatch<React.SetStateAction<string>>;
   toggle: boolean;
   setToggle: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface IProtectedRouteProps {
+  children: React.ReactElement;
 }
