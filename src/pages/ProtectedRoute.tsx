@@ -15,16 +15,16 @@ const ProtectedRoute = ({ children }: IProtectedRouteProps) => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [token, setToken] = useCookies();
 
-  console.log(isLogIn, userInfo);
+  // console.log(isLogIn, userInfo, token.accessToken);
 
   useEffect(() => {
     if (!token.accessToken && token.refreshToken) {
       postRefreshToken(token.refreshToken).then(res => {
         setToken('accessToken', res.data.accessToken, { maxAge: 60 * 30 });
-        setToken('refreshToken', res.data.accessToken, { maxAge: 60 * 60 * 24 * 14 });
+        setToken('refreshToken', res.data.refreshToken, { maxAge: 60 * 60 * 24 * 14 });
       });
     }
-  }, [setToken, token.accessToken, token.refreshToken]);
+  }, []);
 
   if (isLogIn && !token.accessToken && !token.refreshToken) {
     setIsLogIn(false);
@@ -43,7 +43,7 @@ const ProtectedRoute = ({ children }: IProtectedRouteProps) => {
     alert('회원가입이나 로그인을 먼저 해주세요.');
     return <Navigate to='/login' />;
   }
-  return children;
+  return token.accessToken && children;
 };
 
 export default ProtectedRoute;

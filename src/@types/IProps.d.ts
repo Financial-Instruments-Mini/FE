@@ -179,3 +179,8 @@ export interface IloginPushBodyProps {
 export interface ISearchKeywordsProps {
   children: React.ReactNode;
 }
+
+export interface ISlideContentProps {
+  products: ProductDetails[];
+  page: number;
+}
