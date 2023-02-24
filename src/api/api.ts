@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { IputLoginDataProps } from '../@types/IProps';
 import { ProductsResponse, ISearchForm, BookmarkProducts } from '../@types/data';
 import { ISignUpPayload, IEditMemberInfo, ProductDetails } from './../@types/data.d';
 
@@ -67,9 +68,11 @@ export const editMemberInfo = async (payload: IEditMemberInfo, accessToken: stri
 
 export const postRefreshToken = async (refreshToken: string): Promise<any> => {
   try {
+    // console.log(refreshToken);
     const response = await instance.post(`/auth/refresh`, {
       refreshToken,
     });
+
     return response.data;
   } catch (error) {
     const { response } = error as unknown as AxiosError;
@@ -112,6 +115,36 @@ export const getRecommendProducts = async (accessToken: string): Promise<Product
       },
     });
     return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const putLoginData = async ({
+  token,
+  password,
+  phoneNumber,
+  productType,
+  job,
+  bankName,
+}: IputLoginDataProps): Promise<any> => {
+  try {
+    const response = await instance.put(
+      '/member',
+      {
+        password: password,
+        phoneNumber: phoneNumber,
+        productType: productType,
+        job: job,
+        bankName: bankName,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return response.data;
   } catch (error) {
     console.log(error);
   }
@@ -232,3 +265,43 @@ export const requestApplyProduct = async (
     return false;
   }
 };
+
+export const getLoginData = async (accessToken: string): Promise<any> => {
+  try {
+    const response = await instance.get('/member', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteCartData = async (accessToken: string, applyId: number) => {
+  try {
+    const response = await instance.delete(`/apply/${applyId}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export enum MyJob {
+  '회사원' = 'OFFICE_WORKERS',
+  '공무원' = 'PUBLIC_OFFICIAL',
+  '전문직' = 'PROFESSION',
+  '농부' = 'AGRICULTURAL_WORKER',
+  '사업가/자영업자' = 'BUISNESSMAN',
+  '프리랜서' = 'FREELANCER',
+  '주부' = 'HOUSEWIFE',
+  '학생' = 'STUDENT',
+  '군인' = 'SOLDIER',
+  '무직' = 'INOCCUPATION',
+}
