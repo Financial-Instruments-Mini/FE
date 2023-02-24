@@ -39,20 +39,22 @@ export const signUp = async (payload: ISignUpPayload): Promise<any> => {
   }
 };
 
-export const editMemberInfo = async (payload: IEditMemberInfo, accessToken: string): Promise<any> => {
-  const { password, phoneNumber, productType, job, bankName } = payload;
+export const putSurveyInfo = async (
+  { productType, job, bankName }: IEditMemberInfo,
+  accessToken: string,
+): Promise<any> => {
   try {
+    console.log({
+      productType: ProductType[`${productType}`],
+      job: Job[`${job}`],
+      bankName: BankName[`${bankName}`],
+    });
     const response = await instance.put(
       `/member`,
       {
-        password,
-        phoneNumber,
         productType: ProductType[`${productType}`],
         job: Job[`${job}`],
         bankName: BankName[`${bankName}`],
-        // productType: 'DEPOSIT',
-        // job: 'SOLDIER',
-        // bankName: 'WOO_RIE',
       },
       { headers: { Authorization: `Bearer ${accessToken}` } },
     );
@@ -149,7 +151,6 @@ export const putLoginData = async ({
 export const getApplyItemData = async (token: string): Promise<any> => {
   try {
     const response = await instance.get('/apply', { headers: { Authorization: `Bearer ${token}` } });
-    // console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);

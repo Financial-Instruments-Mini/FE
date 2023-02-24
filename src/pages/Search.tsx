@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ItemCard from '../components/ItemCard';
+import ItemCard from '../components/ui/ItemCard';
 import { CgSearchLoading } from 'react-icons/cg';
 import { GrSearchAdvanced } from 'react-icons/gr';
 import { useQuery } from '@tanstack/react-query';
@@ -60,7 +60,7 @@ const Search = () => {
   }, [result, filteredResult]);
 
   const bestResult = filteredResult.length !== 0 ? filteredResult : result;
-
+  console.log(result);
   if (isLoading) return <p>로딩중</p>;
   return (
     <section className='mb-16'>

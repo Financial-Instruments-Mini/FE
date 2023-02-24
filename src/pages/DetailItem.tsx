@@ -1,6 +1,5 @@
-import { JSXElementConstructor, Key, ReactElement, ReactFragment, ReactPortal, useEffect, useState } from 'react';
-import LittleTitle from '../components/LittleTitle';
-import 국민은행 from '../assets/bankicons/금융아이콘_PNG_국민.png';
+import { useEffect, useState } from 'react';
+import LittleTitle from '../components/ui/LittleTitle';
 import MainButton from '../components/ui/MainButton';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ConfirmModal from '../components/modal/ConfirmModal';
@@ -13,10 +12,9 @@ import {
   requestDeleteBookmark,
 } from '../api/api';
 import { getImageUrl } from '../utils/getImageUrl';
-import { BookmarkId, BookmarkProducts, ProductDetails } from '../@types/data';
-import { useQuery } from '@tanstack/react-query';
+import { BookmarkProducts, ProductDetails } from '../@types/data';
 import { useCookies } from 'react-cookie';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { isLogInState } from '../data/atoms';
 
 const DetailItem = () => {
@@ -26,7 +24,7 @@ const DetailItem = () => {
   const [detail, setDetail] = useState<ProductDetails>();
   const placeId = useLocation().pathname.split('/')[2];
   const [bookmarkId, setBookmarkId] = useState<number>();
-
+  const isLogIn = useRecoilValue(isLogInState);
   const handleOpenModal = () => {
     setVisibleModal(true);
   };
@@ -43,6 +41,10 @@ const DetailItem = () => {
   };
 
   const applyProduct = async () => {
+    if (!isLogIn) {
+      alert('로그인이 필요한 서비스입니다.');
+      return;
+    }
     if (await requestApplyProduct(Token.accessToken, Number(placeId), 2)) return true;
     return false;
   };
@@ -60,6 +62,7 @@ const DetailItem = () => {
           setBookmark(true);
         }
         bookMarkList?.forEach((bookMark: BookmarkProducts) => {
+          console.log(bookMarkList);
           if (bookMark.productId === Number(placeId)) {
             setBookmarkId(bookMark.id);
           }
@@ -70,21 +73,19 @@ const DetailItem = () => {
       }
     }
     getDetailData();
-  }, []);
+  }, [bookmark]);
 
   return (
     <>
       {detail && (
-        <main className=''>
+        <main className='mb-16'>
           <LittleTitle title='상품 상세' />
           <header className='flex-col my-2 mx-1 p-4 rounded-xl -shadow-basic'>
-            <h1 className='text-gray flex gap-1 items-start'>
-              <img
-                src={getImageUrl(detail.bankName)}
-                alt='은행로고'
-                className='h-20 w-20 rounded-full mr-8 opacity-75'
-              />
-              <article className='font-bold'>
+            <h1 className='text-gray flex gap-3 justify-around px-3'>
+              <div className='my-auto w-1/4'>
+                <img src={getImageUrl(detail.bankName)} alt='은행로고' className='h-16 w-16 rounded-full opacity-75' />
+              </div>
+              <article className='w-4/5'>
                 <section className='mb-2 hover:scale-105'>
                   {bookmark ? (
                     <section
@@ -104,13 +105,13 @@ const DetailItem = () => {
                     </section>
                   )}
                 </section>
-                <p className='text-xl mb-2 leading-tight'>{detail.productName}</p>
-                <p className='mb-2'>{detail.bankName}은행</p>
+                <p className='text-xl mb-2 leading-tight font-bold'>{detail.productName}</p>
+                <p className='mb-2 text-sm'>{detail.bankName}은행</p>
               </article>
             </h1>
           </header>
-          <section className='relative text-gray mx-1 p-4 -shadow-basic rounded-xl flex flex-col items-center'>
-            <section className='mb-10 flex flex-col gap-4'>
+          <section className='relative text-gray mx-1 py-10 px-8 -shadow-basic rounded-xl flex flex-col items-center'>
+            <section className='mb-10 flex flex-col gap-5 text-sm'>
               <article>
                 <h3 className='font-bold mb-2'>상품 종류</h3>
                 <p>{detail.productType}</p>
@@ -124,14 +125,21 @@ const DetailItem = () => {
                 {detail.interests.map((interest: { id: number; dueDate: number; rate: number }) => {
                   return (
                     <p key={interest.id} className='pt-1'>
-                      {interest.dueDate}개월 : {interest.rate}%
+                      {interest.dueDate}개월 이상 : 연 {interest.rate}%
                     </p>
                   );
                 })}
               </article>
               <article>
+                <h3 className='font-bold mb-2'>{detail.maxLimit ? '저축금액' : '가입금액'}</h3>
+                <p>
+                  {detail.maxLimit ? `월 최대 ${detail.maxLimit.toLocaleString()}원` : ''}
+                  {detail.minimumAmount ? `${detail.minimumAmount.toLocaleString()}원 이상` : ''}
+                </p>
+              </article>
+              <article>
                 <h3 className='font-bold mb-2'>상품 안내</h3>
-                <p>{detail.content}</p>
+                <p className='leading-tight'>{detail.content}</p>
               </article>
             </section>
             <MainButton select={true} text={'신청하기'} page={'detail/:id'} onClick={handleOpenModal} />

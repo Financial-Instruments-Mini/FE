@@ -1,7 +1,7 @@
 import { BiSearchAlt2 } from 'react-icons/bi';
-import DropDown from '../DropDown';
-import SavingsButtons from '../SavingsButtons';
-import ToggleButton from '../ToggleButton';
+import DropDown from '../ui/DropDown';
+import SavingsButtons from '../ui/SavingsButtons';
+import ToggleButton from '../ui/ToggleButton';
 import { useForm } from 'react-hook-form';
 import { ISearchForm } from '../../@types/data';
 import { ISearchBoxProps } from '../../@types/IProps';
