@@ -1,6 +1,5 @@
 import { JSXElementConstructor, Key, ReactElement, ReactFragment, ReactPortal, useEffect, useState } from 'react';
 import LittleTitle from '../components/LittleTitle';
-import 국민은행 from '../assets/bankicons/금융아이콘_PNG_국민.png';
 import MainButton from '../components/ui/MainButton';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ConfirmModal from '../components/modal/ConfirmModal';
@@ -22,6 +21,7 @@ const DetailItem = () => {
   const [bookmark, setBookmark] = useState<boolean>(false);
   const [detail, setDetail] = useState<ProductDetails>();
   const placeId = useLocation().pathname.split('/')[2];
+  const [bookmarkId, setBookmarkId] = useState<number>();
 
   const handleOpenModal = () => {
     setVisibleModal(true);
@@ -35,7 +35,7 @@ const DetailItem = () => {
   };
 
   const deleteBookmark = async () => {
-    if (await requestDeleteBookmark(Token.accessToken, Number(placeId))) setBookmark(false);
+    if (await requestDeleteBookmark(Token.accessToken, Number(bookmarkId))) setBookmark(false);
   };
 
   const applyProduct = async () => {
@@ -52,8 +52,14 @@ const DetailItem = () => {
       try {
         const data = await getProductDetails(Number(placeId));
         const bookMarkList = await getBookmarkProducts(Token.accessToken);
-        if (bookMarkList?.find((bookMark: BookmarkProducts) => bookMark.productId === Number(placeId)))
+        if (bookMarkList?.find((bookMark: BookmarkProducts) => bookMark.productId === Number(placeId))) {
           setBookmark(true);
+        }
+        bookMarkList?.forEach((bookMark: BookmarkProducts) => {
+          if (bookMark.productId === Number(placeId)) {
+            setBookmarkId(bookMark.id);
+          }
+        });
         setDetail(data);
       } catch (error) {
         console.log(error);

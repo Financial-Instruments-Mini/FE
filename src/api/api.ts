@@ -1,15 +1,8 @@
 import axios, { AxiosError } from 'axios';
 import { IputLoginDataProps } from '../@types/IProps';
 import { ProductsResponse, ISearchForm, BookmarkProducts } from '../@types/data';
+import { BankName, Job, Keyword, ProductType } from '../@types/enum.d';
 import { ISignUpPayload, IEditMemberInfo, ProductDetails } from './../@types/data.d';
-
-export enum Keyword {
-  '전체' = '',
-  '주거래 우대' = 'MAIN_BANK',
-  '청년 우대' = 'YOUTH_PREFERENTIAL_TREATMENT',
-  '주택 청약' = 'HOUSING_SUBSCRIPTION',
-  '노후 준비' = 'PREPARING_FOR_OLD_AGE',
-}
 
 export const instance = axios.create({
   baseURL: 'https://www.ticcle.store/api/v1',
@@ -23,6 +16,7 @@ export const logIn = async (email: string, password: string): Promise<any> => {
     });
     return response.data;
   } catch (error) {
+    console.log(error);
     const { response } = error as unknown as AxiosError;
     return response?.data;
   }
@@ -46,20 +40,24 @@ export const signUp = async (payload: ISignUpPayload): Promise<any> => {
 };
 
 export const editMemberInfo = async (payload: IEditMemberInfo, accessToken: string): Promise<any> => {
-  const { password, phoneNumber, productType, job, backName } = payload;
+  const { password, phoneNumber, productType, job, bankName } = payload;
   try {
     const response = await instance.put(
       `/member`,
       {
         password,
         phoneNumber,
-        productType,
-        job,
-        backName,
+        productType: ProductType[`${productType}`],
+        job: Job[`${job}`],
+        bankName: BankName[`${bankName}`],
+        // productType: 'DEPOSIT',
+        // job: 'SOLDIER',
+        // bankName: 'WOO_RIE',
       },
       { headers: { Authorization: `Bearer ${accessToken}` } },
     );
-    return response.data;
+    console.log(response);
+    return response;
   } catch (error) {
     const { response } = error as unknown as AxiosError;
     return response;
@@ -289,16 +287,3 @@ export const deleteCartData = async (accessToken: string, applyId: number) => {
     console.log(error);
   }
 };
-
-export enum MyJob {
-  '회사원' = 'OFFICE_WORKERS',
-  '공무원' = 'PUBLIC_OFFICIAL',
-  '전문직' = 'PROFESSION',
-  '농부' = 'AGRICULTURAL_WORKER',
-  '사업가/자영업자' = 'BUISNESSMAN',
-  '프리랜서' = 'FREELANCER',
-  '주부' = 'HOUSEWIFE',
-  '학생' = 'STUDENT',
-  '군인' = 'SOLDIER',
-  '무직' = 'INOCCUPATION',
-}

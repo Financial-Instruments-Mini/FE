@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
-import RadioQ from '../components/RadioQ';
-import LittleTitle from '../components/LittleTitle';
-import TestQ from '../components/TestQ';
-import SelectQ from '../components/SelectQ';
-import { getLoginData, putLoginData } from '../api/api';
+import RadioQ from '../../components/mypage/RadioQ';
+import LittleTitle from '../../components/LittleTitle';
+import TestQ from '../../components/mypage/TestQ';
+import SelectQ from '../../components/mypage/SelectQ';
+import { getLoginData, putLoginData } from '../../api/api';
 import { useCookies } from 'react-cookie';
 
 const MyDetailPage = () => {
-  const [replace, setReplace] = useState(false);
   const [Token] = useCookies();
 
+  const [replace, setReplace] = useState(false);
+  const [submitData, setSubmitData] = useState(false);
   const [userInfo, setUserInfo] = useState({
     email: '',
     password: '',
@@ -26,7 +27,6 @@ const MyDetailPage = () => {
     const loginData = () => {
       getLoginData(Token.accessToken).then(appData => {
         setUserInfo({
-          //   ...userInfo,
           email: appData.email,
           password: '',
           name: appData.name,
@@ -37,15 +37,11 @@ const MyDetailPage = () => {
           job: appData.job,
           accessToken: Token.accessToken,
         });
-        // console.log(appData.data.email);
       });
     };
 
     loginData();
   }, []);
-  console.log(Token.accessToken, userInfo);
-
-  const [submitData, setSubmitData] = useState(false);
 
   const submit = async () => {
     await setReplace(!replace);
@@ -82,7 +78,6 @@ const MyDetailPage = () => {
       군인: 'SOLDIER',
       무직: 'INOCCUPATION',
     };
-
     Object.keys(myJob).map(job => {
       if (subData.job === '' && job === userInfo?.job) {
         subData.job = myJob[`${userInfo?.job}`];
@@ -95,7 +90,6 @@ const MyDetailPage = () => {
       우리: 'WOO_RIE',
       하나: 'HA_NA',
     };
-
     Object.keys(myBankName).map(bank => {
       if (subData.bankName === '' && bank === userInfo?.bankName) {
         subData.bankName = myBankName[`${userInfo?.bankName}`];
@@ -110,8 +104,6 @@ const MyDetailPage = () => {
       subData.phoneNumber = userInfo.phoneNumber;
     } else subData.phoneNumber = '';
   }, [userInfo, subData]);
-
-  console.log(subData);
 
   if (
     !replace &&
@@ -147,16 +139,10 @@ const MyDetailPage = () => {
     putlogData();
   }, [option]);
 
-  // console.log(option);
-
-  // usePushLoginData(option);
-
-  // console.log(replace, submitData);
-
   return (
     <div>
       <LittleTitle title='나의 정보 보기' move='true' />
-      <div className='bg-white m-7 rounded-xl -shadow-basic '>
+      <div className='bg-white rounded-xl -shadow-basic '>
         <div className='p-10'>
           <TestQ
             question='이메일'

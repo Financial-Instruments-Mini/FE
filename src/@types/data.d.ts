@@ -1,3 +1,5 @@
+import { BankName, Job, ProductType } from './enum';
+
 export interface item {
   id?: number;
   productType: string;
@@ -69,6 +71,7 @@ export interface BookmarkProducts {
   productName: string;
   dueDate: number;
   rate: number;
+  id: number;
 }
 
 export interface Pageable {
@@ -132,7 +135,7 @@ export interface ISignUpPayload {
 export interface IEditMemberInfo {
   password?: string;
   phoneNumber?: string;
-  productType?: string;
-  job?: string;
-  backName?: string;
+  productType: keyof typeof ProductType;
+  job: keyof typeof Job;
+  bankName: keyof typeof BankName;
 }
