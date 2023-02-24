@@ -68,7 +68,6 @@ export const editMemberInfo = async (payload: IEditMemberInfo, accessToken: stri
 
 export const postRefreshToken = async (refreshToken: string): Promise<any> => {
   try {
-    // console.log(refreshToken);
     const response = await instance.post(`/auth/refresh`, {
       refreshToken,
     });
@@ -152,7 +151,6 @@ export const putLoginData = async ({
 export const getApplyItemData = async (token: string): Promise<any> => {
   try {
     const response = await instance.get('/apply', { headers: { Authorization: `Bearer ${token}` } });
-    // console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);

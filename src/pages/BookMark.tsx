@@ -20,12 +20,10 @@ const BookMark = () => {
   };
   const handleDeleteClick = async (productId: number) => {
     if (await requestDeleteBookmark(Token.accessToken, productId)) await getBookmarkData();
-    console.log('delete');
   };
 
   const handleDeleteAllClick = async () => {
     if (await requestDeleteBookmarkAll(Token.accessToken)) await getBookmarkData();
-    console.log('deleteAll');
   };
 
   useEffect(() => {

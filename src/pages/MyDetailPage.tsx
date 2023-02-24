@@ -3,16 +3,12 @@ import RadioQ from '../components/RadioQ';
 import LittleTitle from '../components/LittleTitle';
 import TestQ from '../components/TestQ';
 import SelectQ from '../components/SelectQ';
-// import { IloginDataProps } from '../@types/IProps';
-// import { useLoginApi } from '../api/useLoginApi';
 import { getLoginData, putLoginData } from '../api/api';
 import { useCookies } from 'react-cookie';
-// import { usePushLoginData } from '../api/usePushLoginData';
 
 const MyDetailPage = () => {
   const [replace, setReplace] = useState(false);
   const [Token] = useCookies();
-  // console.log(Token);
 
   const [userInfo, setUserInfo] = useState({
     email: '',
@@ -49,26 +45,7 @@ const MyDetailPage = () => {
   }, []);
   console.log(Token.accessToken, userInfo);
 
-  // console.log(userInfo);
-
-  // const { loginData } = useLoginApi({
-  //   url: 'https://www.ticcle.store:8080/api/v1/auth/login',
-  //   method: 'POST',
-  //   body: {
-  //     email: 'a@naver.com',
-  //     password: 'asdf123@',
-  //   },
-  // });
-
-  // const [userInfo, setUserInfo] = useState(loginData?.data as IloginDataProps);
-  // const [userInfo, setUserInfo] = useState(loginData())
   const [submitData, setSubmitData] = useState(false);
-
-  // useEffect(() => {
-  //   if (loginData() !== undefined) {
-  //     setUserInfo({ ...loginData() });
-  //   }
-  // }, [loginData?.data]);
 
   const submit = async () => {
     await setReplace(!replace);
@@ -85,10 +62,6 @@ const MyDetailPage = () => {
   };
 
   useEffect(() => {
-    // if (userInfo?.tokenDto.accessToken !== undefined) {
-    //   subData.token = userInfo?.tokenDto.accessToken;
-    // } else subData.token = '';
-
     if (userInfo?.productType.includes('예금') && userInfo?.productType.includes('적금')) {
       subData.productType = 'DEPOSIT_AND_SAVING';
     } else if (userInfo?.productType.includes('예금') && !userInfo?.productType.includes('적금')) {
@@ -97,35 +70,6 @@ const MyDetailPage = () => {
       subData.productType = 'SAVING';
     } else subData.productType = '';
 
-    // if (userInfo?.job === '회사원') {
-    //   subData.job = 'OFFICE_WORKERS';
-    // } else if (userInfo?.job === '공무원') {
-    //   subData.job = 'PUBLIC_OFFICIAL';
-    // } else if (userInfo?.job === '전문직') {
-    //   subData.job = 'PROFESSION';
-    // } else if (userInfo?.job === '농부') {
-    //   subData.job = 'AGRICULTURAL_WORKER';
-    // } else if (userInfo?.job === '사업가/자영업자') {
-    //   subData.job = 'BUISNESSMAN';
-    // } else if (userInfo?.job === '프리랜서') {
-    //   subData.job = 'FREELANCER';
-    // } else if (userInfo?.job === '주부') {
-    //   subData.job = 'HOUSEWIFE';
-    // } else if (userInfo?.job === '학생') {
-    //   subData.job = 'STUDENT';
-    // } else if (userInfo?.job === '군인') {
-    //   subData.job = 'SOLDIER';
-    // } else if (userInfo?.job === '무직') {
-    //   subData.job = 'INOCCUPATION';
-    // } else subData.job = '';
-
-    // const myJobKeyWords = Object.keys(MyJob) as Array<keyof typeof MyJob>;
-    // const a = myJobKeyWords.find(job => {
-    //   return job === userInfo?.job;
-    // });
-
-    // console.log(a, MyJob[`${a}` as typeof MyJob]);
-    // const {'회사원', '공무원', '전문직', '농부', '사업가/자영업자', '프리랜서', '주부', '학생', '군인', '무직'} = MyJob
     const myJob: { [key: string]: string } = {
       회사원: 'OFFICE_WORKERS',
       공무원: 'PUBLIC_OFFICIAL',
@@ -139,32 +83,11 @@ const MyDetailPage = () => {
       무직: 'INOCCUPATION',
     };
 
-    // console.log(MyJob[`${userInfo?.job}`]);
-
-    // Object.keys(MyJob).find(job => {
-    //   job === userInfo?.job && subData.job === '' ? (subData.job = MyJob[`${userInfo?.job}`]) : (subData.job = '');
-    //   console.log(job, userInfo?.job, job === userInfo?.job);
-    //   console.log(subData.job);
-    // });
-
     Object.keys(myJob).map(job => {
       if (subData.job === '' && job === userInfo?.job) {
         subData.job = myJob[`${userInfo?.job}`];
       }
     });
-    // console.log(subData.job);
-
-    // let jobKey;
-    // Object.keys(MyJob).map(job => {
-    //   job === userInfo?.job ? (jobKey = job) : (jobKey = '');
-    //   console.log(jobKey);
-    // });
-    // Object.values(MyJob).map(job => {
-    //   job === jobKey ? (subData.job = job) : (subData.job = '');
-    //   console.log(job, jobKey);
-    // });
-
-    // if()
 
     const myBankName: { [key: string]: string } = {
       국민: 'KOOK_MIN',
@@ -178,16 +101,6 @@ const MyDetailPage = () => {
         subData.bankName = myBankName[`${userInfo?.bankName}`];
       }
     });
-
-    // if (userInfo?.bankName === '국민') {
-    //   subData.bankName = 'KOOK_MIN';
-    // } else if (userInfo?.bankName === '신한') {
-    //   subData.bankName = 'SHIN_HAN';
-    // } else if (userInfo?.bankName === '우리') {
-    //   subData.bankName = 'WOO_RIE';
-    // } else if (userInfo?.bankName === '하나') {
-    //   subData.bankName = 'HA_NA';
-    // } else subData.bankName = '';
 
     if (userInfo?.password !== undefined) {
       subData.password = userInfo.password;
