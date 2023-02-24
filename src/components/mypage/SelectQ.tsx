@@ -16,7 +16,7 @@ const SelectQ = ({ question, name, loginData, setLoginData, replace, value }: IS
     <div className='flex justify-evenly p-5'>
       {question === '주거래은행' ? (
         <div className='flex  w-full items-center'>
-          <label htmlFor={question} className=' font-bold text-base'>
+          <label htmlFor={question} className=' font-bold text-base w-28'>
             {question}
           </label>
           <div className='grow flex justify-evenly w-fit'>
@@ -43,7 +43,7 @@ const SelectQ = ({ question, name, loginData, setLoginData, replace, value }: IS
         </div>
       ) : (
         <div className='flex  w-full items-center'>
-          <label htmlFor={question} className='font-bold text-base'>
+          <label htmlFor={question} className='font-bold text-base w-28'>
             {question}
           </label>
           <div className='grow flex justify-evenly'>

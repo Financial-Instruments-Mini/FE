@@ -13,7 +13,7 @@ const TestQ = ({ question, name, type, loginData, setLoginData, value, replace, 
 
   return (
     <div className='flex justify-evenly p-5'>
-      <div className='w-20 font-bold text-base'>{question}</div>
+      <div className='w-28 font-bold text-base'>{question}</div>
       <div className='grow'>
         <input
           type={type}

@@ -14,7 +14,7 @@ const RadioQ = ({ question, loginData, setLoginData, replace, value }: IRadioQPr
 
   return (
     <div className='flex justify-evenly p-5'>
-      <div className='font-bold text-base'>{question}</div>
+      <div className='font-bold text-base w-28'>{question}</div>
       <div className='grow flex justify-evenly'>
         {check.map(checkItem => {
           return (

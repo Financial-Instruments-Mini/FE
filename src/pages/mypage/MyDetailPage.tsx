@@ -142,7 +142,7 @@ const MyDetailPage = () => {
   return (
     <div>
       <LittleTitle title='나의 정보 보기' move='true' />
-      <div className='bg-white m-7 rounded-xl -shadow-basic '>
+      <div className='bg-white rounded-xl -shadow-basic '>
         <div className='p-10'>
           <TestQ
             question='이메일'

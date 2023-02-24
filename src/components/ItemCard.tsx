@@ -32,7 +32,7 @@ const ItemCard = ({ product, setRess, ress, Token }: IItemCardProps) => {
         onClick={() => {
           navigate(`/detail/${product.productId}`);
         }}
-        className='flex grow'
+        className='flex grow items-center'
       >
         <div
           className={` rounded-full m-auto opacity-90 flex justify-center items-center ${
@@ -47,21 +47,21 @@ const ItemCard = ({ product, setRess, ress, Token }: IItemCardProps) => {
           }`}
         >
           <p className='text-base font-bold mb-2 leading-tight'>{`${product.productName} `}</p>
-          <p className='text-sm'>
-            {location.pathname === '/mypage/mycart' && `${product.productType}상품 `}최고 연
+          <p className={`text-sm ${location.pathname === '/mypage/mycart' && 'font-bold'}`}>
+            {location.pathname === '/mypage/mycart' && `${product.productType} · `}최고 연
             {location.pathname === '/mypage/mycart' ? product.rate : product.maxRate}%
           </p>
           <p className='text-sm'>
             {location.pathname !== '/mypage/mycart'
               ? product.productType
-              : product.productType === 'saving'
+              : product.productType === '적금'
               ? `최대한도 ${comma()}원`
               : `최저금액 ${comma()}원`}
           </p>
         </div>
       </div>
       <button onClick={onClick} className='basis-1/5 flex justify-center items-center'>
-        {location.pathname === '/mypage/mycart' ? <AiFillMinusCircle size={40} className='fill-main-yellow' /> : ''}
+        {location.pathname === '/mypage/mycart' && <AiFillMinusCircle size={40} className='fill-main-blue' />}
       </button>
     </div>
   );
