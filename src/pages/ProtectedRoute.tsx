@@ -18,16 +18,6 @@ const ProtectedRoute = ({ children }: IProtectedRouteProps) => {
   console.log(isLogIn, userInfo);
   console.log('토큰: ', token);
 
-  // useEffect(() => {
-  //   if (!token.accessToken && token.refreshToken) {
-  //     postRefreshToken(token.refreshToken).then(res => {
-  //       console.log(res);
-  //       setToken('accessToken', res.data.accessToken, { maxAge: 60 * 30 });
-  //       setToken('refreshToken', res.data.refreshToken, { maxAge: 60 * 60 * 24 * 14 });
-  //     });
-  //   }
-  // }, [setToken, token.accessToken, token.refreshToken]);
-
   if (!token.accessToken && token.refreshToken) {
     postRefreshToken(token.refreshToken).then(res => {
       console.log(res);

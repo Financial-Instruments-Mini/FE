@@ -16,6 +16,7 @@ export interface item {
   minimumAmount?: number | null;
   dueDate?: number;
   rate?: number;
+  maxRate?: number;
 }
 
 interface InterestList {
@@ -42,6 +43,9 @@ export interface Product {
   productName: string;
   bankName: string;
   productType: string;
+  rate?: number;
+  maxLimit?: number;
+  minimumAmount?: number;
 }
 
 export interface ProductDetails {
