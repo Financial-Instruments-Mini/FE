@@ -28,8 +28,7 @@ const MyDetailPage = () => {
       getLoginData(Token.accessToken).then(appData => {
         setUserInfo({
           email: appData.email,
-          // password: '',
-          password: appData.password,
+          password: '',
           name: appData.name,
           birthDate: appData.birthDate,
           phoneNumber: appData.phoneNumber,
@@ -51,7 +50,7 @@ const MyDetailPage = () => {
 
   const subData = {
     token: userInfo.accessToken,
-    // password: '',
+    password: '',
     phoneNumber: '',
     productType: '',
     job: '',
@@ -97,24 +96,24 @@ const MyDetailPage = () => {
       }
     });
 
-    // if (userInfo?.password !== undefined) {
-    //   subData.password = userInfo.password;
-    // } else subData.password = '';
+    if (userInfo?.password !== undefined) {
+      subData.password = userInfo.password;
+    } else subData.password = '';
 
     if (userInfo?.phoneNumber !== undefined) {
       subData.phoneNumber = userInfo.phoneNumber;
     } else subData.phoneNumber = '';
   }, [userInfo, subData]);
 
-  // if (
-  //   !replace &&
-  //   submitData &&
-  //   userInfo.password.match(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,12}/g) === null
-  // ) {
-  //   alert('비밀번호는 영어, 숫자, 특수문자 포함 8자 이상 12자 이하로 입력해주세요');
-  //   setReplace(true);
-  //   setSubmitData(true);
-  // }
+  if (
+    !replace &&
+    submitData &&
+    userInfo.password.match(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,12}/g) === null
+  ) {
+    alert('비밀번호는 영어, 숫자, 특수문자 포함 8자 이상 12자 이하로 입력해주세요');
+    setReplace(true);
+    setSubmitData(true);
+  }
 
   if (
     !replace &&
@@ -129,14 +128,7 @@ const MyDetailPage = () => {
   const option =
     !replace && submitData
       ? subData
-      : {
-          token: '',
-          // password: '',
-          phoneNumber: '',
-          productType: '',
-          job: '',
-          bankName: '',
-        };
+      : { token: '', password: '', phoneNumber: '', productType: '', job: '', bankName: '' };
 
   useEffect(() => {
     const putlogData = () => {
@@ -167,8 +159,8 @@ const MyDetailPage = () => {
             type='password'
             value={userInfo?.password}
             name='password'
-            // replace={replace}
-            // placeHolder='영어, 숫자, 특수문자 포함 8자 이상 12자 이하'
+            replace={replace}
+            placeHolder='영어, 숫자, 특수문자 포함 8자 이상 12자 이하'
           />
           <TestQ
             question='이름'

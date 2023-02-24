@@ -118,7 +118,7 @@ export const getRecommendProducts = async (accessToken: string): Promise<Product
 
 export const putLoginData = async ({
   token,
-  // password,
+  password,
   phoneNumber,
   productType,
   job,
@@ -128,7 +128,7 @@ export const putLoginData = async ({
     const response = await instance.put(
       '/member',
       {
-        // password: password,
+        password: password,
         phoneNumber: phoneNumber,
         productType: productType,
         job: job,
