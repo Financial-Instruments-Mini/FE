@@ -1,14 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { ProductsResponse, ISearchForm, BookmarkProducts } from '../@types/data';
+import { BankName, Job, Keyword, ProductType } from '../@types/enum.d';
 import { ISignUpPayload, IEditMemberInfo, ProductDetails } from './../@types/data.d';
-
-export enum Keyword {
-  '전체' = '',
-  '주거래 우대' = 'MAIN_BANK',
-  '청년 우대' = 'YOUTH_PREFERENTIAL_TREATMENT',
-  '주택 청약' = 'HOUSING_SUBSCRIPTION',
-  '노후 준비' = 'PREPARING_FOR_OLD_AGE',
-}
 
 export const instance = axios.create({
   baseURL: 'https://www.ticcle.store/api/v1',
@@ -45,16 +38,16 @@ export const signUp = async (payload: ISignUpPayload): Promise<any> => {
 };
 
 export const editMemberInfo = async (payload: IEditMemberInfo, accessToken: string): Promise<any> => {
-  const { password, phoneNumber, productType, job, backName } = payload;
+  const { password, phoneNumber, productType, job, bankName } = payload;
   try {
     const response = await instance.put(
       `/member`,
       {
         password,
         phoneNumber,
-        productType,
-        job,
-        backName,
+        productType: ProductType[`${productType}`],
+        job: Job[`${job}`],
+        bankName: BankName[`${bankName}`],
       },
       { headers: { Authorization: `Bearer ${accessToken}` } },
     );

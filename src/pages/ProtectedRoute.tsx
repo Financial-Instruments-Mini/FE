@@ -16,23 +16,33 @@ const ProtectedRoute = ({ children }: IProtectedRouteProps) => {
   const [token, setToken] = useCookies();
 
   console.log(isLogIn, userInfo);
+  console.log('토큰: ', token);
 
-  useEffect(() => {
-    if (!token.accessToken && token.refreshToken) {
-      postRefreshToken(token.refreshToken).then(res => {
-        setToken('accessToken', res.data.accessToken, { maxAge: 60 * 30 });
-        setToken('refreshToken', res.data.accessToken, { maxAge: 60 * 60 * 24 * 14 });
-      });
-    }
-  }, [setToken, token.accessToken, token.refreshToken]);
+  // useEffect(() => {
+  //   if (!token.accessToken && token.refreshToken) {
+  //     postRefreshToken(token.refreshToken).then(res => {
+  //       console.log(res);
+  //       setToken('accessToken', res.data.accessToken, { maxAge: 60 * 30 });
+  //       setToken('refreshToken', res.data.refreshToken, { maxAge: 60 * 60 * 24 * 14 });
+  //     });
+  //   }
+  // }, [setToken, token.accessToken, token.refreshToken]);
+
+  if (!token.accessToken && token.refreshToken) {
+    postRefreshToken(token.refreshToken).then(res => {
+      console.log(res);
+      setToken('accessToken', res.data.accessToken, { maxAge: 60 * 30 });
+      setToken('refreshToken', res.data.refreshToken, { maxAge: 60 * 60 * 24 * 14 });
+    });
+  }
 
   if (isLogIn && !token.accessToken && !token.refreshToken) {
     setIsLogIn(false);
     setUserInfo({
       email: '',
-      phoneNumber: '',
+      phoneNumber: 0,
       name: '',
-      birthday: '',
+      birthDate: 0,
       productType: '',
       job: '',
       bankName: '',

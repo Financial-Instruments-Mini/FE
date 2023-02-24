@@ -1,7 +1,8 @@
 import KeywordButton from '../components/KeywordButton';
 import Slide from '../components/Slide';
 import ItemGallery from '../components/ui/ItemGallery';
-import { getAllProducts, getKeywordProducts, Keyword } from '../api/api';
+import { getAllProducts, getKeywordProducts } from '../api/api';
+import { Keyword } from '../@types/enum.d';
 import { keywordProduct } from '../@types/data';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';

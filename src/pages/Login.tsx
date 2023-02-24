@@ -18,14 +18,23 @@ const Login = () => {
   const [isLogIn, setIsLogIn] = useRecoilState(isLogInState);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 
+  useEffect(() => {
+    if (isLogIn) {
+      alert('로그인 상태입니다. 다시 로그인 하시려면 로그아웃을 먼저 해주세요.');
+      navigator('/');
+    }
+  }, []);
+
   const schema = yup.object().shape({
     email: yup
       .string()
+      .trim()
       // eslint-disable-next-line no-useless-escape
       .matches(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, '이메일 형식에 맞지 않습니다.')
       .required('이메일을 입력해주세요.'),
     password: yup
       .string()
+      .trim()
       .required('비밀번호를 입력해주세요.')
       .matches(/^(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,12}$/, '비밀번호 조합기준에 적합하지 않습니다.'),
   });
@@ -34,7 +43,6 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
   } = useForm<ILoginForm>({
     resolver: yupResolver(schema),
   });
@@ -60,7 +68,9 @@ const Login = () => {
       setToken('refreshToken', res.data.tokenDto.refreshToken, { maxAge: 60 * 60 * 24 * 14 });
       setIsLogIn(true);
       setUserInfo({ email, phoneNumber, name, birthDate, productType, job, bankName });
+      navigator('/');
     } else {
+      console.log('실패');
       alert('아이디 또는 비밀번호가 일치하지 않습니다.');
     }
   };

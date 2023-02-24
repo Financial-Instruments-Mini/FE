@@ -1,4 +1,4 @@
-import { Keyword } from '../api/api';
+import { Keyword } from '../@types/enum.d';
 import { item, Product } from './data';
 
 export interface IKeyWordButtonProps {
