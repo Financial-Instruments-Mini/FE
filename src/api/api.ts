@@ -72,7 +72,6 @@ export const postRefreshToken = async (refreshToken: string): Promise<any> => {
     const response = await instance.post(`/auth/refresh`, {
       refreshToken,
     });
-
     return response.data;
   } catch (error) {
     const { response } = error as unknown as AxiosError;

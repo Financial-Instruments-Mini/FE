@@ -1,5 +1,5 @@
 import React from 'react';
-import { IKeyWordButtonProps } from '../@types/IProps';
+import { IKeyWordButtonProps } from '../../@types/IProps';
 
 const KeywordButton = ({ keyword, selectedKeyword, setSelectedKeyword }: IKeyWordButtonProps) => {
   return (

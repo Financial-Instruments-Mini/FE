@@ -19,7 +19,7 @@ const BookMark = () => {
     }
   };
   const handleDeleteClick = async (productId: number) => {
-    if (await requestDeleteBookmark(Token.accessToken, Number(productId))) await getBookmarkData();
+    if (await requestDeleteBookmark(Token.accessToken, productId)) await getBookmarkData();
     console.log('delete');
   };
 
@@ -58,6 +58,7 @@ const BookMark = () => {
                   <section className='relative flex flex-row w-full gap-2'>
                     <ItemCard key={item.productId} product={item} />
                     <MdDeleteForever
+                      key={`${item.productId}icon`}
                       className='text-gray absolute top-2 right-2 cursor-pointer'
                       onClick={() => handleDeleteClick(item.productId)}
                       size='1.5rem'

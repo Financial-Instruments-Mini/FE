@@ -4,12 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { getRecommendProducts } from '../api/api';
 import ItemGallery from '../components/ui/ItemGallery';
 import { RiEmotionSadLine } from 'react-icons/ri';
+import { useCookies } from 'react-cookie';
+import { useRecoilValue } from 'recoil';
+import { userInfoState } from '../data/atoms';
 
 const Recommend = () => {
   const navigate = useNavigate();
-  const accessToken =
-    'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraGtAbmF2ZXIuY29tIiwiaXNzIjoidGljY2xlIiwiaWF0IjoxNjc3MTM4MzQzLCJleHAiOjE2NzcxNDAxNDN9.4ZBPUMSaqNTdNpiHHKVC8iCS-CmII-npyzRVfx9j4Yo';
   const [noData, setNoData] = useState(false);
+  const [token, setToken] = useCookies();
+  const accessToken = token.accessToken;
+  const userInfo = useRecoilValue(userInfoState);
 
   const { data: recommendProducts, isLoading } = useQuery(['recommend'], () => getRecommendProducts(accessToken), {
     onSuccess(data) {
@@ -23,7 +27,7 @@ const Recommend = () => {
     <>
       <div className='text-xl font-bold flex flex-col gap-3 mb-3'>
         <span className='text-main-blue'>
-          {`강해경 `}
+          {userInfo.name}
           <span className='text-black'>님만을 위한 추천상품</span>
         </span>
         <p className='text-sm leading-4'>응해주신 설문을 기반으로 예적금 상품을 추천해 드립니다. </p>
