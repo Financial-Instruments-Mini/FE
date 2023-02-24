@@ -13,6 +13,7 @@ const ProtectedRoute = ({ children }: IProtectedRouteProps) => {
   const [token, setToken] = useCookies();
 
   if (!token.accessToken && token.refreshToken) {
+    console.log('dd');
     postRefreshToken(token.refreshToken).then(res => {
       setToken('accessToken', res.data.accessToken, { maxAge: 60 * 30 });
       setToken('refreshToken', res.data.refreshToken, { maxAge: 60 * 60 * 24 * 14 });

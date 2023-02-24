@@ -32,9 +32,9 @@ const MyDetailPage = () => {
           name: appData.name,
           birthDate: appData.birthDate,
           phoneNumber: appData.phoneNumber,
-          productType: appData.productType,
-          bankName: appData.bankName,
-          job: appData.job,
+          productType: appData.productType || '',
+          bankName: appData.bankName || '',
+          job: appData.job || '',
           accessToken: Token.accessToken,
         });
       });

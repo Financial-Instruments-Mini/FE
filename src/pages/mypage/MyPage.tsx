@@ -14,8 +14,6 @@ const MyPage = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [, , removeToken] = useCookies();
 
-  console.log(userInfo);
-
   const list: IListItemProps[] = [
     {
       value: '/mypage/mydetailpage',
