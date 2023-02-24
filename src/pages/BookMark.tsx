@@ -4,7 +4,7 @@ import { CgSearchLoading } from 'react-icons/cg';
 import { TiDeleteOutline } from 'react-icons/ti';
 import { BookmarkProducts } from '../@types/data';
 import { getBookmarkProducts, requestDeleteBookmark, requestDeleteBookmarkAll } from '../api/api';
-import ItemCard from '../components/ItemCard';
+import ItemCard from '../components/ui/ItemCard';
 
 const BookMark = () => {
   const [Token] = useCookies();
@@ -31,7 +31,6 @@ const BookMark = () => {
     getBookmarkData();
   }, []);
 
-  console.log(items);
   return (
     <section className='relative items-center justify-center'>
       <section className='mb-7'>
@@ -54,10 +53,9 @@ const BookMark = () => {
             {items &&
               items.map(item => {
                 return (
-                  <section className='relative flex flex-row w-full gap-2'>
-                    <ItemCard key={item.productId} product={item} />
+                  <section key={item.productId} className='relative flex flex-row w-full gap-2'>
+                    <ItemCard product={item} />
                     <span
-                      key={`${item.id}icon`}
                       className='text-gray absolute top-3 right-3 cursor-pointer text-base font-bold'
                       onClick={() => handleDeleteClick(item.id)}
                     >

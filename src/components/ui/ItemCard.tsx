@@ -1,8 +1,8 @@
 import { AiFillMinusCircle } from 'react-icons/ai';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { IItemCardProps } from '../@types/IProps';
-import { deleteCartData } from '../api/api';
-import { getImageUrl } from '../utils/getImageUrl';
+import { IItemCardProps } from '../../@types/IProps';
+import { deleteCartData } from '../../api/api';
+import { getImageUrl } from '../../utils/getImageUrl';
 
 const ItemCard = ({ product, setRess, ress, Token }: IItemCardProps) => {
   const navigate = useNavigate();

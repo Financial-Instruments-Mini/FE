@@ -1,6 +1,6 @@
 import { MdArrowBackIosNew } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-import { ILittleTitleProps } from '../@types/IProps';
+import { ILittleTitleProps } from '../../@types/IProps';
 
 const LittleTitle = ({ title, move }: ILittleTitleProps) => {
   const navigate = useNavigate();

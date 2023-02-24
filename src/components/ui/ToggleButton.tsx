@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { IToggleButtonProps } from '../@types/IProps';
+import { IToggleButtonProps } from '../../@types/IProps';
 
 const ToggleButton = ({ toggle, setToggle }: IToggleButtonProps) => {
   const onClick = () => {

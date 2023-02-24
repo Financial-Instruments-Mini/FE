@@ -1,5 +1,5 @@
-import { JSXElementConstructor, Key, ReactElement, ReactFragment, ReactPortal, useEffect, useState } from 'react';
-import LittleTitle from '../components/LittleTitle';
+import { useEffect, useState } from 'react';
+import LittleTitle from '../components/ui/LittleTitle';
 import MainButton from '../components/ui/MainButton';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ConfirmModal from '../components/modal/ConfirmModal';
@@ -14,6 +14,8 @@ import {
 import { getImageUrl } from '../utils/getImageUrl';
 import { BookmarkProducts, ProductDetails } from '../@types/data';
 import { useCookies } from 'react-cookie';
+import { useRecoilValue } from 'recoil';
+import { isLogInState } from '../data/atoms';
 
 const DetailItem = () => {
   const [Token] = useCookies();
@@ -22,7 +24,7 @@ const DetailItem = () => {
   const [detail, setDetail] = useState<ProductDetails>();
   const placeId = useLocation().pathname.split('/')[2];
   const [bookmarkId, setBookmarkId] = useState<number>();
-
+  const isLogIn = useRecoilValue(isLogInState);
   const handleOpenModal = () => {
     setVisibleModal(true);
   };
@@ -39,6 +41,10 @@ const DetailItem = () => {
   };
 
   const applyProduct = async () => {
+    if (!isLogIn) {
+      alert('로그인이 필요한 서비스입니다.');
+      return;
+    }
     if (await requestApplyProduct(Token.accessToken, Number(placeId), 2)) return true;
     return false;
   };
@@ -56,6 +62,7 @@ const DetailItem = () => {
           setBookmark(true);
         }
         bookMarkList?.forEach((bookMark: BookmarkProducts) => {
+          console.log(bookMarkList);
           if (bookMark.productId === Number(placeId)) {
             setBookmarkId(bookMark.id);
           }
@@ -66,7 +73,7 @@ const DetailItem = () => {
       }
     }
     getDetailData();
-  }, []);
+  }, [bookmark]);
 
   return (
     <>

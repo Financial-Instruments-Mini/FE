@@ -1,5 +1,5 @@
 import React from 'react';
-import { ISavingButtonsProps } from '../@types/IProps';
+import { ISavingButtonsProps } from '../../@types/IProps';
 
 const SavingsButtons = ({ savingValue, setSavingValue }: ISavingButtonsProps) => {
   const savingTypes = [

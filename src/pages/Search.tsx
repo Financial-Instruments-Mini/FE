@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ItemCard from '../components/ItemCard';
+import ItemCard from '../components/ui/ItemCard';
 import { CgSearchLoading } from 'react-icons/cg';
 import { GrSearchAdvanced } from 'react-icons/gr';
 import { useQuery } from '@tanstack/react-query';

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import RadioQ from '../../components/mypage/RadioQ';
-import LittleTitle from '../../components/LittleTitle';
+import LittleTitle from '../../components/ui/LittleTitle';
 import TestQ from '../../components/mypage/TestQ';
 import SelectQ from '../../components/mypage/SelectQ';
 import { getLoginData, putLoginData } from '../../api/api';
