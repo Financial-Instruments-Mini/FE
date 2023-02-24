@@ -23,6 +23,7 @@ export const logIn = async (email: string, password: string): Promise<any> => {
     });
     return response.data;
   } catch (error) {
+    console.log(error);
     const { response } = error as unknown as AxiosError;
     return response?.data;
   }

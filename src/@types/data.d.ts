@@ -66,6 +66,7 @@ export interface BookmarkProducts {
   productName: string;
   dueDate: number;
   rate: number;
+  id: number;
 }
 
 export interface Pageable {

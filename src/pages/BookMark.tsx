@@ -18,8 +18,8 @@ const BookMark = () => {
       console.log(error);
     }
   };
-  const handleDeleteClick = async (productId: number) => {
-    if (await requestDeleteBookmark(Token.accessToken, Number(productId))) await getBookmarkData();
+  const handleDeleteClick = async (id: number) => {
+    if (await requestDeleteBookmark(Token.accessToken, id)) await getBookmarkData();
     console.log('delete');
   };
 
