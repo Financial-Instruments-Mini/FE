@@ -117,7 +117,7 @@ export interface IItemGalleryProps {
 
 export interface IputLoginDataProps {
   token: string;
-  // password: string;
+  password: string;
   phoneNumber: string;
   productType: string;
   job: string;
