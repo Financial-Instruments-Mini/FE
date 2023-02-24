@@ -1,9 +1,8 @@
-import React from 'react';
 import { MdArrowBackIosNew } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-import { ISubtitleProps } from '../@types/IProps';
+import { ILittleTitleProps } from '../@types/IProps';
 
-const LittleTitle = ({ title, move }: ISubtitleProps) => {
+const LittleTitle = ({ title, move }: ILittleTitleProps) => {
   const navigate = useNavigate();
   return (
     <div className='flex px-7 pb-5'>

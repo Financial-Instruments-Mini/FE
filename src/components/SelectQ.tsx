@@ -1,7 +1,7 @@
 import React from 'react';
-import { ISelectQuestProps } from '../@types/IProps';
+import { ISelectQProps } from '../@types/IProps';
 
-const SelectQ = ({ question, name, loginData, setLoginData, replace, value }: ISelectQuestProps) => {
+const SelectQ = ({ question, name, loginData, setLoginData, replace, value }: ISelectQProps) => {
   const banks = ['국민', '신한', '우리', '하나'];
 
   const jobs = ['회사원', '공무원', '전문직', '농부', '사업가/자영업자', '프리랜서', '주부', '학생', '군인', '무직'];

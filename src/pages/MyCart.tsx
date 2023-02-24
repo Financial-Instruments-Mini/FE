@@ -73,15 +73,17 @@ const MyCart = () => {
         {ress !== undefined &&
           ress
             ?.filter(res => {
-              console.log(ress);
-              return savingValue.includes(res.productType);
-              console.log(res);
+              // console.log(ress);
+              // return
+              return savingValue.includes(res.productType) && bank.value.includes(res.bankName);
+              // return a;
+              // console.log(a);
             })
-            .filter(res => {
-              return bank.value.includes(res.bankName);
-            })
+            // .filter(res => {
+            //   return bank.value.includes(res.bankName);
+            // })
             .map(res => {
-              console.log(ress);
+              // console.log(res);
               return (
                 <div key={res.productName + res.productId}>
                   <ItemCard

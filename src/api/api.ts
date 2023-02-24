@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { IloginPushProps } from '../@types/IProps';
+import { IputLoginDataProps } from '../@types/IProps';
 import { ProductsResponse, ISearchForm, BookmarkProducts } from '../@types/data';
 import { ISignUpPayload, IEditMemberInfo, ProductDetails } from './../@types/data.d';
 
@@ -127,7 +127,7 @@ export const putLoginData = async ({
   productType,
   job,
   bankName,
-}: IloginPushProps): Promise<any> => {
+}: IputLoginDataProps): Promise<any> => {
   try {
     const response = await instance.put(
       '/member',
@@ -273,7 +273,7 @@ export const getLoginData = async (accessToken: string): Promise<any> => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    return response.data;
+    return response.data.data;
   } catch (error) {
     console.log(error);
   }
@@ -292,3 +292,16 @@ export const deleteCartData = async (accessToken: string, applyId: number) => {
     console.log(error);
   }
 };
+
+export enum MyJob {
+  '회사원' = 'OFFICE_WORKERS',
+  '공무원' = 'PUBLIC_OFFICIAL',
+  '전문직' = 'PROFESSION',
+  '농부' = 'AGRICULTURAL_WORKER',
+  '사업가/자영업자' = 'BUISNESSMAN',
+  '프리랜서' = 'FREELANCER',
+  '주부' = 'HOUSEWIFE',
+  '학생' = 'STUDENT',
+  '군인' = 'SOLDIER',
+  '무직' = 'INOCCUPATION',
+}

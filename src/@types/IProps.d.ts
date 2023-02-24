@@ -14,12 +14,12 @@ export interface IButtonProps {
   children?: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
-export interface ISubtitleProps {
+export interface ILittleTitleProps {
   title: string;
   move?: string;
 }
 
-export interface IQuestProps {
+export interface IRadioQProps {
   question: string;
   loginData: IloginDataProps;
   setLoginData: undefined | React.Dispatch<React.SetStateAction<IloginDataProps>>;
@@ -33,7 +33,7 @@ export interface IItemProps {
   name: string;
 }
 
-export interface ISelectQuestProps {
+export interface ISelectQProps {
   name: string;
   loginData: IloginDataProps;
   setLoginData: undefined | React.Dispatch<React.SetStateAction<IloginDataProps>>;
@@ -42,7 +42,7 @@ export interface ISelectQuestProps {
   question: string;
 }
 
-export interface ITextQuestProps {
+export interface ITextQProps {
   question?: string;
   loginData?: IloginDataProps;
   setLoginData?: undefined | React.Dispatch<React.SetStateAction<IloginDataProps>>;
@@ -66,7 +66,7 @@ export interface IItemCardProps {
   product: item;
   setRess?: React.Dispatch<React.SetStateAction<item[]>>;
   ress?: item[];
-  Token: {
+  Token?: {
     [x: string]: any;
   };
 }
@@ -106,10 +106,10 @@ export interface IDropDownProps {
   setBank?: undefined | React.Dispatch<React.SetStateAction<bank>>;
 }
 
-export interface bank {
-  title: string;
-  value: string;
-}
+// export interface bank {
+//   title: string;
+//   value: string;
+// }
 
 export interface IItemGalleryProps {
   productId?: number;
@@ -120,36 +120,36 @@ export interface IItemGalleryProps {
   keyword?: string;
 }
 
-export interface IloginResProps {
-  success: boolean;
-  code: number;
-  message: string;
-  data: IloginDataProps;
-  error?: [];
-}
-export interface IloginDataProps {
-  email: string;
-  password: string;
-  name: string;
-  phoneNumber: string;
-  birthDate: string;
-  productType: string;
-  job: string;
-  bankName: string;
-  accessToken: string;
-}
-export interface IloginGetProps {
-  url: string;
-  method: string;
-  body?: IemailProps;
-}
+// export interface IloginResProps {
+//   success: boolean;
+//   code: number;
+//   message: string;
+//   data: IloginDataProps;
+//   error?: [];
+// }
+// export interface IloginDataProps {
+//   email: string;
+//   password: string;
+//   name: string;
+//   phoneNumber: string;
+//   birthDate: string;
+//   productType: string;
+//   job: string;
+//   bankName: string;
+//   accessToken: string;
+// }
+// export interface IloginGetProps {
+//   url: string;
+//   method: string;
+//   body?: IemailProps;
+// }
 
-export interface IemailProps {
-  email: string;
-  password: string;
-}
+// export interface IemailProps {
+//   email: string;
+//   password: string;
+// }
 
-export interface IloginPushProps {
+export interface IputLoginDataProps {
   token: string;
   password: string;
   phoneNumber: string;
