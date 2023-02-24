@@ -3,46 +3,49 @@ import DropDown from '../components/DropDown';
 import ItemCard from '../components/ItemCard';
 import LittleTitle from '../components/LittleTitle';
 import SavingsButtons from '../components/SavingsButtons';
-import ToggleButton from '../components/ToggleButton';
 import { getApplyItemData } from '../api/api';
 import { item } from '../@types/data';
+import { useCookies } from 'react-cookie';
+
 const MyCart = () => {
+  const [Token] = useCookies();
   const [savingValue, setSavingValue] = useState<string>('예금, 적금');
-  const [toggle, setToggle] = useState<boolean>(true);
   const [bank, setBank] = useState({ title: '모든은행', value: '국민신한우리하나' });
-  const [ress, setRess] = useState<item[]>([
-    {
-      productId: 0,
-      bankName: '',
-      productType: '',
-      productName: '',
-      maxLimit: 0,
-      minimumAmount: 0,
-      dueDate: 0,
-      rate: 0,
-    },
-  ]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [ress, setRess] = useState<item[]>();
 
   useEffect(() => {
     const cartData = () => {
-      setIsLoading(true);
-      getApplyItemData(
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraGtAbmF2ZXIuY29tIiwiaXNzIjoidGljY2xlIiwiaWF0IjoxNjc3MTU0NDIwLCJleHAiOjE2NzcxNTYyMjB9.508HATRUNE2O9mlTlpKTkrk2tXmbEuvk0oLL4VxSkOw',
-      ).then(appData => {
-        appData.data.content.map((item: item) => {
+      getApplyItemData(Token.accessToken).then(appData => {
+        const data = appData.data.content.filter((content: item, index: number) => {
+          return (
+            appData.data.content.findIndex((content2: item) => {
+              return content.productId === content2.productId;
+            }) === index
+          );
+        });
+        console.log(data);
+        // console.log(appData.data);
+
+        data.map((item: item) => {
           if (item.productType === '예금') {
-            item.maxLimit = 0;
+            return (item.maxLimit = 0);
           } else {
-            item.minimumAmount = 0;
+            return (item.minimumAmount = 0);
           }
         });
-        setRess(appData.data.content);
-        setIsLoading(false);
+        setRess(data);
       });
     };
+
     cartData();
   }, []);
+  console.log(ress);
+
+  // useEffect(() => {
+  //   setRess([...ress]);
+  //   // console.log(ress);
+  // }, [ress]);
+
   // console.log(ress);
 
   return (
@@ -51,7 +54,7 @@ const MyCart = () => {
       <div>
         <div className='my-4 mx-5 flex flex-wrap justify-between items-center gap-2'>
           <SavingsButtons savingValue={savingValue} setSavingValue={setSavingValue} />
-          <ToggleButton toggle={toggle} setToggle={setToggle} />
+          {/* <ToggleButton toggle={toggle} setToggle={setToggle} /> */}
           <DropDown bank={bank} setBank={setBank} />
         </div>
       </div>
@@ -67,46 +70,31 @@ const MyCart = () => {
         </button>
       </div> */}
       <div className='p-5 flex flex-col gap-5'>
-        {toggle
-          ? ress
-              ?.filter(res => {
-                console.log(ress);
-                return savingValue.includes(res.productType);
-              })
-              .filter(res => {
-                console.log(ress);
-                return bank.value.includes(res.bankName);
-              })
-              // .sort((a, b) => {
-              //   return b.rate - a.rate;
-              // })
-              .map(res => {
-                console.log(ress);
-                return (
-                  <div key={res.productId}>
-                    <ItemCard product={res} setRess={setRess} ress={ress} />
-                  </div>
-                );
-              })
-          : ress
-              ?.filter(res => {
-                return savingValue.includes(res.productType);
-              })
-              .filter(res => {
-                return bank.value.includes(res.bankName);
-              })
-              // .sort((a, b) => {
-              //   const dayA = a.productMakeDay;
-              //   const dayB = b.productMakeDay;
-              //   return (dayB as string) < (dayA as string) ? -1 : 1;
-              // })
-              .map(res => {
-                return (
-                  <div key={res.productId}>
-                    <ItemCard product={res} setRess={setRess} ress={ress} />
-                  </div>
-                );
-              })}
+        {ress !== undefined &&
+          ress
+            ?.filter(res => {
+              // console.log(ress);
+              // return
+              return savingValue.includes(res.productType) && bank.value.includes(res.bankName);
+              // return a;
+              // console.log(a);
+            })
+            // .filter(res => {
+            //   return bank.value.includes(res.bankName);
+            // })
+            .map(res => {
+              // console.log(res);
+              return (
+                <div key={res.productName + res.productId}>
+                  <ItemCard
+                    product={res}
+                    setRess={setRess as React.Dispatch<React.SetStateAction<item[]>>}
+                    ress={ress}
+                    Token={Token}
+                  />
+                </div>
+              );
+            })}
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
 import React from 'react';
-import { IQuestProps } from '../@types/IProps';
+import { IRadioQProps } from '../@types/IProps';
 
 const check: string[] = ['예금', '적금'];
 
-const RadioQ = ({ question, loginData, setLoginData, replace, value }: IQuestProps) => {
+const RadioQ = ({ question, loginData, setLoginData, replace, value }: IRadioQProps) => {
   const checkClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked && setLoginData !== undefined) {
       setLoginData({ ...loginData, productType: loginData.productType + event.target.value });

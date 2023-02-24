@@ -1,7 +1,7 @@
 import React from 'react';
-import { ITextQuestProps } from '../@types/IProps';
+import { ITextQProps } from '../@types/IProps';
 
-const TestQ = ({ question, name, type, loginData, setLoginData, value, replace, placeHolder }: ITextQuestProps) => {
+const TestQ = ({ question, name, type, loginData, setLoginData, value, replace, placeHolder }: ITextQProps) => {
   const onchange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (setLoginData !== undefined && loginData !== undefined) {
       setLoginData({

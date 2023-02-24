@@ -20,6 +20,7 @@ const ProtectedRoute = ({ children }: IProtectedRouteProps) => {
   useEffect(() => {
     if (!token.accessToken && token.refreshToken) {
       postRefreshToken(token.refreshToken).then(res => {
+        console.log('hello', token.refreshToken);
         setToken('accessToken', res.data.accessToken, { maxAge: 60 * 30 });
         setToken('refreshToken', res.data.refreshToken, { maxAge: 60 * 60 * 24 * 14 });
       });
