@@ -81,7 +81,7 @@ const Login = () => {
           <span className='text-main-green'>로그인</span>해서 금융 상품을 쇼핑해보세요!
         </p>
 
-        <form onSubmit={handleSubmit(onValid)} className='flex flex-col items-center my-20 space-y-2'>
+        <form onSubmit={handleSubmit(onValid)} className='flex flex-col items-center mt-16 space-y-2'>
           <LoginInput
             name='email'
             text='이메일'
@@ -96,9 +96,11 @@ const Login = () => {
             register={register}
             errorMessege={errors.password?.message}
           />
-        </form>
 
-        <MainButton text={'로그인'} onClick={handleSubmit(onValid)} />
+          <div className='w-full flex justify-center pt-14'>
+            <MainButton type='submit' text='로그인' onClick={handleSubmit(onValid)} />
+          </div>
+        </form>
       </div>
     </div>
   );

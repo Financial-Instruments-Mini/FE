@@ -1,9 +1,10 @@
 import React from 'react';
 import { IButtonProps } from '../../@types/IProps';
 
-const MainButton = ({ text, select = false, page, onClick }: IButtonProps) => {
+const MainButton = ({ type = 'button', text, select = false, page, onClick }: IButtonProps) => {
   return (
     <button
+      type={type}
       name={text}
       onClick={onClick}
       className={`relative h-16 px-1 shrink-0 rounded-3xl text-md font-bold -shadow-basic text-lg

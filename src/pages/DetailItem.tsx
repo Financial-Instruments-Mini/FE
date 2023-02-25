@@ -1,8 +1,7 @@
-import { JSXElementConstructor, Key, ReactElement, ReactFragment, ReactPortal, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import LittleTitle from '../components/LittleTitle';
-import 국민은행 from '../assets/bankicons/금융아이콘_PNG_국민.png';
 import MainButton from '../components/ui/MainButton';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import ConfirmModal from '../components/modal/ConfirmModal';
 import { BsStar, BsStarFill } from 'react-icons/bs';
 import {
@@ -13,11 +12,8 @@ import {
   requestDeleteBookmark,
 } from '../api/api';
 import { getImageUrl } from '../utils/getImageUrl';
-import { BookmarkId, BookmarkProducts, ProductDetails } from '../@types/data';
-import { useQuery } from '@tanstack/react-query';
+import { BookmarkProducts, ProductDetails } from '../@types/data';
 import { useCookies } from 'react-cookie';
-import { useRecoilState } from 'recoil';
-import { isLogInState } from '../data/atoms';
 
 const DetailItem = () => {
   const [Token] = useCookies();
