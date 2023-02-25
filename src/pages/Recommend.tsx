@@ -11,7 +11,7 @@ import { userInfoState } from '../data/atoms';
 const Recommend = () => {
   const navigate = useNavigate();
   const [noData, setNoData] = useState(false);
-  const [token, setToken] = useCookies();
+  const [token] = useCookies();
   const accessToken = token.accessToken;
   const userInfo = useRecoilValue(userInfoState);
 

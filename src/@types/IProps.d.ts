@@ -8,6 +8,7 @@ export interface IKeyWordButtonProps {
 }
 
 export interface IButtonProps {
+  type?: 'button' | 'submit';
   text: string;
   select?: boolean;
   page?: string;
