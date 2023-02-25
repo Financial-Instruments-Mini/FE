@@ -197,7 +197,6 @@ export const requestAddBookmark = async (
         },
       },
     );
-    console.log(res);
     if (res.data === 'success') return true;
     return false;
   } catch (error) {
@@ -207,7 +206,6 @@ export const requestAddBookmark = async (
 };
 
 export const requestDeleteBookmark = async (accessToken: string, productId: number): Promise<boolean> => {
-  console.log(productId);
   try {
     const res = await instance.delete(`/bookmarks/${productId}`, {
       headers: {

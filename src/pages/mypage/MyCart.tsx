@@ -49,7 +49,7 @@ const MyCart = () => {
           <DropDown bank={bank} setBank={setBank} />
         </div>
       </div>
-      <div className='p-5 flex flex-col gap-5'>
+      <div className='mb-10 p-5 flex flex-col gap-5'>
         {ress !== undefined &&
           ress
             ?.filter(res => {
