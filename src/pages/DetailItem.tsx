@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import LittleTitle from '../components/ui/LittleTitle';
 import MainButton from '../components/ui/MainButton';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ConfirmModal from '../components/modal/ConfirmModal';
 import { BsStar, BsStarFill } from 'react-icons/bs';
 import {
@@ -94,7 +94,6 @@ const DetailItem = () => {
     getDetailData();
   }, []);
 
-  console.log(isLogIn);
   return (
     <>
       {detail && (

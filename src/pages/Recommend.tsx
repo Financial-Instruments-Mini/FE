@@ -7,18 +7,24 @@ import { RiEmotionSadLine } from 'react-icons/ri';
 import { useCookies } from 'react-cookie';
 import { useRecoilValue } from 'recoil';
 import { userInfoState } from '../data/atoms';
+import { ProductsResponse } from '../@types/data';
 
 const Recommend = () => {
   const navigate = useNavigate();
   const [noData, setNoData] = useState(false);
+  const [recommendProducts, setRecommendProducts] = useState<ProductsResponse>();
   const [token] = useCookies();
   const accessToken = token.accessToken;
   const userInfo = useRecoilValue(userInfoState);
 
-  const { data: recommendProducts, isLoading } = useQuery(['recommend'], () => getRecommendProducts(accessToken), {
+  const { data, isLoading } = useQuery(['recommend', userInfo], () => getRecommendProducts(accessToken), {
     onSuccess(data) {
-      if (data?.empty) {
+      const error = data as boolean;
+      const products = data as ProductsResponse;
+      if (error || !error || products?.empty) {
         setNoData(true);
+      } else {
+        setRecommendProducts(products);
       }
     },
   });
@@ -43,7 +49,7 @@ const Recommend = () => {
           </div>
         ) : (
           recommendProducts &&
-          recommendProducts.content.map(recommendProduct => (
+          recommendProducts?.content?.map(recommendProduct => (
             <ItemGallery key={recommendProduct.productId} {...recommendProduct} />
           ))
         )}
