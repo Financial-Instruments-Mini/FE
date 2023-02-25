@@ -23,7 +23,6 @@ const MyCart = () => {
             }) === index
           );
         });
-        console.log(data);
 
         data.map((item: item) => {
           if (item.productType === '예금') {
@@ -37,8 +36,7 @@ const MyCart = () => {
     };
 
     cartData();
-  }, []);
-  console.log(ress);
+  }, [Token.accesstoken]);
 
   return (
     <div>

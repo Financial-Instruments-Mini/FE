@@ -13,13 +13,13 @@ const EndRegister = () => {
   const [token] = useCookies();
 
   useState(() => {
-    console.log(state.surveyData, userInfo);
-    const productType = state.surveyData.includes('예금') && state.surveyData.includes('적금') ? '예금_적금' : '';
-    const bankName = state.surveyData.length === 4 ? state.surveyData[2] : state.surveyData[1];
-    const job = state.surveyData.length === 4 ? state.surveyData[3] : state.surveyData[2];
-    const accessToken = token.accessToken;
-    console.log({ productType, job, bankName }, accessToken);
-    putSurveyInfo({ productType, job, bankName }, accessToken);
+    // console.log(state.surveyData, userInfo);
+    // const productType = state.surveyData.includes('예금') && state.surveyData.includes('적금') ? '예금_적금' : '';
+    // const bankName = state.surveyData.length === 4 ? state.surveyData[2] : state.surveyData[1];
+    // const job = state.surveyData.length === 4 ? state.surveyData[3] : state.surveyData[2];
+    // const accessToken = token.accessToken;
+    // console.log({ productType, job, bankName }, accessToken);
+    // putSurveyInfo({ productType, job, bankName }, accessToken);
   });
 
   return (

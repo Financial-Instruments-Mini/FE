@@ -105,7 +105,7 @@ export const getSearchResult = async ({ input, toggle }: ISearchForm) => {
   return response.data.data;
 };
 
-export const getRecommendProducts = async (accessToken: string): Promise<ProductsResponse | undefined> => {
+export const getRecommendProducts = async (accessToken: string): Promise<ProductsResponse | boolean> => {
   try {
     const response = await instance.get('/member/recommend', {
       headers: {
@@ -113,8 +113,9 @@ export const getRecommendProducts = async (accessToken: string): Promise<Product
       },
     });
     return response.data.data;
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    const error = err as AxiosError;
+    return error.response?.status === 500;
   }
 };
 
