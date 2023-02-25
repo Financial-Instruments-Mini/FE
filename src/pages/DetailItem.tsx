@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import ConfirmModal from '../components/modal/ConfirmModal';
 import { BsStar, BsStarFill } from 'react-icons/bs';
 import {
+  getApplyItemData,
   getBookmarkProducts,
   getProductDetails,
   requestAddBookmark,
@@ -25,6 +26,9 @@ const DetailItem = () => {
   const placeId = useLocation().pathname.split('/')[2];
   const [bookmarkId, setBookmarkId] = useState<number>();
   const isLogIn = useRecoilValue(isLogInState);
+  const [isApply, setIsApply] = useState<boolean>(false);
+  const navigate = useNavigate();
+
   const handleOpenModal = () => {
     setVisibleModal(true);
   };
@@ -33,6 +37,11 @@ const DetailItem = () => {
   };
 
   const addBookmark = async () => {
+    if (!isLogIn) {
+      alert('로그인이 필요한 서비스입니다.');
+      navigate('/login');
+      return;
+    }
     if (await requestAddBookmark(Token.accessToken, Number(placeId), 2)) setBookmark(true);
   };
 
@@ -43,6 +52,11 @@ const DetailItem = () => {
   const applyProduct = async () => {
     if (!isLogIn) {
       alert('로그인이 필요한 서비스입니다.');
+      navigate('/login');
+      return;
+    }
+    if (isApply) {
+      alert('이미 신청한 상품입니다.');
       return;
     }
     if (await requestApplyProduct(Token.accessToken, Number(placeId), 2)) return true;
@@ -62,11 +76,14 @@ const DetailItem = () => {
           setBookmark(true);
         }
         bookMarkList?.forEach((bookMark: BookmarkProducts) => {
-          console.log(bookMarkList);
           if (bookMark.productId === Number(placeId)) {
             setBookmarkId(bookMark.id);
           }
         });
+        const applyList = await getApplyItemData(Token.accessToken);
+        if (applyList.data.content?.find((apply: BookmarkProducts) => apply.productId === Number(placeId))) {
+          setIsApply(true);
+        }
         setDetail(data);
       } catch (error) {
         console.log(error);
@@ -148,7 +165,7 @@ const DetailItem = () => {
             <ConfirmModal
               onCloseModal={handleCloseModal}
               onConfirm={async () => {
-                if (await applyProduct()) alert('신청완료');
+                if (await applyProduct()) alert('신청되었습니다.');
               }}
               buttonText={{ confirm: '신청', cancel: '취소' }}
             >
