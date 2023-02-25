@@ -71,18 +71,20 @@ const DetailItem = () => {
     async function getDetailData() {
       try {
         const data = await getProductDetails(Number(placeId));
-        const bookMarkList = await getBookmarkProducts(Token.accessToken);
-        if (bookMarkList?.find((bookMark: BookmarkProducts) => bookMark.productId === Number(placeId))) {
-          setBookmark(true);
-        }
-        bookMarkList?.forEach((bookMark: BookmarkProducts) => {
-          if (bookMark.productId === Number(placeId)) {
-            setBookmarkId(bookMark.id);
+        if (isLogIn) {
+          const bookMarkList = await getBookmarkProducts(Token.accessToken);
+          if (bookMarkList?.find((bookMark: BookmarkProducts) => bookMark.productId === Number(placeId))) {
+            setBookmark(true);
           }
-        });
-        const applyList = await getApplyItemData(Token.accessToken);
-        if (applyList.data.content?.find((apply: BookmarkProducts) => apply.productId === Number(placeId))) {
-          setIsApply(true);
+          bookMarkList?.forEach((bookMark: BookmarkProducts) => {
+            if (bookMark.productId === Number(placeId)) {
+              setBookmarkId(bookMark.id);
+            }
+          });
+          const applyList = await getApplyItemData(Token.accessToken);
+          if (applyList.data.content?.find((apply: BookmarkProducts) => apply.productId === Number(placeId))) {
+            setIsApply(true);
+          }
         }
         setDetail(data);
       } catch (error) {
@@ -90,8 +92,9 @@ const DetailItem = () => {
       }
     }
     getDetailData();
-  }, [bookmark]);
+  }, []);
 
+  console.log(isLogIn);
   return (
     <>
       {detail && (
