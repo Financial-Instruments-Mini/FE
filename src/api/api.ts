@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { IputLoginDataProps } from '../@types/IProps';
 import { ProductsResponse, ISearchForm, BookmarkProducts } from '../@types/data';
-import { Job, Keyword, ProductType } from '../@types/enum.d';
+import { BankName, Job, Keyword, ProductType } from '../@types/enum.d';
 import { ISignUpPayload, IEditMemberInfo, ProductDetails } from './../@types/data.d';
 
 export const instance = axios.create({
@@ -47,14 +47,14 @@ export const putSurveyInfo = async (
     console.log({
       productType: ProductType[`${productType}`],
       job: Job[`${job}`],
-      bankName,
+      bankName: BankName[`${bankName}`],
     });
     const response = await instance.put(
       `/member`,
       {
         productType: ProductType[`${productType}`],
         job: Job[`${job}`],
-        bankName,
+        bankName: BankName[`${bankName}`],
       },
       { headers: { Authorization: `Bearer ${accessToken}` } },
     );

@@ -8,13 +8,14 @@ import * as yup from 'yup';
 import { IRegisterForm } from './../@types/data.d';
 import { signUp } from '../api/api';
 import { useCookies } from 'react-cookie';
-import { useRecoilValue } from 'recoil';
-import { isLogInState } from '../data/atoms';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { isLogInState, userInfoState } from '../data/atoms';
 
 const Register = () => {
   const navigator = useNavigate();
   const [, setAccessToken] = useCookies();
-  const isLogIn = useRecoilValue(isLogInState);
+  const [isLogIn, setIsLogIn] = useRecoilState(isLogInState);
+  const setUserInfo = useSetRecoilState(userInfoState);
 
   useEffect(() => {
     if (isLogIn) {
@@ -74,15 +75,15 @@ const Register = () => {
 
   const onValid = async (data: IRegisterForm) => {
     const { email, password, name, phoneNumber, birthDate } = data;
-    console.log(email, password, name, phoneNumber, birthDate);
     const payload = { email, password, name, phoneNumber, birthDate };
 
     const res = await signUp(payload);
-    console.log(res);
 
     // access, refresh 를 둘 다 쿠키에 저장하여 시간 설정
     if (res.success) {
-      console.log('성공');
+      setIsLogIn(true);
+      const { email, phoneNumber, name, birthDate, productType, job, bankName } = res.data;
+      setUserInfo({ email, phoneNumber, name, birthDate, productType, job, bankName });
       setAccessToken('accessToken', res.data.tokenDto.accessToken, { maxAge: 60 * 30 });
       setAccessToken('refreshToken', res.data.tokenDto.refreshToken, { maxAge: 60 * 60 * 24 * 14 });
       navigator('/survey');

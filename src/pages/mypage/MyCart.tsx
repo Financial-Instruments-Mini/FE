@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import DropDown from '../../components/DropDown';
-import ItemCard from '../../components/ItemCard';
-import LittleTitle from '../../components/LittleTitle';
-import SavingsButtons from '../../components/SavingsButtons';
+import DropDown from '../../components/ui/DropDown';
+import ItemCard from '../../components/ui/ItemCard';
+import LittleTitle from '../../components/ui/LittleTitle';
+import SavingsButtons from '../../components/ui/SavingsButtons';
 import { getApplyItemData } from '../../api/api';
 import { item } from '../../@types/data';
 import { useCookies } from 'react-cookie';

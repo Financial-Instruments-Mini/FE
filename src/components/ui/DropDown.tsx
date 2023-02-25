@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SlArrowDown } from 'react-icons/sl';
 import { AnimatePresence, motion } from 'framer-motion';
-import { IDropDownProps } from '../@types/IProps';
+import { IDropDownProps } from '../../@types/IProps';
 
 const DropDown = ({ bank, setBank }: IDropDownProps) => {
   const bankList = [

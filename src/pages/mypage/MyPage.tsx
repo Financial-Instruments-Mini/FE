@@ -6,15 +6,13 @@ import { RiLogoutBoxRLine } from 'react-icons/ri';
 import { IListItemProps } from '../../@types/IProps';
 import { isLogInState } from '../../data/atoms';
 import { userInfoState } from './../../data/atoms';
-import LittleTitle from './../../components/LittleTitle';
+import LittleTitle from './../../components/ui/LittleTitle';
 
 const MyPage = () => {
   const navigate = useNavigate();
   const setIsLogIn = useSetRecoilState(isLogInState);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [, , removeToken] = useCookies();
-
-  console.log(userInfo);
 
   const list: IListItemProps[] = [
     {

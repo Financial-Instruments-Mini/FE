@@ -59,9 +59,12 @@ export interface ProductDetails {
   productMakeDay?: string | null;
   keyword?: string | null;
   interests: Array;
+  maxLimit: number | null;
+  minimumAmount: number | null;
 }
 
 export interface BookmarkProducts {
+  id: number;
   productId: number;
   bankName: string;
   productType: string;
