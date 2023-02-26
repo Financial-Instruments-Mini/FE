@@ -7,30 +7,29 @@ import { RiEmotionSadLine } from 'react-icons/ri';
 import { useCookies } from 'react-cookie';
 import { useRecoilValue } from 'recoil';
 import { userInfoState } from '../data/atoms';
-import { ProductsResponse } from '../@types/data';
+import { Product, ProductsResponse } from '../@types/data';
 
 const Recommend = () => {
   const navigate = useNavigate();
   const [noData, setNoData] = useState(false);
-  const [recommendProducts, setRecommendProducts] = useState<ProductsResponse>();
+  const [recommendProducts, setRecommendProducts] = useState<Product[]>([]);
   const [token] = useCookies();
   const accessToken = token.accessToken;
   const userInfo = useRecoilValue(userInfoState);
 
   const { data, isLoading } = useQuery(['recommend', userInfo], () => getRecommendProducts(accessToken), {
     onSuccess(data) {
-      const error = data as boolean;
-      const products = data as ProductsResponse;
-      if (error || !error || products?.empty) {
+      if (data?.empty) {
         setNoData(true);
       } else {
+        const products = data?.content as Product[];
         setRecommendProducts(products);
       }
     },
   });
 
   return (
-    <>
+    <section className='mb-16'>
       <div className='text-xl font-bold flex flex-col gap-3 mb-3'>
         <span className='text-main-blue'>
           {userInfo.name}
@@ -49,7 +48,7 @@ const Recommend = () => {
           </div>
         ) : (
           recommendProducts &&
-          recommendProducts?.content?.map(recommendProduct => (
+          recommendProducts?.map(recommendProduct => (
             <ItemGallery key={recommendProduct.productId} {...recommendProduct} />
           ))
         )}
@@ -57,7 +56,7 @@ const Recommend = () => {
       <button onClick={() => navigate('/survey')} className='block w-fit mx-auto mt-5 text-sm cursor-pointer'>
         {'설문 다시하고 다른상품 추천받기 →'}
       </button>
-    </>
+    </section>
   );
 };
 

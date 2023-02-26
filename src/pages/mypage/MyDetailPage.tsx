@@ -140,7 +140,7 @@ const MyDetailPage = () => {
   }, [option]);
 
   return (
-    <div>
+    <div className='mb-16'>
       <LittleTitle title='나의 정보 보기' move='true' />
       <div className='bg-white rounded-xl -shadow-basic '>
         <div className='p-10'>
