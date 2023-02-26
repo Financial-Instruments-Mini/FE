@@ -117,11 +117,11 @@ export interface IItemGalleryProps {
 
 export interface IputLoginDataProps {
   token: string;
-  password: string;
-  phoneNumber: string;
-  productType: string;
-  job: string;
-  bankName: string;
+  password?: string;
+  phoneNumber?: string;
+  productType?: string;
+  job?: string;
+  bankName?: string;
 }
 
 export interface ISearchKeywordsProps {
