@@ -105,7 +105,7 @@ export const getSearchResult = async ({ input, toggle }: ISearchForm) => {
   return response.data.data;
 };
 
-export const getRecommendProducts = async (accessToken: string): Promise<ProductsResponse | undefined> => {
+export const getRecommendProducts = async (accessToken: string): Promise<ProductsResponse | boolean> => {
   try {
     const response = await instance.get('/member/recommend', {
       headers: {
@@ -113,8 +113,9 @@ export const getRecommendProducts = async (accessToken: string): Promise<Product
       },
     });
     return response.data.data;
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    const error = err as AxiosError;
+    return error.response?.status === 500;
   }
 };
 
@@ -213,7 +214,6 @@ export const requestAddBookmark = async (
         },
       },
     );
-    console.log(res);
     if (res.data === 'success') return true;
     return false;
   } catch (error) {
@@ -223,7 +223,6 @@ export const requestAddBookmark = async (
 };
 
 export const requestDeleteBookmark = async (accessToken: string, productId: number): Promise<boolean> => {
-  console.log(productId);
   try {
     const res = await instance.delete(`/bookmarks/${productId}`, {
       headers: {

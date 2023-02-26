@@ -104,7 +104,7 @@ const Register = () => {
           <span className='text-main-green'>회원가입</span>해서 금융 상품을 쇼핑해보세요!
         </p>
 
-        <form onSubmit={handleSubmit(onValid)} className='w-full flex flex-col items-center mt-12 mb-12 space-y-3'>
+        <form onSubmit={handleSubmit(onValid)} className='w-full flex flex-col items-center mt-12 space-y-3'>
           <RegisterInput
             title='이메일'
             name='email'
@@ -157,7 +157,7 @@ const Register = () => {
             <label className='mr-8 font-bold' htmlFor='agree'>
               <input
                 {...register('agree', { required: '체크를 해주셔야 회원가입이 가능합니다' })}
-                className='inline-flex justify-center items-center align-middle appearance-none w-3 h-3 border-2 border-main-green after:hidden after:w-1 after:h-1 after:bg-main-green checked:after:inline-block'
+                className='inline-flex justify-center items-center align-middle appearance-none w-3 h-3 border-2 border-main-green after:hidden after:w-1 after:h-1 after:bg-main-green checked:after:inline-block outline-none'
                 name='agree'
                 id='agree'
                 type='checkbox'
@@ -166,9 +166,11 @@ const Register = () => {
             </label>
             <span className='h-1 mt-2 pl-3 text-xs text-gray'>{errors.agree?.message}</span>
           </div>
-        </form>
 
-        <MainButton text={'회원가입'} onClick={handleSubmit(onValid)} />
+          <div className='w-full flex justify-center pt-10'>
+            <MainButton type='submit' text='회원가입' onClick={handleSubmit(onValid)} />
+          </div>
+        </form>
       </div>
     </div>
   );
