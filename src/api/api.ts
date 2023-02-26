@@ -143,9 +143,25 @@ export const putLoginData = async ({
         },
       },
     );
+    console.log({
+      token,
+      password,
+      phoneNumber,
+      productType,
+      job,
+      bankName,
+    });
     return response.data;
   } catch (error) {
     console.log(error);
+    console.log({
+      token,
+      password,
+      phoneNumber,
+      productType,
+      job,
+      bankName,
+    });
   }
 };
 
