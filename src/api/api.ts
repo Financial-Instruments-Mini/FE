@@ -8,7 +8,7 @@ export const instance = axios.create({
   baseURL: 'https://www.ticcle.store/api/v1',
 });
 
-export const logIn = async (email: string, password: string): Promise<any> => {
+export const logIn = async (email: string, password: string) => {
   try {
     const response = await instance.post(`/auth/login`, {
       email,
@@ -22,7 +22,7 @@ export const logIn = async (email: string, password: string): Promise<any> => {
   }
 };
 
-export const signUp = async (payload: ISignUpPayload): Promise<any> => {
+export const signUp = async (payload: ISignUpPayload) => {
   const { email, password, name, phoneNumber, birthDate } = payload;
   try {
     const response = await instance.post(`/auth/signup`, {
@@ -39,10 +39,7 @@ export const signUp = async (payload: ISignUpPayload): Promise<any> => {
   }
 };
 
-export const putSurveyInfo = async (
-  { productType, job, bankName }: IEditMemberInfo,
-  accessToken: string,
-): Promise<any> => {
+export const putSurveyInfo = async ({ productType, job, bankName }: IEditMemberInfo, accessToken: string) => {
   try {
     console.log({
       productType: ProductType[`${productType}`],
@@ -66,7 +63,7 @@ export const putSurveyInfo = async (
   }
 };
 
-export const postRefreshToken = async (refreshToken: string): Promise<any> => {
+export const postRefreshToken = async (refreshToken: string) => {
   try {
     const response = await instance.post(`/auth/refresh`, {
       refreshToken,
@@ -105,7 +102,7 @@ export const getSearchResult = async ({ input, toggle }: ISearchForm) => {
   return response.data.data;
 };
 
-export const getRecommendProducts = async (accessToken: string): Promise<ProductsResponse | boolean> => {
+export const getRecommendProducts = async (accessToken: string): Promise<ProductsResponse | undefined> => {
   try {
     const response = await instance.get('/member/recommend', {
       headers: {
@@ -114,8 +111,7 @@ export const getRecommendProducts = async (accessToken: string): Promise<Product
     });
     return response.data.data;
   } catch (err) {
-    const error = err as AxiosError;
-    return error.response?.status === 500;
+    console.log(err);
   }
 };
 
@@ -143,9 +139,25 @@ export const putLoginData = async ({
         },
       },
     );
+    console.log({
+      token,
+      password,
+      phoneNumber,
+      productType,
+      job,
+      bankName,
+    });
     return response.data;
   } catch (error) {
     console.log(error);
+    console.log({
+      token,
+      password,
+      phoneNumber,
+      productType,
+      job,
+      bankName,
+    });
   }
 };
 

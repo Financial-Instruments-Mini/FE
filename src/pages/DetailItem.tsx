@@ -17,6 +17,7 @@ import { BookmarkProducts, ProductDetails } from '../@types/data';
 import { useCookies } from 'react-cookie';
 import { useRecoilValue } from 'recoil';
 import { isLogInState } from '../data/atoms';
+import Loading from '../components/ui/Loading';
 
 const DetailItem = () => {
   const [Token] = useCookies();
@@ -96,7 +97,9 @@ const DetailItem = () => {
 
   return (
     <>
-      {detail && (
+      {!detail ? (
+        <Loading />
+      ) : (
         <main className='mb-16'>
           <LittleTitle title='상품 상세' />
           <header className='flex-col my-2 mx-1 p-4 rounded-xl -shadow-basic bg-white'>

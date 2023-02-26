@@ -145,3 +145,13 @@ export interface IEditMemberInfo {
   job: keyof typeof Job;
   bankName: keyof typeof BankName;
 }
+
+export interface IUserInfo {
+  email: string;
+  phoneNumber: number;
+  name: string;
+  birthDate: number;
+  productType: keyof typeof ProductType;
+  job: keyof typeof Job;
+  bankName: keyof typeof BankName;
+}

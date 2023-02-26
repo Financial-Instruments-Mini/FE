@@ -10,11 +10,11 @@ import { useCookies } from 'react-cookie';
 import { ILoginForm } from './../@types/data.d';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { isLogInState, userInfoState } from './../data/atoms';
+import { useMutation } from '@tanstack/react-query';
 
 const Login = () => {
   const navigator = useNavigate();
   const [, setToken] = useCookies();
-
   const [isLogIn, setIsLogIn] = useRecoilState(isLogInState);
   const setUserInfo = useSetRecoilState(userInfoState);
 
@@ -54,20 +54,24 @@ const Login = () => {
     navigator('/register');
   };
 
-  const onValid = async (data: ILoginForm) => {
-    const res = await logIn(data.email, data.password);
-    const { email, phoneNumber, name, birthDate, productType, job, bankName } = res.data;
-    console.log(res);
-
-    if (res.success) {
-      setToken('accessToken', res.data.tokenDto.accessToken, { maxAge: 60 * 30 });
-      setToken('refreshToken', res.data.tokenDto.refreshToken, { maxAge: 60 * 60 * 24 * 14 });
-      setIsLogIn(true);
-      setUserInfo({ email, phoneNumber, name, birthDate, productType, job, bankName });
-      navigator('/');
-    } else {
+  const login = useMutation(([email, password]: string[]) => logIn(email, password), {
+    onSuccess: res => {
+      if (res.success) {
+        const { email, phoneNumber, name, birthDate, productType, job, bankName } = res.data;
+        setToken('accessToken', res.data.tokenDto.accessToken, { maxAge: 60 * 30 });
+        setToken('refreshToken', res.data.tokenDto.refreshToken, { maxAge: 60 * 60 * 24 * 14 });
+        setIsLogIn(true);
+        setUserInfo({ email, phoneNumber, name, birthDate, productType, job, bankName });
+        navigator('/');
+      }
+    },
+    onError: () => {
       alert('아이디 또는 비밀번호가 일치하지 않습니다.');
-    }
+    },
+  });
+
+  const onValid = async (data: ILoginForm) => {
+    login.mutate([data.email, data.password]);
   };
 
   return (

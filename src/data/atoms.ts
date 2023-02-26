@@ -1,16 +1,6 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
-import { BankName, Job, ProductType } from '../@types/enum';
-
-interface IUserInfo {
-  email: string;
-  phoneNumber: number;
-  name: string;
-  birthDate: number;
-  productType: keyof typeof ProductType;
-  job: keyof typeof Job;
-  bankName: keyof typeof BankName;
-}
+import { IUserInfo } from '../@types/data';
 
 const { persistAtom } = recoilPersist();
 

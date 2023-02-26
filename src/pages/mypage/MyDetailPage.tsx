@@ -28,7 +28,7 @@ const MyDetailPage = () => {
       getLoginData(Token.accessToken).then(appData => {
         setUserInfo({
           email: appData.email,
-          password: '',
+          password: appData.password || '',
           name: appData.name,
           birthDate: appData.birthDate,
           phoneNumber: appData.phoneNumber,
@@ -41,31 +41,47 @@ const MyDetailPage = () => {
     };
 
     loginData();
+    console.log('hello');
   }, []);
 
-  const submit = async () => {
-    await setReplace(!replace);
-    await setSubmitData(!submitData);
-  };
-
-  const subData = {
-    token: userInfo.accessToken,
+  const [subData, setSubData] = useState({
+    token: '',
     password: '',
     phoneNumber: '',
     productType: '',
     job: '',
     bankName: '',
+  });
+
+  const submit = async () => {
+    await setReplace(!replace);
+    await setSubmitData(!submitData);
+    // setSubData({ ...subData, productType: 'Saving' });
+    // setSubData({ ...subData, password: 'asdf123@' });
   };
+
+  // console.log(subData);
+
+  useEffect(() => {
+    setSubData({
+      ...subData,
+      token: Token.accessToken || '',
+      password: userInfo.password || '',
+      phoneNumber: userInfo.phoneNumber || '',
+    });
+  }, [userInfo.password, userInfo.phoneNumber]);
 
   useEffect(() => {
     if (userInfo?.productType.includes('예금') && userInfo?.productType.includes('적금')) {
-      subData.productType = 'DEPOSIT_AND_SAVING';
+      setSubData({ ...subData, productType: 'DEPOSIT_AND_SAVING' });
     } else if (userInfo?.productType.includes('예금') && !userInfo?.productType.includes('적금')) {
-      subData.productType = 'DEPOSIT';
+      setSubData({ ...subData, productType: 'DEPOSIT' });
     } else if (!userInfo?.productType.includes('예금') && userInfo?.productType.includes('적금')) {
-      subData.productType = 'SAVING';
-    } else subData.productType = '';
+      setSubData({ ...subData, productType: 'SAVING' });
+    } else setSubData({ ...subData, productType: '' });
+  }, [userInfo.productType]);
 
+  useEffect(() => {
     const myJob: { [key: string]: string } = {
       회사원: 'OFFICE_WORKERS',
       공무원: 'PUBLIC_OFFICIAL',
@@ -80,10 +96,12 @@ const MyDetailPage = () => {
     };
     Object.keys(myJob).map(job => {
       if (subData.job === '' && job === userInfo?.job) {
-        subData.job = myJob[`${userInfo?.job}`];
+        setSubData({ ...subData, job: myJob[`${userInfo?.job}`] || '' });
       }
     });
+  }, [userInfo?.job]);
 
+  useEffect(() => {
     const myBankName: { [key: string]: string } = {
       국민: 'KOOK_MIN',
       신한: 'SHIN_HAN',
@@ -92,18 +110,13 @@ const MyDetailPage = () => {
     };
     Object.keys(myBankName).map(bank => {
       if (subData.bankName === '' && bank === userInfo?.bankName) {
-        subData.bankName = myBankName[`${userInfo?.bankName}`];
+        setSubData({ ...subData, bankName: myBankName[`${userInfo?.bankName}`] || '' });
       }
     });
+  }, [userInfo?.bankName]);
 
-    if (userInfo?.password !== undefined) {
-      subData.password = userInfo.password;
-    } else subData.password = '';
-
-    if (userInfo?.phoneNumber !== undefined) {
-      subData.phoneNumber = userInfo.phoneNumber;
-    } else subData.phoneNumber = '';
-  }, [userInfo, subData]);
+  // console.log(subData);
+  // console.log(userInfo);
 
   if (
     !replace &&
@@ -125,22 +138,57 @@ const MyDetailPage = () => {
     setSubmitData(true);
   }
 
+  if (!replace && submitData) {
+    if (!userInfo?.productType.includes('예금') && !userInfo?.productType.includes('적금')) {
+      alert('관심상품을 선택해주세요.');
+      setReplace(true);
+      setSubmitData(true);
+    }
+  }
+
+  if (!replace && submitData && userInfo?.job === '') {
+    alert('직업을 선택해주세요.');
+    setReplace(true);
+    setSubmitData(true);
+  }
+
+  if (!replace && submitData && userInfo?.bankName === '') {
+    alert('주거래은행을 선택해주세요.');
+    setReplace(true);
+    setSubmitData(true);
+  }
+
   const option =
     !replace && submitData
       ? subData
-      : { token: '', password: '', phoneNumber: '', productType: '', job: '', bankName: '' };
+      : {
+          token: '',
+          password: '',
+          phoneNumber: '',
+          productType: '',
+          job: '',
+          bankName: '',
+        };
 
   useEffect(() => {
     const putlogData = () => {
       putLoginData(option).then(appData => {
         console.log(appData);
+        // console.log(subData);
       });
     };
     putlogData();
   }, [option]);
 
+  console.log(!replace, submitData);
+  // console.log(userInfo);
+
+  // console.log(subData.password);
+  // console.log(subData);
+  // console.log(userInfo.password);
+
   return (
-    <div>
+    <div className='mb-16'>
       <LittleTitle title='나의 정보 보기' move='true' />
       <div className='bg-white rounded-xl -shadow-basic '>
         <div className='p-10'>
