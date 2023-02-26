@@ -160,7 +160,7 @@ export const getApplyItemData = async (token: string): Promise<any> => {
 
 export const getProductDetails = async (id: number): Promise<ProductDetails | undefined> => {
   try {
-    const response = await instance.get(`products/ + ${id}`);
+    const response = await instance.get(`/products/${id}`);
     return response.data.data;
   } catch (error) {
     console.log(error);

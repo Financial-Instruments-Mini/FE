@@ -1,5 +1,6 @@
 import { item } from './data';
 import { Keyword } from './enum';
+import { IToTalSelectState } from './data.d';
 
 export interface IKeyWordButtonProps {
   keyword: keyof typeof Keyword;
@@ -77,8 +78,8 @@ export interface ISurveyCardProps {
   contents: string[];
   order: number;
   setVisible: Dispatch<SetStateAction<number>>;
-  surveyData: string[];
-  setSurveyData: Dispatch<SetStateAction<string[]>>;
+  surveyData: IToTalSelectState[];
+  setSurveyData: Dispatch<SetStateAction<IToTalSelectState[]>>;
 }
 
 export interface IHeaderProps {

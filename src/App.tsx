@@ -31,7 +31,14 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path='/detail/:id' element={<DetailItem />} />
+          <Route
+            path='/detail/:id'
+            element={
+              <ProtectedRoute>
+                <DetailItem />
+              </ProtectedRoute>
+            }
+          />
           <Route path='/search' element={<Search />} />
           <Route
             path='/recommend'

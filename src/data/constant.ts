@@ -4,7 +4,7 @@ import banner_3 from '../assets/images/banner_img_3.jpg';
 
 export const options = [
   {
-    title: '어떤 종류의 /상품/을 원하시나요?',
+    title: '어떤 /종류/의 상품을 원하시나요?',
     contents: ['예금', '적금'],
   },
   {

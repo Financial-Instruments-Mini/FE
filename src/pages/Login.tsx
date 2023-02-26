@@ -57,6 +57,7 @@ const Login = () => {
   const onValid = async (data: ILoginForm) => {
     const res = await logIn(data.email, data.password);
     const { email, phoneNumber, name, birthDate, productType, job, bankName } = res.data;
+    console.log(res);
 
     if (res.success) {
       setToken('accessToken', res.data.tokenDto.accessToken, { maxAge: 60 * 30 });

@@ -106,6 +106,12 @@ export interface ISearchForm {
 export interface ISelectState {
   content: string;
   isSelect: boolean;
+  type: string;
+}
+
+export interface IToTalSelectState {
+  content: string;
+  type: string;
 }
 
 export interface ILoginForm {

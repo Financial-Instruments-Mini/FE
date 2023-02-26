@@ -21,13 +21,16 @@ const Recommend = () => {
     onSuccess(data) {
       const error = data as boolean;
       const products = data as ProductsResponse;
-      if (error || !error || products?.empty) {
+
+      if (!error || products?.empty) {
         setNoData(true);
       } else {
         setRecommendProducts(products);
       }
     },
   });
+
+  console.log(recommendProducts);
 
   return (
     <>

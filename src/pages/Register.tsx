@@ -78,6 +78,7 @@ const Register = () => {
     const payload = { email, password, name, phoneNumber, birthDate };
 
     const res = await signUp(payload);
+    console.log(res);
 
     // access, refresh 를 둘 다 쿠키에 저장하여 시간 설정
     if (res.success) {

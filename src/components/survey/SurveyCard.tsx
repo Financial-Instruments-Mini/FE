@@ -3,7 +3,7 @@ import { ISurveyCardProps } from '../../@types/IProps';
 import MainButton from '../ui/MainButton';
 import { MdOutlineNavigateNext } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
-import { ISelectState } from '../../@types/data';
+import { ISelectState, IToTalSelectState } from '../../@types/data';
 
 const SurveyCard = ({ title, contents, order, setVisible, surveyData, setSurveyData }: ISurveyCardProps) => {
   const screenTitle = title.split('/');
@@ -17,22 +17,40 @@ const SurveyCard = ({ title, contents, order, setVisible, surveyData, setSurveyD
       setSelect(prev => {
         const oldItemIdx = [...prev].findIndex(i => i.content === content);
         const restContents = [...prev].filter(i => i.content !== content);
-        const newArr = [...restContents, { content, isSelect: oldItemIdx === -1 ? true : !prev[oldItemIdx].isSelect }];
+        const newArr = [
+          ...restContents,
+          { content, isSelect: oldItemIdx === -1 ? true : !prev[oldItemIdx].isSelect, type: 'productType' },
+        ];
         return newArr;
+      });
+    } else if (order === 1) {
+      setSelect(prev => {
+        if (prev.length !== 0) {
+          if (prev[prev.length - 1].content === content) {
+            return [{ content, isSelect: !prev[prev.length - 1].isSelect, type: 'bankName' }];
+          } else {
+            return [
+              { content: prev[prev.length - 1].content, isSelect: false, type: 'bankName' },
+              { content, isSelect: true, type: 'bankName' },
+            ];
+          }
+        } else {
+          return [{ content, isSelect: true, type: 'bankName' }];
+        }
       });
     } else {
       setSelect(prev => {
         if (prev.length !== 0) {
           if (prev[prev.length - 1].content === content) {
-            return [{ content, isSelect: !prev[prev.length - 1].isSelect }];
+            return [{ content, isSelect: !prev[prev.length - 1].isSelect, type: 'job' }];
           } else {
             return [
-              { content: prev[prev.length - 1].content, isSelect: false },
-              { content, isSelect: true },
+              { content: prev[prev.length - 1].content, isSelect: false, type: 'job' },
+              { content, isSelect: true, type: 'job' },
             ];
           }
         } else {
-          return [{ content, isSelect: true }];
+          return [{ content, isSelect: true, type: 'job' }];
         }
       });
     }
@@ -49,16 +67,17 @@ const SurveyCard = ({ title, contents, order, setVisible, surveyData, setSurveyD
   useEffect(() => {
     for (const item of select) {
       if (item.isSelect) {
-        setSurveyData((prev: string[]) => {
-          const addSelect = [...prev, item.content];
-          const newSelects = addSelect.filter((i, idx) => addSelect.indexOf(i) === idx);
+        setSurveyData((prev: IToTalSelectState[]) => {
+          const addSelect = [...prev, { content: item.content, type: item.type }];
+          const newSelects = addSelect.filter((character, idx, arr) => {
+            return arr.findIndex(i => i.content === character.content && i.type === character.type) === idx;
+          });
           return newSelects;
         });
       } else {
-        setSurveyData((prev: string[]) => {
-          const removeSelect = [...prev].filter(i => item.content !== i);
-          const newSelects = removeSelect.filter((i, idx) => removeSelect.indexOf(i) === idx);
-          return newSelects;
+        setSurveyData((prev: IToTalSelectState[]) => {
+          const removeSelect = [...prev].filter(i => item.content !== i.content);
+          return removeSelect;
         });
       }
     }
