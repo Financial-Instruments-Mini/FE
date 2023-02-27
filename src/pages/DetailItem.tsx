@@ -93,7 +93,7 @@ const DetailItem = () => {
       }
     }
     getDetailData();
-  }, []);
+  }, [bookmark]);
 
   return (
     <>
