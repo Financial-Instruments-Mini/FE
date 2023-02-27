@@ -106,6 +106,12 @@ export interface ISearchForm {
 export interface ISelectState {
   content: string;
   isSelect: boolean;
+  type: string;
+}
+
+export interface IToTalSelectState {
+  content: string;
+  type: string;
 }
 
 export interface ILoginForm {
@@ -135,6 +141,16 @@ export interface ISignUpPayload {
 export interface IEditMemberInfo {
   password?: string;
   phoneNumber?: string;
+  productType: keyof typeof ProductType;
+  job: keyof typeof Job;
+  bankName: keyof typeof BankName;
+}
+
+export interface IUserInfo {
+  email: string;
+  phoneNumber: number;
+  name: string;
+  birthDate: number;
   productType: keyof typeof ProductType;
   job: keyof typeof Job;
   bankName: keyof typeof BankName;

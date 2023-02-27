@@ -14,7 +14,7 @@ interface IRegisterInputProps {
 const RegisterInput = ({ title, name, text = 'text', type, register, errorMessege }: IRegisterInputProps) => {
   return (
     <div className='w-10/12 flex justify-between items-center'>
-      <span className='font-bold text-sm'>{title}</span>
+      <span className='pb-3 font-bold text-sm'>{title}</span>
       <div className='w-[60%] flex flex-col justify-end'>
         <input
           {...register(name)}

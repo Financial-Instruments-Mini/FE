@@ -5,6 +5,8 @@ import { AiOutlineUser } from 'react-icons/ai';
 import { motion, useAnimation } from 'framer-motion';
 import { useEffect } from 'react';
 import { IHeaderProps } from '../@types/IProps';
+import { useRecoilValue } from 'recoil';
+import { isLogInState } from '../data/atoms';
 
 const headerVariants = {
   top: {
@@ -17,6 +19,7 @@ const headerVariants = {
 
 const Header = ({ scrollRef }: IHeaderProps) => {
   const headerAnimation = useAnimation();
+  const isLogIn = useRecoilValue(isLogInState);
 
   useEffect(() => {
     const scrollHandler = () => {
@@ -50,7 +53,7 @@ const Header = ({ scrollRef }: IHeaderProps) => {
       </div>
 
       <div className='mr-4'>
-        <Link to='/mypage' className='m-auto'>
+        <Link to={isLogIn ? '/mypage' : '/login'} className='m-auto'>
           <AiOutlineUser className='h-6 w-6' />
         </Link>
       </div>

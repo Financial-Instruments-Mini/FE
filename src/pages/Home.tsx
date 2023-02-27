@@ -7,8 +7,9 @@ import { keywordProduct } from '../@types/data.d';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { isLogInState, userInfoState } from '../data/atoms';
+import Loading from '../components/ui/Loading';
 
 const Home = () => {
   const keywords = Object.keys(Keyword) as Array<keyof typeof Keyword>;
@@ -23,6 +24,7 @@ const Home = () => {
     data: InfiniteData,
     fetchNextPage,
     hasNextPage,
+    isLoading,
   } = useInfiniteQuery({
     queryKey: ['products'],
     queryFn: ({ pageParam = 0 }) => getAllProducts(pageParam),
@@ -87,22 +89,27 @@ const Home = () => {
           />
         ))}
       </div>
-      <div className='grid grid-cols-2 text-xs font-base gap-4 text-main-white my-4'>
-        {selectedKeyword === '전체'
-          ? InfiniteData?.pages.map(products =>
-              products?.content.map(product => <ItemGallery key={product.productId} {...product} />),
-            )
-          : keywordProducts.map(keywordProduct => (
-              <ItemGallery
-                key={keywordProduct.proId}
-                productId={keywordProduct.proId}
-                maxRate={keywordProduct.maxRate}
-                productName={keywordProduct.productName}
-                bankName={keywordProduct.bankName}
-                keyword={selectedKeyword}
-              />
-            ))}
-      </div>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className='grid grid-cols-2 text-xs font-base gap-4 text-main-white my-4'>
+          {selectedKeyword === '전체'
+            ? InfiniteData?.pages.map(products =>
+                products?.content.map(product => <ItemGallery key={product.productId} {...product} />),
+              )
+            : keywordProducts.map(keywordProduct => (
+                <ItemGallery
+                  key={keywordProduct.proId}
+                  productId={keywordProduct.proId}
+                  maxRate={keywordProduct.maxRate}
+                  productName={keywordProduct.productName}
+                  bankName={keywordProduct.bankName}
+                  keyword={selectedKeyword}
+                />
+              ))}
+        </div>
+      )}
+
       <button
         onClick={() => fetchNextPage()}
         disabled={hasNextPage ? false : true}

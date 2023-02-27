@@ -17,6 +17,7 @@ import { BookmarkProducts, ProductDetails } from '../@types/data';
 import { useCookies } from 'react-cookie';
 import { useRecoilValue } from 'recoil';
 import { isLogInState } from '../data/atoms';
+import Loading from '../components/ui/Loading';
 
 const DetailItem = () => {
   const [Token] = useCookies();
@@ -96,51 +97,56 @@ const DetailItem = () => {
 
   return (
     <>
-      {detail && (
+      {!detail ? (
+        <Loading />
+      ) : (
         <main className='mb-16'>
           <LittleTitle title='상품 상세' />
-          <header className='flex-col my-2 mx-1 p-4 rounded-xl -shadow-basic'>
-            <h1 className='text-gray flex gap-3 justify-around px-3'>
-              <div className='my-auto w-1/4'>
-                <img src={getImageUrl(detail.bankName)} alt='은행로고' className='h-16 w-16 rounded-full opacity-75' />
+          <header className='flex-col my-2 mx-1 p-4 rounded-xl -shadow-basic bg-white'>
+            <h1 className='text-gray flex'>
+              <div className='flex-shrink-0'>
+                <img src={getImageUrl(detail.bankName)} alt='은행로고' className='h-16 w-16 rounded-full' />
               </div>
-              <article className='w-4/5'>
-                <section className='mb-2 hover:scale-105'>
-                  {bookmark ? (
-                    <section
-                      className='w-fit flex flex-row justify-start items-center cursor-pointer gap-1'
-                      onClick={handleBookmarkClick}
-                    >
-                      <BsStarFill className='text-main-green text-xl cursor-pointer' onClick={handleBookmarkClick} />
-                      <p className='text-xs text-gray'>관심상품 등록</p>
-                    </section>
-                  ) : (
-                    <section
-                      className='w-fit flex flex-row justify-start items-center cursor-pointer gap-1'
-                      onClick={handleBookmarkClick}
-                    >
-                      <BsStar className='text-xl text-gray' />
-                      <p className='text-xs text-gray'>관심상품 등록</p>
-                    </section>
-                  )}
-                </section>
-                <p className='text-xl mb-2 leading-tight font-bold'>{detail.productName}</p>
-                <p className='mb-2 text-sm'>{detail.bankName}은행</p>
+              <article className='ml-4 flex justify-between items-center w-4/5'>
+                <p className='flex flex-col'>
+                  <span className='text-lg mb-3 font-bold text-black'>{detail.productName}</span>
+                  <span className='text-xs'>{detail.bankName}은행</span>
+                </p>
+
+                {bookmark ? (
+                  <section
+                    className='w-fit flex flex-col justify-start items-center cursor-pointer gap-1'
+                    onClick={handleBookmarkClick}
+                  >
+                    <BsStarFill size={25} className='text-main-green cursor-pointer' onClick={handleBookmarkClick} />
+                    <p className='text-xxs text-gray font-bold leading-3 whitespace-nowrap'>관심상품</p>
+                  </section>
+                ) : (
+                  <section
+                    className='w-fit flex flex-col justify-start items-center cursor-pointer gap-1 group'
+                    onClick={handleBookmarkClick}
+                  >
+                    <BsStar size={25} className='text-gray group-hover:text-main-yellow' />
+                    <p className='text-xxs text-gray font-bold leading-3 whitespace-nowrap group-hover:text-main-yellow'>
+                      관심상품
+                    </p>
+                  </section>
+                )}
               </article>
             </h1>
           </header>
-          <section className='relative text-gray mx-1 py-10 px-8 -shadow-basic rounded-xl flex flex-col items-center'>
+          <section className='relative text-gray mx-1 py-10 px-8 -shadow-basic rounded-xl flex flex-col items-center bg-white'>
             <section className='mb-10 flex flex-col gap-5 text-sm'>
               <article>
-                <h3 className='font-bold mb-2'>상품 종류</h3>
+                <h3 className='font-bold mb-2 text-base leading-5'>상품 종류</h3>
                 <p>{detail.productType}</p>
               </article>
               <article>
-                <h3 className='font-bold mb-2'>신청 방법</h3>
+                <h3 className='font-bold mb-2 text-base leading-5'>신청 방법</h3>
                 <p>{detail.joinWay}</p>
               </article>
               <article>
-                <h3 className='font-bold mb-1'>금리</h3>
+                <h3 className='font-bold mb-1 text-base leading-5'>금리</h3>
                 {detail.interests.map((interest: { id: number; dueDate: number; rate: number }) => {
                   return (
                     <p key={interest.id} className='pt-1'>
@@ -150,14 +156,14 @@ const DetailItem = () => {
                 })}
               </article>
               <article>
-                <h3 className='font-bold mb-2'>{detail.maxLimit ? '저축금액' : '가입금액'}</h3>
+                <h3 className='font-bold mb-2 text-base leading-5'>{detail.maxLimit ? '저축금액' : '가입금액'}</h3>
                 <p>
                   {detail.maxLimit ? `월 최대 ${detail.maxLimit.toLocaleString()}원` : ''}
                   {detail.minimumAmount ? `${detail.minimumAmount.toLocaleString()}원 이상` : ''}
                 </p>
               </article>
               <article>
-                <h3 className='font-bold mb-2'>상품 안내</h3>
+                <h3 className='font-bold mb-2 text-base leading-5'>상품 안내</h3>
                 <p className='leading-tight'>{detail.content}</p>
               </article>
             </section>

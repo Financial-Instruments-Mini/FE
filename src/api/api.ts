@@ -8,7 +8,7 @@ export const instance = axios.create({
   baseURL: 'https://www.ticcle.store/api/v1',
 });
 
-export const logIn = async (email: string, password: string): Promise<any> => {
+export const logIn = async (email: string, password: string) => {
   try {
     const response = await instance.post(`/auth/login`, {
       email,
@@ -22,7 +22,7 @@ export const logIn = async (email: string, password: string): Promise<any> => {
   }
 };
 
-export const signUp = async (payload: ISignUpPayload): Promise<any> => {
+export const signUp = async (payload: ISignUpPayload) => {
   const { email, password, name, phoneNumber, birthDate } = payload;
   try {
     const response = await instance.post(`/auth/signup`, {
@@ -39,10 +39,7 @@ export const signUp = async (payload: ISignUpPayload): Promise<any> => {
   }
 };
 
-export const putSurveyInfo = async (
-  { productType, job, bankName }: IEditMemberInfo,
-  accessToken: string,
-): Promise<any> => {
+export const putSurveyInfo = async ({ productType, job, bankName }: IEditMemberInfo, accessToken: string) => {
   try {
     console.log({
       productType: ProductType[`${productType}`],
@@ -66,7 +63,7 @@ export const putSurveyInfo = async (
   }
 };
 
-export const postRefreshToken = async (refreshToken: string): Promise<any> => {
+export const postRefreshToken = async (refreshToken: string) => {
   try {
     const response = await instance.post(`/auth/refresh`, {
       refreshToken,
@@ -175,7 +172,7 @@ export const getApplyItemData = async (token: string): Promise<any> => {
 
 export const getProductDetails = async (id: number): Promise<ProductDetails | undefined> => {
   try {
-    const response = await instance.get(`products/ + ${id}`);
+    const response = await instance.get(`/products/${id}`);
     return response.data.data;
   } catch (error) {
     console.log(error);

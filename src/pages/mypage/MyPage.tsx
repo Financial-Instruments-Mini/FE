@@ -47,15 +47,13 @@ const MyPage = () => {
   return (
     <div>
       <LittleTitle title='계정관리' move='false' />
-      <div className='flex justify-between items-center flex-wrap my-10 px-10'>
+      <div className='flex justify-between items-center flex-wrap px-10 my-12'>
         <div className='text-xl font-bold leading-8'>
           <h2>
-            안녕하세요! <span className='text-main-blue'>{userInfo.name}</span>님
+            안녕하세요! <span className='text-main-blue'>{userInfo.name} </span>님
           </h2>
-          {/* <p>어떤 !</p> */}
         </div>
         <button onClick={onClickLogOut} className='border rounded-3xl p-1.5 border-gray text-gray text-xs'>
-          {/* 로그아웃 */}
           <RiLogoutBoxRLine />
         </button>
       </div>

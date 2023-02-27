@@ -5,11 +5,12 @@ import { useForm } from 'react-hook-form';
 import RegisterInput from './../components/ui/RegisterInput';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { IRegisterForm } from './../@types/data.d';
+import { IRegisterForm, ISignUpPayload } from './../@types/data.d';
 import { signUp } from '../api/api';
 import { useCookies } from 'react-cookie';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { isLogInState, userInfoState } from '../data/atoms';
+import { useMutation } from '@tanstack/react-query';
 
 const Register = () => {
   const navigator = useNavigate();
@@ -73,23 +74,25 @@ const Register = () => {
     navigator('/register');
   };
 
+  const signup = useMutation((payload: ISignUpPayload) => signUp(payload), {
+    onSuccess: res => {
+      if (res.success) {
+        setIsLogIn(true);
+        const { email, phoneNumber, name, birthDate, productType, job, bankName } = res.data;
+        setUserInfo({ email, phoneNumber, name, birthDate, productType, job, bankName });
+        setAccessToken('accessToken', res.data.tokenDto.accessToken, { maxAge: 60 * 30 });
+        setAccessToken('refreshToken', res.data.tokenDto.refreshToken, { maxAge: 60 * 60 * 24 * 14 });
+        navigator('/survey');
+      }
+    },
+    onError: () => {
+      alert('회원가입에 실패했습니다.');
+    },
+  });
+
   const onValid = async (data: IRegisterForm) => {
     const { email, password, name, phoneNumber, birthDate } = data;
-    const payload = { email, password, name, phoneNumber, birthDate };
-
-    const res = await signUp(payload);
-
-    // access, refresh 를 둘 다 쿠키에 저장하여 시간 설정
-    if (res.success) {
-      setIsLogIn(true);
-      const { email, phoneNumber, name, birthDate, productType, job, bankName } = res.data;
-      setUserInfo({ email, phoneNumber, name, birthDate, productType, job, bankName });
-      setAccessToken('accessToken', res.data.tokenDto.accessToken, { maxAge: 60 * 30 });
-      setAccessToken('refreshToken', res.data.tokenDto.refreshToken, { maxAge: 60 * 60 * 24 * 14 });
-      navigator('/survey');
-    } else {
-      alert('회원가입에 실패했습니다.');
-    }
+    signup.mutate({ email, password, name, phoneNumber, birthDate });
   };
 
   return (

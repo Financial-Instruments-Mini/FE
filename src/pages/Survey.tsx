@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import SurveyCard from '../components/survey/SurveyCard';
 import { options, boxVars } from '../data/constant';
+import { IToTalSelectState } from './../@types/data.d';
 
 const Survey = () => {
   const [visible, setVisible] = useState(0);
-  const [surveyData, setSurveyData] = useState<string[]>([]);
+  const [surveyData, setSurveyData] = useState<IToTalSelectState[]>([]);
+
+  console.log('전체 선택: ', surveyData);
 
   return (
     <div className='mb-20 flex flex-col justify-center items-center overflow-hidden'>

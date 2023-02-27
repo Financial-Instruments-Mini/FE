@@ -14,13 +14,21 @@ import Search from './pages/Search';
 import Survey from './pages/Survey';
 import EndRegister from './pages/EndRegister';
 import ProtectedRoute from './pages/ProtectedRoute';
+import DetailProtectedRoute from './pages/DetailProtectedRoute';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route path='/' element={<Home />} />
+          <Route
+            path='/'
+            element={
+              <DetailProtectedRoute home>
+                <Home />
+              </DetailProtectedRoute>
+            }
+          />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route
@@ -31,7 +39,14 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path='/detail/:id' element={<DetailItem />} />
+          <Route
+            path='/detail/:id'
+            element={
+              <DetailProtectedRoute>
+                <DetailItem />
+              </DetailProtectedRoute>
+            }
+          />
           <Route path='/search' element={<Search />} />
           <Route
             path='/recommend'
